@@ -19,7 +19,6 @@ public class MainPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         MovieService movieService = new MovieService();
         List<Movie> movies = movieService.getMovies();
-//        System.out.println(movieService.getMovieByID(2L).getMovieName());
         req.setAttribute("movies", movies);
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
 

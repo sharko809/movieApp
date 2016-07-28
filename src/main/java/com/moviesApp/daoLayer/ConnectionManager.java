@@ -9,12 +9,14 @@ import java.sql.SQLException;
  */
 public class ConnectionManager {
 
+    private static final String SERVER_NAME = "//localhost:3306/";
+    private static final String DB_NAME = "moviedb"; // TODO create properties file
+    private static final String USER = "root";
+    private static final String PASSWORD = "Htlbcrf2402_";
     private static ConnectionManager instance;
 
-    private static final String SERVER_NAME = "//localhost:3306/";
-    private static final String DB_NAME = "moviedb";
-    private static final String USER = "root"; // TODO create actual DB
-    private static final String PASSWORD = "Htlbcrf2402_";
+    private ConnectionManager() {
+    }
 
     public static ConnectionManager getInstance() {
         if (instance == null) {
@@ -25,7 +27,7 @@ public class ConnectionManager {
 
     public Connection getConnection() throws SQLException {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver"); // mb solve it here?
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();// TODO logger
             throw new RuntimeException("no driver found");
@@ -38,6 +40,4 @@ public class ConnectionManager {
         }
         return connection;
     }
-
-    private ConnectionManager() {}
 }

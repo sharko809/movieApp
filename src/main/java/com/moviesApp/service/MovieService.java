@@ -17,11 +17,9 @@ public class MovieService {
         MovieDAO movieDAO = new MovieDAO();
         Movie movie = null;
         try {
-            movieDAO.get(ID);
+            movie = movieDAO.get(ID);
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();// TODO handle
+            e.printStackTrace();// TODO handle + LOGGER
         }
         return movie;
     }
@@ -32,9 +30,7 @@ public class MovieService {
         try {
             movies = movieDAO.getAll();
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle. aka column not found etc.
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();// TODO handle
+            e.printStackTrace();// TODO handle. aka column not found etc. + LOGGER
         }
         return movies;
     }
