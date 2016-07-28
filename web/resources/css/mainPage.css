@@ -1,0 +1,31 @@
+.inline {
+    display: inline;
+}
+
+.movie-container {
+    margin: 10px;
+    display: inline-block;
+    width: 100%;
+}
+
+.video-container {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.movie-list {
+    max-width: 70%;
+    margin: auto;
+}
+
+.movie-info {
+    display: inline-block;
+    float: left;
+    max-width: 55%;
+}
+
+.movie-trailer {
+    display: inline-block;
+    float: right;
+    max-width: 45%;
+}
