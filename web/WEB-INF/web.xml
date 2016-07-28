@@ -7,7 +7,7 @@
 
     <servlet>
         <servlet-name>MainPageServlet</servlet-name>
-        <servlet-class>com.moviesApp.conrtoller.MainPageServlet</servlet-class>
+        <servlet-class>com.moviesApp.controller.MainPageServlet</servlet-class>
     </servlet>
     
     <servlet-mapping>

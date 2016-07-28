@@ -37,10 +37,10 @@ public class MovieDAO {
             movie.setRating(resultSet.getDouble("rating"));
             movie.setDescription(resultSet.getString("description"));
         }
-
         resultSet.close();
         statement.close();
         connection.close();
+
         return movie;
     }
 
@@ -53,7 +53,7 @@ public class MovieDAO {
     }
 
     public List<Movie> getAllMovies() throws SQLException, ClassNotFoundException {
-        Connection connection = ConnectionManager.getConnection();
+        Connection connection = ConnectionManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_GET_ALL);
         ResultSet resultSet = statement.executeQuery();
         List<Movie> movies = new ArrayList<Movie>();
@@ -70,7 +70,8 @@ public class MovieDAO {
         }
         resultSet.close();
         statement.close();
-        ConnectionManager.putConnection(connection);
+        connection.close();
+
         return movies;
     }
 

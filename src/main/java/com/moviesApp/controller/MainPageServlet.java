@@ -1,4 +1,4 @@
-package com.moviesApp.conrtoller;
+package com.moviesApp.controller;
 
 import com.moviesApp.entities.Movie;
 import com.moviesApp.service.MovieService;
