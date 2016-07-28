@@ -30,7 +30,7 @@ public class MovieService {
         MovieDAO movieDAO = new MovieDAO();
         List<Movie> movies = new ArrayList<Movie>();
         try {
-            movies = movieDAO.getAllMovies();
+            movies = movieDAO.getAll();
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle. aka column not found etc.
         } catch (ClassNotFoundException e) {

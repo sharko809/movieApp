@@ -24,7 +24,6 @@ public class ConnectionManager {
     }
 
     public Connection getConnection() throws SQLException {
-//        Class.forName("com.mysql.jdbc.Driver"); // mb solve it here?
         try {
             Class.forName("com.mysql.cj.jdbc.Driver"); // mb solve it here?
         } catch (ClassNotFoundException e) {
@@ -38,10 +37,6 @@ public class ConnectionManager {
             System.out.println("connection not null");
         }
         return connection;
-    }
-
-    public void closeConnection(Connection connection) throws SQLException {
-        connection.close();
     }
 
     private ConnectionManager() {}

@@ -52,7 +52,7 @@ public class MovieDAO {
         return false;
     }
 
-    public List<Movie> getAllMovies() throws SQLException, ClassNotFoundException {
+    public List<Movie> getAll() throws SQLException, ClassNotFoundException {
         Connection connection = ConnectionManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_GET_ALL);
         ResultSet resultSet = statement.executeQuery();
