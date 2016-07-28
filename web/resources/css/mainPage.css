@@ -9,8 +9,8 @@
 }
 
 .video-container {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    width: 100%;
+    height: 50%;
 }
 
 .movie-list {
@@ -28,4 +28,32 @@
     display: inline-block;
     float: right;
     max-width: 45%;
+}
+
+.padding-top {
+    padding-top: 46px;
+}
+
+.header {
+    width: 100%;
+    height: 46px;
+    background: #333333;
+}
+
+.header-inner {
+    /*width: 20%;*/
+    padding: 10px 0px 10px 0px;
+}
+
+.float-right {
+    float: right;
+    padding-right: 10px;
+}
+
+.z-index {
+    z-index: 20;
+}
+
+.fixed {
+    position: fixed;
 }
