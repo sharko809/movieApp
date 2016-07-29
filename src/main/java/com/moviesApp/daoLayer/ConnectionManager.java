@@ -1,5 +1,7 @@
 package com.moviesApp.daoLayer;
 
+import com.moviesApp.PropertiesManager;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,10 +11,6 @@ import java.sql.SQLException;
  */
 public class ConnectionManager {
 
-    private static final String SERVER_NAME = "//localhost:3306/";
-    private static final String DB_NAME = "moviedb"; // TODO create properties file
-    private static final String USER = "root";
-    private static final String PASSWORD = "Htlbcrf2402_";
     private static ConnectionManager instance;
 
     private ConnectionManager() {
@@ -34,7 +32,10 @@ public class ConnectionManager {
         }
         Connection connection = null;
         System.out.println("attempt connection");
-        connection = DriverManager.getConnection("jdbc:mysql:" + SERVER_NAME + DB_NAME, USER, PASSWORD);
+        connection = DriverManager.getConnection(
+                "jdbc:mysql:" + PropertiesManager.getProperty("serverName") + PropertiesManager.getProperty("dbName"),
+                PropertiesManager.getProperty("dbUser"),
+                PropertiesManager.getProperty("dbPassword"));
         if (connection != null) {
             System.out.println("connection not null");
         }
