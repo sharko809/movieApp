@@ -27,7 +27,7 @@ public class UserService {
             user = userDAO.get(userID);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
-            LOGGER.error("SQLException: " + e.getMessage());
+            LOGGER.error("SQLException: " + e);
         }
         return user;
     }
@@ -43,7 +43,7 @@ public class UserService {
             userID = userDAO.create(userName);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
-            LOGGER.error("SQLException: " + e.getMessage());
+            LOGGER.error("SQLException: " + e);
         }
         return userID;
     }
@@ -62,7 +62,7 @@ public class UserService {
             userDAO.update(user);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
-            LOGGER.error("SQLException: " + e.getMessage());
+            LOGGER.error("SQLException: " + e);
         }
     }
 
@@ -76,7 +76,7 @@ public class UserService {
             return userDAO.delete(userID);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
-            LOGGER.error("SQLException: " + e.getMessage());
+            LOGGER.error("SQLException: " + e);
         }
         return false;
     }
@@ -88,7 +88,7 @@ public class UserService {
             users = userDAO.getAll();
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
-            LOGGER.error("SQLException: " + e.getMessage());
+            LOGGER.error("SQLException: " + e);
         }
         return users;
     }

@@ -38,7 +38,7 @@ public class ReviewService {
             reviewID = reviewDAO.create(userID, movieID, postDate, reviewTitle, rating, reviewText);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
-            LOGGER.error("SQLException: " + e.getMessage());
+            LOGGER.error("SQLException: " + e);
         }
         return reviewID;
     }
@@ -54,7 +54,7 @@ public class ReviewService {
             review = reviewDAO.get(reviewID);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
-            LOGGER.error("SQLException: " + e.getMessage());
+            LOGGER.error("SQLException: " + e);
         }
         return review;
     }
@@ -85,7 +85,7 @@ public class ReviewService {
             reviewDAO.update(review);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
-            LOGGER.error("SQLException: " + e.getMessage());
+            LOGGER.error("SQLException: " + e);
         }
 
     }
@@ -100,7 +100,7 @@ public class ReviewService {
             return reviewDAO.delete(reviewID);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
-            LOGGER.error("SQLException: " + e.getMessage());
+            LOGGER.error("SQLException: " + e);
         }
         return false;
     }

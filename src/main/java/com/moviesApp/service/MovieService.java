@@ -33,7 +33,7 @@ public class MovieService {
             movieID = movieDAO.create(movieName, director, releaseDate, trailerUrl, rating, description);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
-            LOGGER.error("SQLException: " + e.getMessage());
+            LOGGER.error("SQLException: " + e);
         }
         return movieID;
     }
@@ -49,7 +49,7 @@ public class MovieService {
             movie = movieDAO.get(ID);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
-            LOGGER.error("SQLException: " + e.getMessage());
+            LOGGER.error("SQLException: " + e);
         }
         return movie;
     }
@@ -72,7 +72,7 @@ public class MovieService {
             movieDAO.update(movie);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
-            LOGGER.error("SQLException: " + e.getMessage());
+            LOGGER.error("SQLException: " + e);
         }
     }
 
@@ -86,7 +86,7 @@ public class MovieService {
             return movieDAO.delete(movieID);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
-            LOGGER.error("SQLException: " + e.getMessage());
+            LOGGER.error("SQLException: " + e);
         }
         return false;
     }
@@ -98,7 +98,7 @@ public class MovieService {
             movies = movieDAO.getAll();
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle. aka column not found etc.
-            LOGGER.error("SQLException: " + e.getMessage());
+            LOGGER.error("SQLException: " + e);
         }
         return movies;
     }
