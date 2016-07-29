@@ -1,7 +1,7 @@
 package com.moviesApp.entities;
 
-import java.util.Date;
-import java.util.List;
+
+import java.sql.Date;
 
 /**
  * Created by dsharko on 7/28/2016.
