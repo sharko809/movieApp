@@ -21,19 +21,6 @@ public class Review {
         return movieId;
     }
 
-    @Override
-    public String toString() {
-        return "Review{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", movieId=" + movieId +
-                ", postDate=" + postDate +
-                ", title='" + title + '\'' +
-                ", reviewText='" + reviewText + '\'' +
-                ", rating=" + rating +
-                '}';
-    }
-
     public void setMovieId(Long movieId) {
         this.movieId = movieId;
     }

@@ -1,6 +1,8 @@
 package com.moviesApp.daoLayer;
 
 import com.moviesApp.PropertiesManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,6 +13,7 @@ import java.sql.SQLException;
  */
 public class ConnectionManager {
 
+    private static final Logger LOGGER = LogManager.getLogger();
     private static ConnectionManager instance;
 
     private ConnectionManager() {
@@ -27,7 +30,8 @@ public class ConnectionManager {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();// TODO logger
+            e.printStackTrace();
+            LOGGER.fatal("No mysql driver found.");
             throw new RuntimeException("no driver found");
         }
         Connection connection = null;

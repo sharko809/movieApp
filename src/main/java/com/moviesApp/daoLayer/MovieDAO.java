@@ -20,7 +20,7 @@ public class MovieDAO {
             "release_date = ?, " +
             "trailer_url = ?, " +
             "rating = ?, " +
-            "description = ? WHERE ID = ?";// TODO it's shit
+            "description = ? WHERE ID = ?";
     private final String SQL_DELETE_MOVIE = "DELETE FROM MOVIE WHERE ID = ?";
 
     public Long create(String movieName, String director, Date releaseDate, String trailerUrl, Double rating, String description) throws SQLException {

@@ -2,6 +2,8 @@ package com.moviesApp.service;
 
 import com.moviesApp.daoLayer.MovieDAO;
 import com.moviesApp.entities.Movie;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -13,32 +15,41 @@ import java.util.List;
  */
 public class MovieService {
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
     public Long addMovie(String movieName, String director, Date releaseDate, String trailerUrl, Double rating, String description) {
         if (movieName == null || movieName.trim().equals("")) {
-            // TODO handle
+            LOGGER.error("Null or empty movieName during adding new Movie. Movie name: " + movieName);
             return 0L;
         }
         // TODO check release date
         if (rating <= 0 || rating > 10) {
-            // TODO handle
+            LOGGER.error("Rating is not in the 1-10 range. Rating: " + rating);
+            return 0L;
         }
         MovieDAO movieDAO = new MovieDAO();
         Long movieID = 0L;
         try {
             movieID = movieDAO.create(movieName, director, releaseDate, trailerUrl, rating, description);
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle + logger
+            e.printStackTrace();// TODO handle
+            LOGGER.error("SQLException: " + e.getMessage());
         }
         return movieID;
     }
 
     public Movie getMovieByID(Long ID) {
+        if (ID < 1) {
+            LOGGER.error("Failed to get movie. Wrong id: " + ID);
+            return null;
+        }
         MovieDAO movieDAO = new MovieDAO();
         Movie movie = null;
         try {
             movie = movieDAO.get(ID);
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle + LOGGER
+            e.printStackTrace();// TODO handle
+            LOGGER.error("SQLException: " + e.getMessage());
         }
         return movie;
     }
@@ -47,29 +58,35 @@ public class MovieService {
         MovieDAO movieDAO = new MovieDAO();
         try {
             if (movieID <= 0) {
-                System.out.println("Slow down. No negative ID's today...");
+                LOGGER.error("Failed to update movie. Wrong movieID: " + movieID);
                 return;
             }
             if (movieName == null || movieName.trim().equals("")) {
-                System.out.println("Wrong name. Name set to origin.");// TODO logger
+                LOGGER.warn("Null or empty movieName during adding new Movie. Movie name: " + movieName + ". Name set to origin.");
                 movieName = getMovieByID(movieID).getMovieName();
             }
             if (rating <= 0 || rating > 10) {
-                System.out.println("Wrong rating. Only 1-10 allowed. Rating set to origin.");// TODO logger
+                LOGGER.warn("Rating is not in the allowed [1-10] range. Rating: " + rating + ". Rating set to origin.");
                 rating = getMovieByID(movieID).getRating();
             }
             movieDAO.update(movieID, movieName, director, releaseDate, trailerUrl, rating, description);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
+            LOGGER.error("SQLException: " + e.getMessage());
         }
     }
 
     public boolean deleteMovie(Long movieID) {
+        if (movieID < 1) {
+            LOGGER.error("Failed to delete movie. Wrong id: " + movieID);
+            return false;
+        }
         MovieDAO movieDAO = new MovieDAO();
         try {
             return movieDAO.delete(movieID);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
+            LOGGER.error("SQLException: " + e.getMessage());
         }
         return false;
     }
@@ -80,7 +97,8 @@ public class MovieService {
         try {
             movies = movieDAO.getAll();
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle. aka column not found etc. + LOGGER
+            e.printStackTrace();// TODO handle. aka column not found etc.
+            LOGGER.error("SQLException: " + e.getMessage());
         }
         return movies;
     }
