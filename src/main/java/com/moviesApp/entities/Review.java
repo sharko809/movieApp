@@ -1,6 +1,6 @@
 package com.moviesApp.entities;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created by dsharko on 7/28/2016.
@@ -9,12 +9,33 @@ public class Review {
 
     private Long id;
     private Long userId;
+    private Long movieId;
     private Date postDate;
     private String title;
     private String reviewText;
     private Integer rating;
-
     public Review() {
+    }
+
+    public Long getMovieId() {
+        return movieId;
+    }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", movieId=" + movieId +
+                ", postDate=" + postDate +
+                ", title='" + title + '\'' +
+                ", reviewText='" + reviewText + '\'' +
+                ", rating=" + rating +
+                '}';
+    }
+
+    public void setMovieId(Long movieId) {
+        this.movieId = movieId;
     }
 
     public Long getId() {
