@@ -66,23 +66,17 @@ public class MovieDAO {
         return movie;
     }
 
-    public void update(Long movieID, String movieName, String director, Date releaseDate, String trailerUrl, Double rating, String description) throws SQLException {
-        Movie movie = get(movieID);
-        movie.setMovieName(movieName);
-        movie.setDirector(director);
-        movie.setReleaseDate(releaseDate);
-        movie.setTrailerURL(trailerUrl);
-        movie.setRating(rating);
-        movie.setDescription(description);
+    public void update(Movie movie) throws SQLException {
         Connection connection = ConnectionManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_MOVIE);
+
         statement.setString(1, movie.getMovieName());
         statement.setString(2, movie.getDirector());
         statement.setDate  (3, movie.getReleaseDate());
         statement.setString(4, movie.getTrailerURL());
         statement.setDouble(5, movie.getRating());
         statement.setString(6, movie.getDescription());
-        statement.setLong  (7, movieID);
+        statement.setLong  (7, movie.getId());
         statement.executeUpdate();
 
         statement.close();

@@ -59,30 +59,30 @@ public class ReviewService {
         return review;
     }
 
-    public void updateReview(Long reviewID, Long userID, Long movieID, Date postDate, String reviewTitle, Integer rating, String reviewText) {
-        if (reviewID <= 0) {
-            LOGGER.error("Failed to update review. Wrong review id: " + reviewID);
+    public void updateReview(Review review) {
+        if (review.getId() <= 0) {
+            LOGGER.error("Failed to update review. Wrong review id: " + review.getId());
             return;
         }
-        if (userID <= 0) {
-            LOGGER.error("Failed to update review author. User id must be > 0. User id: " + userID + ". User id set to origin.");
-            userID = getReview(reviewID).getUserId();
+        if (review.getUserId() <= 0) {
+            LOGGER.error("Failed to update review author. User id must be > 0. User id: " + review.getUserId());
+            return;
         }
-        if (movieID <= 0) {
-            LOGGER.error("Failed to update review movie. Movie id must be > 0. Movie id: " + movieID + ". Movie id set to origin.");
-            movieID = getReview(reviewID).getMovieId();
+        if (review.getMovieId() <= 0) {
+            LOGGER.error("Failed to update review movie. Movie id must be > 0. Movie id: " + review.getMovieId());
+            return;
         }
-        if (rating <= 0 || rating > 10) {
-            LOGGER.error("Failed to update movie rating for review. Rating must be in [1-10] range. Rating: " + rating + ". Rating set to origin.");
-            rating = getReview(reviewID).getRating();
+        if (review.getRating() <= 0 || review.getRating() > 10) {
+            LOGGER.error("Failed to update movie rating for review. Rating must be in [1-10] range. Rating: " + review.getRating());
+            return;
         }
-        if (reviewText == null || reviewText.trim().equals("") || reviewText.length() < 3) {
-            LOGGER.error("Failed to update review text. Review must be not null and have at least 3 symbols. Review text: " + reviewText + ". Review text set to origin.");
-            reviewText = getReview(reviewID).getReviewText();
+        if (review.getReviewText() == null || review.getReviewText().trim().equals("") || review.getReviewText().length() < 3) {
+            LOGGER.error("Failed to update review text. Review must be not null and have at least 3 symbols. Review text: " + review.getReviewText());
+            return;
         }
         ReviewDAO reviewDAO = new ReviewDAO();
         try {
-            reviewDAO.update(reviewID, userID, movieID, postDate, reviewTitle, rating, reviewText);
+            reviewDAO.update(review);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e.getMessage());

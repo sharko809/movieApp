@@ -54,22 +54,22 @@ public class MovieService {
         return movie;
     }
 
-    public void updateMovie(Long movieID, String movieName, String director, Date releaseDate, String trailerUrl, Double rating, String description) {
+    public void updateMovie(Movie movie) {
         MovieDAO movieDAO = new MovieDAO();
         try {
-            if (movieID <= 0) {
-                LOGGER.error("Failed to update movie. Wrong movieID: " + movieID);
+            if (movie.getId() <= 0) {
+                LOGGER.error("Failed to update movie. Wrong movieID: " + movie.getId());
                 return;
             }
-            if (movieName == null || movieName.trim().equals("")) {
-                LOGGER.warn("Null or empty movieName during adding new Movie. Movie name: " + movieName + ". Name set to origin.");
-                movieName = getMovieByID(movieID).getMovieName();
+            if (movie.getMovieName() == null || movie.getMovieName().trim().equals("")) {
+                LOGGER.warn("Null or empty movieName during adding new Movie. Movie name: " + movie.getMovieName());
+                return;
             }
-            if (rating <= 0 || rating > 10) {
-                LOGGER.warn("Rating is not in the allowed [1-10] range. Rating: " + rating + ". Rating set to origin.");
-                rating = getMovieByID(movieID).getRating();
+            if (movie.getRating() <= 0 || movie.getRating() > 10) {
+                LOGGER.warn("Rating is not in the allowed [1-10] range. Rating: " + movie.getRating());
+                return;
             }
-            movieDAO.update(movieID, movieName, director, releaseDate, trailerUrl, rating, description);
+            movieDAO.update(movie);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e.getMessage());

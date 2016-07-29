@@ -48,18 +48,18 @@ public class UserService {
         return userID;
     }
 
-    public void updateUser(Long userID, String userName) {
-        if (userID <= 0) {
-            LOGGER.error("Failed to get user. User id must be > 0. User id: " + userID);
+    public void updateUser(User user) {
+        if (user.getId() <= 0) {
+            LOGGER.error("Failed to get user. User id must be > 0. User id: " + user.getId());
             return;
         }
-        if (userName == null || userName.trim().equals("")) {
-            LOGGER.error("Failed to update user. User name must not be null or empty. User name: " + userName + ". User name set to origin.");
-            userName = getUserByID(userID).getName();
+        if (user.getName() == null || user.getName().trim().equals("")) {
+            LOGGER.error("Failed to update user. User name must not be null or empty. User name: " + user.getName());
+            return;
         }
         UserDAO userDAO = new UserDAO();
         try {
-            userDAO.update(userID, userName);
+            userDAO.update(user);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e.getMessage());

@@ -49,9 +49,7 @@ public class UserDAO {
         return user;
     }
 
-    public void update(Long userID, String name) throws SQLException {
-        User user = get(userID);
-        user.setName(name);
+    public void update(User user) throws SQLException {
         Connection connection = ConnectionManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER);
         statement.setString(1, user.getName());

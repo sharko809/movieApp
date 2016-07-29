@@ -63,23 +63,17 @@ public class ReviewDAO {
         return review;
     }
 
-    public void update(Long reviewID, Long userID, Long movieID, Date postDate, String reviewTitle, Integer rating, String reviewText) throws SQLException {
-        Review review = get(reviewID);
-        review.setUserId(userID);
-        review.setMovieId(movieID);
-        review.setPostDate(postDate);
-        review.setTitle(reviewTitle);
-        review.setRating(rating);
-        review.setReviewText(reviewText);// TODO it looks shitty to me. think of some way to make it look pretty
+    public void update(Review review) throws SQLException {
         Connection connection = ConnectionManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_REVIEW);
-        statement.setLong(1, review.getUserId());
-        statement.setLong(2, review.getMovieId());
-        statement.setDate(3, review.getPostDate());
-        statement.setString(4, review.getTitle());
-        statement.setInt (5, review.getRating());
-        statement.setString(6, review.getReviewText());
-        statement.setLong(7, reviewID);
+
+        statement.setLong   (1, review.getUserId());
+        statement.setLong   (2, review.getMovieId());
+        statement.setDate   (3, review.getPostDate());
+        statement.setString (4, review.getTitle());
+        statement.setInt    (5, review.getRating());
+        statement.setString (6, review.getReviewText());
+        statement.setLong   (7, review.getId());
         statement.executeUpdate();
 
         statement.close();
