@@ -10,7 +10,7 @@ import java.util.Enumeration;
 /**
  * Created by dsharko on 8/1/2016.
  */
-public class LoginFilter implements Filter {
+public class UnauthorizedAccessFilter implements Filter {
 
     private FilterConfig filterConfig = null;
 

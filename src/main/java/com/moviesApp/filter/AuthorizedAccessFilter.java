@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Created by dsharko on 8/1/2016.
  */
-public class DoubleLoginFilter implements Filter {
+public class AuthorizedAccessFilter implements Filter {
 
     private FilterConfig filterConfig = null;
 
