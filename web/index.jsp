@@ -1,5 +1,5 @@
 <%-- Created by IntelliJ IDEA. --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" session="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -20,7 +20,7 @@
 </header>
 <div class="padding-top"></div>
 <div class="container" style="width: 80%">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <div>
             <form method="post" action="/login">
                 <label for="userName">Email: </label>
@@ -30,6 +30,22 @@
                 <input type="submit" value="Login"/>
             </form>
         </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div>
+            <form method="post" action="/registration">
+                <label for="newUserName">Nickname: </label>
+                <input id="newUserName" type="text" name="newUserName"/><br/>
+                <label for="newUserLogin">Your email:</label>
+                <input id="newUserLogin" type="email" name="newUserLogin"/><br/>
+                <label for="newUserPassword">Enter password: </label>
+                <input id="newUserPassword" type="password" name="newUserPassword"/><br/>
+                <input type="submit" value="Register">
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        ${result}
     </div>
 </div>
 </body>

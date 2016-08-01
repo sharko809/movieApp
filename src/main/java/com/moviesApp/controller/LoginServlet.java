@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
 
         UserService userService = new UserService();
         User searchResult = null;
-        searchResult = userService.getUserByLogin(userLogin);
+        searchResult = userService.getUserByLogin(userLogin);// TODO do I REALLY need all of this stuff? mb just login?
 
         if (searchResult!= null && searchResult.getLogin().equals(userLogin) && searchResult.getPassword().equals(password)) {
             System.out.println("OK");

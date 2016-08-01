@@ -37,8 +37,9 @@ public class LoginFilter implements Filter {
 
         if (session.getAttribute("user") == null) {
             System.out.println("go to error " + errorURI);
-            request.setAttribute("errorDetails", "Not authorized user");
-            request.getRequestDispatcher("ErrorServlet").forward(request, response);
+            request.getSession().setAttribute("errorDetails", "Not authorized user");
+//            request.getRequestDispatcher("ErrorServlet").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/error");
         } else {
             System.out.println("filter OK!");
             filterChain.doFilter(request, response);
