@@ -1,6 +1,7 @@
 package com.moviesApp.controller;
 
 import com.moviesApp.entities.User;
+import com.moviesApp.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,22 +15,20 @@ import java.io.PrintWriter;
  */
 public class LoginServlet extends HttpServlet {
 
-    private final String LOGIN = "login";
-    private final String PWD = "pwd";
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=UTF-8");
-
-        String userName = req.getParameter("userName");
+        String userLogin = req.getParameter("userLogin");
         String password = req.getParameter("userPassword");
         System.out.println("DOING POST");
 
-        if (LOGIN.equals(userName) && PWD.equals(password)) {
+        UserService userService = new UserService();
+        User searchResult = null;
+        searchResult = userService.getUserByLogin(userLogin);
+
+        if (searchResult!= null && searchResult.getLogin().equals(userLogin) && searchResult.getPassword().equals(password)) {
             System.out.println("OK");
-            User user = new User();
-            user.setName("logged in user. congrats!");
-            req.getSession().setAttribute("user", user);
+            req.getSession().setAttribute("user", searchResult);
             resp.sendRedirect(req.getContextPath() + "/home");
         } else {
             System.out.println("no such user");

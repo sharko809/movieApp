@@ -7,6 +7,8 @@ DROP TABLE IF EXISTS USER;
 CREATE TABLE USER (
   ID        BIGINT       NOT NULL AUTO_INCREMENT,
   user_name VARCHAR(255) NOT NULL,
+  login     VARCHAR(60)  NOT NULL,
+  password  VARCHAR(255) NOT NULL,
   PRIMARY KEY (ID)
 );
 
@@ -42,7 +44,7 @@ CREATE TABLE REVIEW (
   review_text  TEXT
 );
 
-INSERT INTO USER (user_name) VALUES ('Lothar'), ('Medivh'), ('Neltarion');
+INSERT INTO USER (user_namem, login, password) VALUES ('Lothar', '123@gmail.com', 123), ('Medivh', 'qwe@gmail.com', 123), ('Neltarion', 'asd@gmail.com', 123);
 
 INSERT INTO MOVIE (movie_name, director, release_date, trailer_url, rating, description)
 VALUES ('Warcraft', 'Duncan Jones', '2016-06-10', 'https://www.youtube.com/embed/RhFMIRuHAL4', 7.4,
@@ -56,6 +58,11 @@ VALUES (1, 1, '2016-06-11', 'Best shit ever', 10, 'Still best shit I have ever s
   (2, 2, '2015-06-05', 'Nice', 7, 'Nice movie'),
   (3, 1, '2015-04-20', 'So so', 6, 'Not so nice'),
   (3, 2, '2015-07-01', 'Bad', 3, 'Garbage');
+
+
+DROP TABLE IF EXISTS ROLES;
+
+
 
 
 

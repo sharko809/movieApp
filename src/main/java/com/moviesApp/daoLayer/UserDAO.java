@@ -11,16 +11,19 @@ import java.util.List;
  */
 public class UserDAO {
 
-    private final String SQL_CREATE_USER = "INSERT INTO USER (user_name) VALUES (?)";
+    private final String SQL_CREATE_USER = "INSERT INTO USER (user_name, login, password) VALUES (?, ?, ?)";
     private final String SQL_GET_USER = "SELECT * FROM USER WHERE ID = ?";
     private final String SQL_DELETE_USER = "DELETE FROM USER WHERE ID = ?";
     private final String SQL_GET_ALL_USERS = "SELECT * FROM USER";
-    private final String SQL_UPDATE_USER = "UPDATE USER SET user_name = ? WHERE ID = ?";
+    private final String SQL_UPDATE_USER = "UPDATE USER SET user_name = ?, login = ?, password = ? WHERE ID = ?";
+    private final String SQL_GET_USER_BY_NAME = "SELECT * FROM USER WHERE login = ?";
 
-    public Long create(String userName) throws SQLException {
-        Connection connection = ConnectionManager.getInstance().getConnection();
+    public Long create(String userName, String login, String password) throws SQLException {
+        Connection connection = ConnectionManager.getInstance().getConnection();// TODO in services check for duplicates
         PreparedStatement statement = connection.prepareStatement(SQL_CREATE_USER, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, userName);
+        statement.setString(2, login);
+        statement.setString(3, password);// TODO encrypt it!!!
         statement.executeUpdate();
         ResultSet resultSet = statement.getGeneratedKeys();
         Long userID = 0L;
@@ -33,6 +36,24 @@ public class UserDAO {
         return userID;
     }
 
+    public User getByLogin(String login) throws SQLException {
+        Connection connection = ConnectionManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(SQL_GET_USER_BY_NAME);
+        statement.setString(1, login);
+        ResultSet resultSet = statement.executeQuery();
+        User user = new User();
+        if (resultSet.next()) {
+            user.setId(resultSet.getLong("ID"));
+            user.setName(resultSet.getString("user_name"));
+            user.setLogin(resultSet.getString("login"));
+            user.setPassword(resultSet.getString("password"));
+        }
+        resultSet.close();
+        statement.close();
+        connection.close();
+        return user;
+    }
+
     public User get(Long userID) throws SQLException {
         Connection connection = ConnectionManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_GET_USER);
@@ -42,6 +63,8 @@ public class UserDAO {
         if (resultSet.next()) {
             user.setId(resultSet.getLong("ID"));
             user.setName(resultSet.getString("user_name"));
+            user.setLogin(resultSet.getString("login"));
+            user.setPassword(resultSet.getString("password"));
         }
         resultSet.close();
         statement.close();
@@ -52,8 +75,10 @@ public class UserDAO {
     public void update(User user) throws SQLException {
         Connection connection = ConnectionManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER);
-        statement.setString(1, user.getName());
-        statement.setLong(2, user.getId());
+        statement.setString(1, user.getName()); // TODO update according to the new DB
+        statement.setString(2, user.getLogin());
+        statement.setString(3, user.getPassword());
+        statement.setLong(4, user.getId());
         statement.executeUpdate();
 
         statement.close();
@@ -84,6 +109,8 @@ public class UserDAO {
             User user = new User();
             user.setId(resultSet.getLong("ID"));
             user.setName(resultSet.getString("user_name"));
+            user.setLogin(resultSet.getString("login"));
+            user.setPassword(resultSet.getString("password"));
             users.add(user);
         }
         resultSet.close();

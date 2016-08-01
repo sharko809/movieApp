@@ -21,42 +21,15 @@
 <div class="padding-top"></div>
 <div class="container" style="width: 80%">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <form method="post" action="/login">
-            Username: <input type="text" name="userName"/><br/>
-            Password: <input type="password" name="userPassword"/><br/>
-            <input type="submit" value="Login"/>
-        </form>
-        <c:forEach items="${movies}" var="movie">
-            <div class="movie-container">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div>
-                        <h4 class="inline">Title: </h4>
-                        <span>${movie.movieName}</span>
-                    </div>
-                    <div>
-                        <h4 class="inline">Director: </h4>
-                        <span>${movie.director}</span>
-                    </div>
-                    <div>
-                        <h4 class="inline">Release Date: </h4>
-                        <span>${movie.releaseDate}</span>
-                    </div>
-                    <div>
-                        <h4 class="inline">Rating: </h4>
-                        <span>${movie.rating}</span>
-                    </div>
-                    <div>
-                        <h4 class="inline">Descrition:</h4>
-                        <span>${movie.description}</span>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <iframe class="video-container" <%--width="560" height="315"--%> src="${movie.trailerURL}"
-                            frameborder="0"
-                            allowfullscreen></iframe>
-                </div>
-            </div>
-        </c:forEach>
+        <div>
+            <form method="post" action="/login">
+                <label for="userName">Email: </label>
+                <input id="userName" type="text" name="userLogin"/><br/>
+                <label for="userPassword">Password: </label>
+                <input id="userPassword" type="password" name="userPassword"/><br/>
+                <input type="submit" value="Login"/>
+            </form>
+        </div>
     </div>
 </div>
 </body>

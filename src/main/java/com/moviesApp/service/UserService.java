@@ -32,15 +32,31 @@ public class UserService {
         return user;
     }
 
-    public Long createUser(String userName) {
+    public User getUserByLogin(String login) {
+        if (login == null || login.trim().equals("") || login.trim().length() < 5) {
+            LOGGER.error("Failed to get user. Login is invalid or has less than 5 characters: " + login);
+            return null; // TODO is null ok?
+        }
+        UserDAO userDAO = new UserDAO();
+        User user = new User();
+        try {
+            user = userDAO.getByLogin(login);
+        } catch (SQLException e) {
+            e.printStackTrace();// TODO handle
+            LOGGER.error("SQLException: " + e);
+        }
+        return user;
+    }
+
+    public Long createUser(String userName, String login, String password) {
         if (userName == null || userName.trim().equals("")) {
             LOGGER.error("Failed to create user. User name must not be null or empty. User name: " + userName);
             return 0L;
         }
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = new UserDAO();// TODO check everything for validity and login - for duplicates. Don't forget ty encrypt password
         Long userID = 0L;
         try {
-            userID = userDAO.create(userName);
+            userID = userDAO.create(userName, login, password);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e);
