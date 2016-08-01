@@ -21,6 +21,11 @@
 <div class="padding-top"></div>
 <div class="container" style="width: 80%">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <form method="post" action="/login">
+            Username: <input type="text" name="userName"/><br/>
+            Password: <input type="password" name="userPassword"/><br/>
+            <input type="submit" value="Login"/>
+        </form>
         <c:forEach items="${movies}" var="movie">
             <div class="movie-container">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
