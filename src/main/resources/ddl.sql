@@ -44,7 +44,9 @@ CREATE TABLE REVIEW (
   review_text  TEXT
 );
 
-INSERT INTO USER (user_namem, login, password) VALUES ('Lothar', '123@gmail.com', 123), ('Medivh', 'qwe@gmail.com', 123), ('Neltarion', 'asd@gmail.com', 123);
+INSERT INTO USER (user_name, login, password) VALUES ('Lothar', '123@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA='),
+  ('Medivh', 'qwe@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA='),
+  ('Neltarion', 'asd@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=');
 
 INSERT INTO MOVIE (movie_name, director, release_date, trailer_url, rating, description)
 VALUES ('Warcraft', 'Duncan Jones', '2016-06-10', 'https://www.youtube.com/embed/RhFMIRuHAL4', 7.4,

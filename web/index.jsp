@@ -45,7 +45,9 @@
         </div>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        ${result}
+        <c:forEach items="${result}" var="r">
+            ${r}<br/>
+        </c:forEach>
     </div>
 </div>
 </body>

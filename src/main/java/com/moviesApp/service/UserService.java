@@ -34,7 +34,7 @@ public class UserService {
 
     public User getUserByLogin(String login) {
         if (login == null || login.trim().equals("") || login.trim().length() < 5) {
-            LOGGER.error("Failed to get user. Login is invalid or has less than 5 characters: " + login);
+            LOGGER.error("Failed to get user. Login is invalid or has less than 5 characters: " + login);// TODO "if" may be unnecessary
             return null; // TODO is null ok?
         }
         UserDAO userDAO = new UserDAO();

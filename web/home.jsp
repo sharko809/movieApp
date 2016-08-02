@@ -1,5 +1,5 @@
 <%-- Created by IntelliJ IDEA. --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" session="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -21,6 +21,9 @@
 <div class="padding-top"></div>
 <div class="container" style="width: 80%">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div>
+            Welcome, ${user.name}!
+        </div>
         <form method="post" action="/logout">
             <input type="submit" value="Logout"/>
         </form>

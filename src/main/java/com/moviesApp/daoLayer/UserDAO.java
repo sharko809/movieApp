@@ -47,11 +47,13 @@ public class UserDAO {
             user.setName(resultSet.getString("user_name"));
             user.setLogin(resultSet.getString("login"));
             user.setPassword(resultSet.getString("password"));
+        } else {
+            user = null;
         }
         resultSet.close();
         statement.close();
         connection.close();
-        return user;
+        return user;// TODO watch closely to catch all NULLs
     }
 
     public User get(Long userID) throws SQLException {
