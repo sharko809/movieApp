@@ -11,19 +11,19 @@ import java.util.List;
  */
 public class UserDAO {
 
-    private final String SQL_CREATE_USER = "INSERT INTO USER (user_name, login, password) VALUES (?, ?, ?)";
-    private final String SQL_GET_USER = "SELECT * FROM USER WHERE ID = ?";
-    private final String SQL_DELETE_USER = "DELETE FROM USER WHERE ID = ?";
-    private final String SQL_GET_ALL_USERS = "SELECT * FROM USER";
-    private final String SQL_UPDATE_USER = "UPDATE USER SET user_name = ?, login = ?, password = ? WHERE ID = ?";
-    private final String SQL_GET_USER_BY_NAME = "SELECT * FROM USER WHERE login = ?";
+    private static final String SQL_CREATE_USER = "INSERT INTO USER (user_name, login, password) VALUES (?, ?, ?)";
+    private static final String SQL_GET_USER = "SELECT * FROM USER WHERE ID = ?";
+    private static final String SQL_DELETE_USER = "DELETE FROM USER WHERE ID = ?";
+    private static final String SQL_GET_ALL_USERS = "SELECT * FROM USER";
+    private static final String SQL_UPDATE_USER = "UPDATE USER SET user_name = ?, login = ?, password = ? WHERE ID = ?";
+    private static final String SQL_GET_USER_BY_NAME = "SELECT * FROM USER WHERE login = ?";
 
     public Long create(String userName, String login, String password) throws SQLException {
-        Connection connection = ConnectionManager.getInstance().getConnection();// TODO in services check for duplicates
+        Connection connection = ConnectionManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_CREATE_USER, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, userName);
         statement.setString(2, login);
-        statement.setString(3, password);// TODO encrypt it!!!
+        statement.setString(3, password);
         statement.executeUpdate();
         ResultSet resultSet = statement.getGeneratedKeys();
         Long userID = 0L;

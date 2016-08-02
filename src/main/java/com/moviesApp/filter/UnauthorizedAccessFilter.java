@@ -1,5 +1,8 @@
 package com.moviesApp.filter;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +15,7 @@ import java.util.Enumeration;
  */
 public class UnauthorizedAccessFilter implements Filter {
 
+    private static final Logger LOGGER = LogManager.getLogger();
     private FilterConfig filterConfig = null;
 
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -27,26 +31,14 @@ public class UnauthorizedAccessFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession(false);
 
-        String loginURI = request.getContextPath() + "/home";
-        String errorURI = request.getContextPath() + "/error";
-        System.out.println(request.getContextPath());
-
-        boolean loginRequest = request.getRequestURI().equals(loginURI);
-
-        System.out.println(session.getAttribute("user") + " " + loginRequest);
-
         if (session.getAttribute("user") == null) {
-            System.out.println("go to error " + errorURI);
+            LOGGER.warn("Attempt to get unauthorized access to content");
             request.getSession().setAttribute("errorDetails", "Not authorized user");
-//            request.getRequestDispatcher("ErrorServlet").forward(request, response);
             response.sendRedirect(request.getContextPath() + "/error");
         } else {
-            System.out.println("filter OK!");
             filterChain.doFilter(request, response);
         }
 
-        System.out.println("called filter");
-//        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     public void destroy() {

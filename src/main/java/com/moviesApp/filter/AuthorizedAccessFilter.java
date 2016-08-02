@@ -1,5 +1,8 @@
 package com.moviesApp.filter;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +14,7 @@ import java.io.IOException;
  */
 public class AuthorizedAccessFilter implements Filter {
 
+    private static final Logger LOGGER = LogManager.getLogger();
     private FilterConfig filterConfig = null;
 
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -24,14 +28,12 @@ public class AuthorizedAccessFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession(false);
-        System.out.println("double login check!");
+
         if (session.getAttribute("user") == null) {
-            System.out.println("filter OK!");
             filterChain.doFilter(request, response);
         } else {
-            System.out.println("filter NOT OK!");
+            LOGGER.warn("Attempt to access content for unauthorized users while authorized");
             request.getSession().setAttribute("errorDetails", "You are already authorized");
-//            request.getRequestDispatcher("ErrorServlet").forward(request, response);
             response.sendRedirect(request.getContextPath() + "/error");
         }
 

@@ -17,7 +17,6 @@ public class MainPageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("main page servlet");
         MovieService movieService = new MovieService();
         List<Movie> movies = movieService.getAllMovies();
         req.setAttribute("movies", movies);

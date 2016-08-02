@@ -9,11 +9,11 @@ import java.sql.*;
  */
 public class ReviewDAO {
 
-    private final String SQL_CREATE_REVIEW = "INSERT INTO REVIEW " +
+    private static final String SQL_CREATE_REVIEW = "INSERT INTO REVIEW " +
             "(user_id, movie_id, post_date, review_title, rating, review_text) VALUES (?, ?, ?, ?, ?, ?)";
-    private final String SQL_GET_REVIEW = "SELECT * FROM REVIEW WHERE ID = ?";
-    private final String SQL_DELETE_REVIEW = "DELETE FROM REVIEW WHERE ID = ?";
-    private final String SQL_UPDATE_REVIEW = "UPDATE REVIEW SET " +
+    private static final String SQL_GET_REVIEW = "SELECT * FROM REVIEW WHERE ID = ?";
+    private static final String SQL_DELETE_REVIEW = "DELETE FROM REVIEW WHERE ID = ?";
+    private static final String SQL_UPDATE_REVIEW = "UPDATE REVIEW SET " +
             "user_ID = ?, " +
             "movie_ID = ?, " +
             "post_date = ?, " +

@@ -34,14 +34,20 @@ public class RegistrationServlet extends HttpServlet {
         List<String> errors = validator.validate(user);
 
         if (errors.isEmpty()) {
-            String encodedPassword = PasswordManager.getSaltedHashPassword(password);
             UserService userService = new UserService();
-            Long userId = userService.createUser(userName, userLogin, encodedPassword);
-            if (userId < 0) {
-                errors.add("User is not created. Later I'll put response from the server here.");
-            }
-            if (errors.isEmpty()) {
-                req.getSession().setAttribute("result", "User " + userName + " successfully created.");
+            if (userService.getUserByLogin(userLogin) == null) {
+                String encodedPassword = PasswordManager.getSaltedHashPassword(password);
+                Long userId = userService.createUser(userName, userLogin, encodedPassword);
+                if (userId == 0) {// TODO not sure if necessary
+                    errors.add("User is not created. And I have no idea why.");
+                }
+                if (errors.isEmpty()) {
+                    req.getSession().setAttribute("result", "User " + userName + " successfully created.");
+                    req.getRequestDispatcher("/index.jsp").forward(req, resp);
+                }
+            } else {
+                errors.add("User with such login already exists");
+                req.getSession().setAttribute("result", errors);
                 req.getRequestDispatcher("/index.jsp").forward(req, resp);
             }
         } else {

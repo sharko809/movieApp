@@ -23,7 +23,6 @@ public class LoginServlet extends HttpServlet {
         resp.setContentType("text/html;charset=UTF-8");
         String userLogin = req.getParameter("userLogin");
         String password = req.getParameter("userPassword");
-        System.out.println("DOING POST");
 
         User user = new User();
         user.setLogin(userLogin);
@@ -37,19 +36,16 @@ public class LoginServlet extends HttpServlet {
 
         if (errors.isEmpty()) {
             if (searchResult == null) {
-                System.out.println("no such user");
                 errors.add("No such user");
                 req.getSession().setAttribute("result", errors);
                 req.getRequestDispatcher("/index.jsp").forward(req, resp);
             } else {
                 if (!searchResult.getLogin().equals(userLogin) |
                         !PasswordManager.getSaltedHashPassword(password).equals(searchResult.getPassword())) {
-                    System.out.println("wrong email or pass");
                     errors.add("Wrong email or password");
                     req.getSession().setAttribute("result", errors);
                     req.getRequestDispatcher("/index.jsp").forward(req, resp);
                 } else {
-                    System.out.println("OK");
                     req.getSession().setAttribute("user", searchResult);
                     resp.sendRedirect(req.getContextPath() + "/home");
                 }

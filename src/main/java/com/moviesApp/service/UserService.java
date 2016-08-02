@@ -33,11 +33,7 @@ public class UserService {
     }
 
     public User getUserByLogin(String login) {
-        if (login == null || login.trim().equals("") || login.trim().length() < 5) {
-            LOGGER.error("Failed to get user. Login is invalid or has less than 5 characters: " + login);// TODO "if" may be unnecessary
-            return null; // TODO is null ok?
-        }
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = new UserDAO(); // login is checked for validity by validators in controller
         User user = new User();
         try {
             user = userDAO.getByLogin(login);
@@ -49,11 +45,8 @@ public class UserService {
     }
 
     public Long createUser(String userName, String login, String password) {
-        if (userName == null || userName.trim().equals("")) {
-            LOGGER.error("Failed to create user. User name must not be null or empty. User name: " + userName);
-            return 0L;
-        }
-        UserDAO userDAO = new UserDAO();// TODO check everything for validity and login - for duplicates. Don't forget ty encrypt password
+        // name, login and password are checked for validity by validators in controller
+        UserDAO userDAO = new UserDAO();
         Long userID = 0L;
         try {
             userID = userDAO.create(userName, login, password);

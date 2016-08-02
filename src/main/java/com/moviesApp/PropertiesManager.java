@@ -18,7 +18,7 @@ public class PropertiesManager {
 
         if (propName == null || propName.trim().equals("")) {
             LOGGER.fatal("No such property name: " + propName);
-            throw new IllegalArgumentException("No such property name found: " + propName);
+            throw new RuntimeException("No such property name found: " + propName);
         }
 
         Properties properties = new Properties();
@@ -27,8 +27,8 @@ public class PropertiesManager {
         String fileName = "movieApp.properties";
         inputStream = PropertiesManager.class.getClassLoader().getResourceAsStream(fileName);
         if (inputStream == null) {
-            LOGGER.fatal("Unable to find " + fileName);
-            throw new RuntimeException("Unable to find " + fileName);
+            LOGGER.fatal("Unable to find file: " + fileName);
+            throw new RuntimeException("Unable to find file: " + fileName);
         }
         String prop = "";
         try {
@@ -39,13 +39,11 @@ public class PropertiesManager {
             LOGGER.fatal("Seems properties file is missing. That's totally not my fault, sorry. " + e);
             throw new RuntimeException("Seems properties file is missing. That's totally not my fault, sorry. " + e);
         } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace(); // TODO handle
-                    LOGGER.error("Error while closing input stream. " + e);
-                }
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace(); // TODO handle
+                LOGGER.error("Error while closing input stream. " + e);
             }
         }
         return prop;

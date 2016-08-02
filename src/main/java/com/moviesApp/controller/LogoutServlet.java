@@ -18,13 +18,13 @@ public class LogoutServlet extends HttpServlet {
         if (session != null) {
             session.removeAttribute("user");// TODO add "false" to getSession()?
             session.invalidate();
-            System.out.println("logout OK");
             req.getRequestDispatcher("/index.jsp").forward(req, resp);
         }
     }
 
-//    @Override
-//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        doPost(req, resp);// TODO I'm TOTALLY NOT sure about this
-//    }
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getSession().setAttribute("errorDetails", "Attempt to logout in unusual way. Please logout using correspondent button.");
+        resp.sendRedirect(req.getContextPath() + "/error");
+    }
 }

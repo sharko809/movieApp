@@ -17,21 +17,25 @@ import java.security.spec.InvalidKeySpecException;
 public class PasswordManager {
 
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final Integer PASSWORD_LENGTH = Integer.parseInt(PropertiesManager.getProperty("password.minLength"));
+    private static final Integer PASSWORD_LENGTH;
+
+    static {
+        try {
+            PASSWORD_LENGTH = Integer.parseInt(PropertiesManager.getProperty("password.minLength"));
+        } catch (NumberFormatException e) {
+            LOGGER.fatal("Can't parse property value. " + e);
+            throw new RuntimeException("Can't parse property value. " + e);
+        }
+    }
 
     public static String getSaltedHashPassword(String password) throws IllegalArgumentException {
+        // password validity is checked by validators in controllers
         byte[] salt = generateSalt(password);
         return Base64.encodeBase64String(salt) + "$" + hash(password, salt);
     }
 
     private static String hash(String password, byte[] salt) throws IllegalArgumentException {
-        if (password == null || password.trim().equals("") || password.length() < PASSWORD_LENGTH) {
-            // TODO well... may be it's unnecessary anymore. It's handled by validator
-            LOGGER.error("Wrong password: " + password);
-            throw new IllegalArgumentException("Password should not be empty and must have at least" + PASSWORD_LENGTH + " characters.");
-        }
-
-        SecretKeyFactory secretKeyFactory = null;
+        SecretKeyFactory secretKeyFactory;
         try {
             secretKeyFactory = SecretKeyFactory.getInstance(PropertiesManager.getProperty("password.secretKeyFactory"));
         } catch (NoSuchAlgorithmException e) {
@@ -40,11 +44,17 @@ public class PasswordManager {
             throw new RuntimeException("No specified algorithm found. Error: " + e);
         }
 
-        PBEKeySpec pbeKeySpec = new PBEKeySpec(password.toCharArray(), salt,
-                Integer.parseInt(PropertiesManager.getProperty("password.hashIterations")),
-                Integer.parseInt(PropertiesManager.getProperty("password.keyLength")));
+        PBEKeySpec pbeKeySpec;
+        try {
+            pbeKeySpec = new PBEKeySpec(password.toCharArray(), salt,
+                    Integer.parseInt(PropertiesManager.getProperty("password.hashIterations")),
+                    Integer.parseInt(PropertiesManager.getProperty("password.keyLength")));
+        } catch (NumberFormatException e) {
+            LOGGER.fatal("Can't parse property value. " + e);
+            throw new RuntimeException("Can't parse property value. " + e);
+        }
 
-        SecretKey secretKey = null;
+        SecretKey secretKey;
         try {
             secretKey = secretKeyFactory.generateSecret(pbeKeySpec);
         } catch (InvalidKeySpecException e) {

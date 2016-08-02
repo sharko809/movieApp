@@ -35,14 +35,10 @@ public class ConnectionManager {
             throw new RuntimeException("no driver found");
         }
         Connection connection = null;
-        System.out.println("attempt connection");
         connection = DriverManager.getConnection(
                 "jdbc:mysql:" + PropertiesManager.getProperty("serverName") + PropertiesManager.getProperty("dbName"),
                 PropertiesManager.getProperty("dbUser"),
                 PropertiesManager.getProperty("dbPassword"));
-        if (connection != null) {
-            System.out.println("connection not null");
-        }
         return connection;
     }
 }

@@ -11,17 +11,17 @@ import java.util.List;
  */
 public class MovieDAO {
 
-    private final String SQL_GET_ALL_MOVIES = "SELECT * FROM MOVIE";
-    private final String SQL_GET_MOVIE_BY_ID = "SELECT * FROM MOVIE WHERE ID = ?";
-    private final String SQL_ADD_MOVIE = "INSERT INTO MOVIE (movie_name, director, release_date, trailer_url, rating, description) VALUES (?, ?, ?, ?, ?, ?)";
-    private final String SQL_UPDATE_MOVIE = "UPDATE MOVIE SET " +
+    private static final String SQL_GET_ALL_MOVIES = "SELECT * FROM MOVIE";
+    private static final String SQL_GET_MOVIE_BY_ID = "SELECT * FROM MOVIE WHERE ID = ?";
+    private static final String SQL_ADD_MOVIE = "INSERT INTO MOVIE (movie_name, director, release_date, trailer_url, rating, description) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE_MOVIE = "UPDATE MOVIE SET " +
             "movie_name = ?, " +
             "director = ?, " +
             "release_date = ?, " +
             "trailer_url = ?, " +
             "rating = ?, " +
             "description = ? WHERE ID = ?";
-    private final String SQL_DELETE_MOVIE = "DELETE FROM MOVIE WHERE ID = ?";
+    private static final String SQL_DELETE_MOVIE = "DELETE FROM MOVIE WHERE ID = ?";
 
     public Long create(String movieName, String director, Date releaseDate, String trailerUrl, Double rating, String description) throws SQLException {
         Connection connection = ConnectionManager.getInstance().getConnection();

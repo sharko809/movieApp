@@ -2,6 +2,8 @@ package com.moviesApp.validation;
 
 import com.moviesApp.PropertiesManager;
 import com.moviesApp.entities.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,18 +15,31 @@ import java.util.regex.Pattern;
  */
 public class RegistrationValidator implements Validator {
 
+    private static final Logger LOGGER = LogManager.getLogger();
     private final int LOGIN_LENGTH;
 
     public RegistrationValidator() {
-        LOGIN_LENGTH = Integer.parseInt(PropertiesManager.getProperty("login.minLength"));
+        try {
+            LOGIN_LENGTH = Integer.parseInt(PropertiesManager.getProperty("login.minLength"));
+        } catch (NumberFormatException e) {
+            LOGGER.fatal("Can't parse property value. " + e);
+            throw new RuntimeException("Can't parse property value. " + e);
+        }
     }
 
     @Override
     public List<String> validate(Object object) {
 
+        List<String> errors = new ArrayList<>();
+        if (!(object instanceof User)) {
+            errors.add("Attempt to validate non-User object in registration validator");
+            LOGGER.error("Attempt to validate non-User object in registration validator");
+            return errors;
+        }
+
         User user = (User) object;
         Validator loginValidator = new LoginValidator();
-        List<String> errors = loginValidator.validate(user);
+        errors.addAll(loginValidator.validate(user));
 
         String login = user.getName();
         if (login != null) {
