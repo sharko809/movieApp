@@ -36,15 +36,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>TestServlet</servlet-name>
-        <servlet-class>com.moviesApp.controller.TestServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>TestServlet</servlet-name>
-        <url-pattern>/test</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.moviesApp.controller.LoginServlet</servlet-class>
     </servlet>
