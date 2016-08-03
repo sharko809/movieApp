@@ -44,12 +44,12 @@ public class UserService {
         return user;
     }
 
-    public Long createUser(String userName, String login, String password) {
+    public Long createUser(String userName, String login, String password, Boolean isAdmin) {
         // name, login and password are checked for validity by validators in controller
         UserDAO userDAO = new UserDAO();
         Long userID = 0L;
         try {
-            userID = userDAO.create(userName, login, password);
+            userID = userDAO.create(userName, login, password, isAdmin);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e);

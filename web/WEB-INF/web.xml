@@ -25,6 +25,15 @@
         <url-pattern>/registration</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>AdminRoleAccessFilter</filter-name>
+        <filter-class>com.moviesApp.filter.AdminRoleAccessFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminRoleAccessFilter</filter-name>
+        <url-pattern>/admin</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
 
     <servlet>
         <servlet-name>MainPageServlet</servlet-name>
@@ -62,7 +71,16 @@
         <url-pattern>/registration</url-pattern>
     </servlet-mapping>
 
-
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>com.moviesApp.controller.AdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    
+    
     <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.moviesApp.controller.ErrorServlet</servlet-class>

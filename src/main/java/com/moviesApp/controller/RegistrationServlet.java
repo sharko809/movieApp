@@ -24,20 +24,27 @@ public class RegistrationServlet extends HttpServlet {
         String userName = req.getParameter("newUserName");
         String userLogin = req.getParameter("newUserLogin");
         String password = req.getParameter("newUserPassword");
+        String userRole = req.getParameter("newUserRole");// TODO watch this
 
         User user = new User();
         user.setName(userName);
         user.setLogin(userLogin);
         user.setPassword(password);
+        if (userRole != null) {
+            user.setAdmin(true);// this is for the default user registration process
+        } else {
+            user.setAdmin(false);
+        }
+
 
         Validator validator = new RegistrationValidator();
-        List<String> errors = validator.validate(user);
+        List<String> errors = validator.validate(user);// TODO think about role validation
 
         if (errors.isEmpty()) {
             UserService userService = new UserService();
             if (userService.getUserByLogin(userLogin) == null) {
                 String encodedPassword = PasswordManager.getSaltedHashPassword(password);
-                Long userId = userService.createUser(userName, userLogin, encodedPassword);
+                Long userId = userService.createUser(userName, userLogin, encodedPassword, user.getAdmin());
                 if (userId == 0) {// TODO not sure if necessary
                     errors.add("User is not created. And I have no idea why.");
                 }

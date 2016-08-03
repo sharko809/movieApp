@@ -13,12 +13,12 @@ public class MovieDAO {
 
     private static final String SQL_GET_ALL_MOVIES = "SELECT * FROM MOVIE";
     private static final String SQL_GET_MOVIE_BY_ID = "SELECT * FROM MOVIE WHERE ID = ?";
-    private static final String SQL_ADD_MOVIE = "INSERT INTO MOVIE (movie_name, director, release_date, trailer_url, rating, description) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String SQL_ADD_MOVIE = "INSERT INTO MOVIE (moviename, director, releasedate, trailerurl, rating, description) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE_MOVIE = "UPDATE MOVIE SET " +
-            "movie_name = ?, " +
+            "moviename = ?, " +
             "director = ?, " +
-            "release_date = ?, " +
-            "trailer_url = ?, " +
+            "releasedate = ?, " +
+            "trailerurl = ?, " +
             "rating = ?, " +
             "description = ? WHERE ID = ?";
     private static final String SQL_DELETE_MOVIE = "DELETE FROM MOVIE WHERE ID = ?";
@@ -52,10 +52,10 @@ public class MovieDAO {
         Movie movie = new Movie();
         if (resultSet.next()) {
             movie.setId(resultSet.getLong("ID"));
-            movie.setMovieName(resultSet.getString("movie_name"));
+            movie.setMovieName(resultSet.getString("moviename"));
             movie.setDirector(resultSet.getString("director"));
-            movie.setReleaseDate(resultSet.getDate("release_date"));
-            movie.setTrailerURL(resultSet.getString("trailer_url"));
+            movie.setReleaseDate(resultSet.getDate("releasedate"));
+            movie.setTrailerURL(resultSet.getString("trailerurl"));
             movie.setRating(resultSet.getDouble("rating"));
             movie.setDescription(resultSet.getString("description"));
         }
@@ -106,10 +106,10 @@ public class MovieDAO {
         while (resultSet.next()) {
             Movie movie = new Movie();
             movie.setId(resultSet.getLong("ID"));
-            movie.setMovieName(resultSet.getString("movie_name"));
+            movie.setMovieName(resultSet.getString("moviename"));
             movie.setDirector(resultSet.getString("director"));
-            movie.setReleaseDate(resultSet.getDate("release_date"));
-            movie.setTrailerURL(resultSet.getString("trailer_url"));
+            movie.setReleaseDate(resultSet.getDate("releasedate"));
+            movie.setTrailerURL(resultSet.getString("trailerurl"));
             movie.setRating(resultSet.getDouble("rating"));
             movie.setDescription(resultSet.getString("description"));
             movies.add(movie);

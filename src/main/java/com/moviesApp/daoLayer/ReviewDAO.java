@@ -10,16 +10,16 @@ import java.sql.*;
 public class ReviewDAO {
 
     private static final String SQL_CREATE_REVIEW = "INSERT INTO REVIEW " +
-            "(user_id, movie_id, post_date, review_title, rating, review_text) VALUES (?, ?, ?, ?, ?, ?)";
+            "(userid, movieid, postdate, reviewtitle, rating, reviewtext) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SQL_GET_REVIEW = "SELECT * FROM REVIEW WHERE ID = ?";
     private static final String SQL_DELETE_REVIEW = "DELETE FROM REVIEW WHERE ID = ?";
     private static final String SQL_UPDATE_REVIEW = "UPDATE REVIEW SET " +
-            "user_ID = ?, " +
-            "movie_ID = ?, " +
-            "post_date = ?, " +
-            "review_title = ?," +
+            "userID = ?, " +
+            "movieID = ?, " +
+            "postdate = ?, " +
+            "reviewtitle = ?," +
             "rating = ?, " +
-            "review_text = ? WHERE ID = ?";
+            "reviewtext = ? WHERE ID = ?";
 
     public Long create(Long userID, Long movieID, Date postDate, String reviewTitle, Integer rating, String reviewText) throws SQLException {
         Connection connection = ConnectionManager.getInstance().getConnection();
@@ -50,12 +50,12 @@ public class ReviewDAO {
         Review review = new Review();
         if (resultSet.next()) {
             review.setId(resultSet.getLong("ID"));
-            review.setUserId(resultSet.getLong("user_ID"));
-            review.setMovieId(resultSet.getLong("movie_ID"));
-            review.setPostDate(resultSet.getDate("post_date"));
-            review.setTitle(resultSet.getString("review_title"));
+            review.setUserId(resultSet.getLong("userID"));
+            review.setMovieId(resultSet.getLong("movieID"));
+            review.setPostDate(resultSet.getDate("postdate"));
+            review.setTitle(resultSet.getString("reviewtitle"));
             review.setRating(resultSet.getInt("rating"));
-            review.setReviewText(resultSet.getString("review_text"));
+            review.setReviewText(resultSet.getString("reviewtext"));
         }
         resultSet.close();
         statement.close();

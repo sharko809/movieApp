@@ -11,19 +11,20 @@ import java.util.List;
  */
 public class UserDAO {
 
-    private static final String SQL_CREATE_USER = "INSERT INTO USER (user_name, login, password) VALUES (?, ?, ?)";
+    private static final String SQL_CREATE_USER = "INSERT INTO USER (username, login, password, isadmin) VALUES (?, ?, ?, ?)";
     private static final String SQL_GET_USER = "SELECT * FROM USER WHERE ID = ?";
     private static final String SQL_DELETE_USER = "DELETE FROM USER WHERE ID = ?";
     private static final String SQL_GET_ALL_USERS = "SELECT * FROM USER";
-    private static final String SQL_UPDATE_USER = "UPDATE USER SET user_name = ?, login = ?, password = ? WHERE ID = ?";
+    private static final String SQL_UPDATE_USER = "UPDATE USER SET username = ?, login = ?, password = ? WHERE ID = ?";
     private static final String SQL_GET_USER_BY_NAME = "SELECT * FROM USER WHERE login = ?";
 
-    public Long create(String userName, String login, String password) throws SQLException {
+    public Long create(String userName, String login, String password, Boolean isAdmin) throws SQLException {
         Connection connection = ConnectionManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_CREATE_USER, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, userName);
         statement.setString(2, login);
         statement.setString(3, password);
+        statement.setBoolean(4, isAdmin);
         statement.executeUpdate();
         ResultSet resultSet = statement.getGeneratedKeys();
         Long userID = 0L;
@@ -44,9 +45,10 @@ public class UserDAO {
         User user = new User();
         if (resultSet.next()) {
             user.setId(resultSet.getLong("ID"));
-            user.setName(resultSet.getString("user_name"));
+            user.setName(resultSet.getString("username"));
             user.setLogin(resultSet.getString("login"));
             user.setPassword(resultSet.getString("password"));
+            user.setAdmin(resultSet.getBoolean("isadmin"));
         } else {
             user = null;
         }
@@ -64,9 +66,10 @@ public class UserDAO {
         User user = new User();
         if (resultSet.next()) {
             user.setId(resultSet.getLong("ID"));
-            user.setName(resultSet.getString("user_name"));
+            user.setName(resultSet.getString("username"));
             user.setLogin(resultSet.getString("login"));
             user.setPassword(resultSet.getString("password"));
+            user.setAdmin(resultSet.getBoolean("isadmin"));
         }
         resultSet.close();
         statement.close();
@@ -110,9 +113,10 @@ public class UserDAO {
         while (resultSet.next()) {
             User user = new User();
             user.setId(resultSet.getLong("ID"));
-            user.setName(resultSet.getString("user_name"));
+            user.setName(resultSet.getString("username"));
             user.setLogin(resultSet.getString("login"));
             user.setPassword(resultSet.getString("password"));
+            user.setAdmin(resultSet.getBoolean("isadmin"));
             users.add(user);
         }
         resultSet.close();
