@@ -1,5 +1,6 @@
 package com.moviesApp.filter;
 
+import com.moviesApp.entities.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,13 +32,30 @@ public class UnauthorizedAccessFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession(false);
 
-        if (session.getAttribute("user") == null) {
-            LOGGER.warn("Attempt to get unauthorized access to content");
-            request.getSession().setAttribute("errorDetails", "Not authorized user");
+        if (session == null) {
+            LOGGER.error("Not authorized access to: " + request.getRequestURI());
+            request.getSession().setAttribute("errorDetails", "You are not authorized");
             response.sendRedirect(request.getContextPath() + "/error");
         } else {
-            filterChain.doFilter(request, response);
+            User user = (User) session.getAttribute("user");
+            if (user == null) {
+                LOGGER.error("Not authorized access to: " + request.getRequestURI());
+                request.getSession().setAttribute("errorDetails", "You are not authorized");
+                response.sendRedirect(request.getContextPath() + "/error");
+            } else {
+                filterChain.doFilter(request, response);
+            }
         }
+
+
+
+//        if (session.getAttribute("user") == null) {
+//            LOGGER.warn("Attempt to get unauthorized access to content");
+//            request.getSession().setAttribute("errorDetails", "Not authorized user");
+//            response.sendRedirect(request.getContextPath() + "/error");
+//        } else {
+//            filterChain.doFilter(request, response);
+//        }
 
     }
 

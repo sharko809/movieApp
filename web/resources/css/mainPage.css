@@ -2,6 +2,11 @@
     display: inline;
 }
 
+.centered {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .movie-container {
     margin: 10px;
     display: inline-block;
@@ -21,13 +26,13 @@
 .movie-info {
     display: inline-block;
     float: left;
-    max-width: 55%;
+    /*max-width: 55%;*/
 }
 
 .movie-trailer {
     display: inline-block;
     float: right;
-    max-width: 45%;
+    /*max-width: 45%;*/
 }
 
 .padding-top {

@@ -1,0 +1,22 @@
+.header {
+    height: 46px;
+    background: #333333;
+}
+
+.z-index {
+    z-index: 20;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.float-search {
+    margin-top: 11px;
+    float: right;
+}
+
+.search-style {
+    border-radius: 4px;
+    float: right;
+}
