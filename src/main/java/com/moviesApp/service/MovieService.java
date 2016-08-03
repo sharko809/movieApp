@@ -23,10 +23,10 @@ public class MovieService {
             return 0L;
         }
         // TODO check release date
-        if (rating <= 0 || rating > 10) {
-            LOGGER.error("Rating is not in the 1-10 range. Rating: " + rating);
-            return 0L;
-        }
+//        if (rating <= 0 || rating > 10) {
+//            LOGGER.error("Rating is not in the 1-10 range. Rating: " + rating);
+//            return 0L;
+//        }
         MovieDAO movieDAO = new MovieDAO();
         Long movieID = 0L;
         try {

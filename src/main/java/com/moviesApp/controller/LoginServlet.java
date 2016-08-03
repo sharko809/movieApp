@@ -46,8 +46,13 @@ public class LoginServlet extends HttpServlet {
                     req.getSession().setAttribute("result", errors);
                     req.getRequestDispatcher("/index.jsp").forward(req, resp);
                 } else {
-                    req.getSession().setAttribute("user", searchResult);
-                    resp.sendRedirect(req.getContextPath() + "/home");
+                    if (searchResult.getAdmin()) {
+                        req.getSession().setAttribute("user", searchResult);
+                        resp.sendRedirect(req.getContextPath() + "/admin");
+                    } else {
+                        req.getSession().setAttribute("user", searchResult);
+                        resp.sendRedirect(req.getContextPath() + "/home");
+                    }
                 }
             }
         } else {

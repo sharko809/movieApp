@@ -79,7 +79,15 @@
         <servlet-name>AdminServlet</servlet-name>
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
-    
+
+    <servlet>
+        <servlet-name>NewMovie</servlet-name>
+        <servlet-class>com.moviesApp.controller.NewMovieServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NewMovie</servlet-name>
+        <url-pattern>/admin/addmovie</url-pattern>
+    </servlet-mapping>
     
     <servlet>
         <servlet-name>ErrorServlet</servlet-name>
