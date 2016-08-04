@@ -33,20 +33,19 @@ public class UnauthorizedAccessFilter implements Filter {
         HttpSession session = request.getSession(false);
 
         if (session == null) {
-            LOGGER.error("Not authorized access to: " + request.getRequestURI());
+            LOGGER.error("Not authorized access to: " + request.getRequestURI() + " Remote user details: " + request.getRemoteAddr());
             request.getSession().setAttribute("errorDetails", "You are not authorized");
             response.sendRedirect(request.getContextPath() + "/error");
         } else {
             User user = (User) session.getAttribute("user");
             if (user == null) {
-                LOGGER.error("Not authorized access to: " + request.getRequestURI());
+                LOGGER.error("Not authorized access to: " + request.getRequestURI() + " Remote user details: " + request.getRemoteAddr());
                 request.getSession().setAttribute("errorDetails", "You are not authorized");
                 response.sendRedirect(request.getContextPath() + "/error");
             } else {
                 filterChain.doFilter(request, response);
             }
         }
-
 
 
 //        if (session.getAttribute("user") == null) {

@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Header</title>
@@ -21,15 +22,44 @@
 </head>
 <body>
 <header class="pure-g header fixed z-index">
-    <div class="pure-u-md-4-5 pure-u-sm-7-8 centered">
-        <div class="pure-u-2-5 pure-u-sm-3-8" style="margin-top: 14px;">
-            <span style="color: antiquewhite;">
-                You have logged in as ${user.name}.
-            </span>
+    <div class="pure-u-md-4-5 pure-u-sm-7-8 centered inline-flex">
+        <div class="pure-u-1 inline-flex">
+            <div id="user-welcome" class="pure-u-md-3-8 pure-u-sm-3-8 max-width">
+                <p class="menu-text">
+                    Logged in as
+                    <a class="menu-text" href="/account?${user.id}">
+                        ${user.name}.
+                    </a>
+                </p>
+            </div>
+
+            <div class="pure-u-md-1-8 pure-u-sm-1-8 max-width" style="text-align: center;">
+                <a class="menu-text" href="/toprated">
+                    <p>
+                        Top rated
+                    </p>
+                </a>
+            </div>
+
+            <div class="pure-u-md-1-8 pure-u-sm-1-8 max-width" style="text-align: center;">
+                <a class="menu-text" href="/movielist">
+                    <p>
+                        Movie list
+                    </p>
+                </a>
+            </div>
+
+            <form class="pure-u-md-2-8 pure-u-sm-2-8 float-search">
+                <input class="search-style" placeholder="Search (not yet implemented)">
+            </form>
+            <c:if test="${user != null}">
+                <div class="pure-u-md-1-8 pure-u-sm-1-8 logout">
+                    <form method="post" action="/logout">
+                        <input type="image" src="logout-32.ico" alt="Submit"/>
+                    </form>
+                </div>
+            </c:if>
         </div>
-        <form class="pure-u-1-5 pure-u-sm-2-8 float-search">
-            <input class="search-style" placeholder="Search (not yet implemented)">
-        </form>
     </div>
 </header>
 </body>

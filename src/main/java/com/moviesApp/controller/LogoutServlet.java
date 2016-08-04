@@ -19,6 +19,9 @@ public class LogoutServlet extends HttpServlet {
             session.removeAttribute("user");// TODO add "false" to getSession()?
             session.invalidate();
             req.getRequestDispatcher("/index.jsp").forward(req, resp);
+        } else {
+            req.getSession().setAttribute("errorDetails", "You are not logged in and therefore can't logout");
+            resp.sendRedirect(req.getContextPath() + "/error");
         }
     }
 

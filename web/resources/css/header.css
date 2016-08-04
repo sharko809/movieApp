@@ -18,5 +18,38 @@
 
 .search-style {
     border-radius: 4px;
-    float: right;
+    /*float: right;*/
+}
+
+.logout {
+    margin: 7px 0 0 0;
+    width: 25%;
+    text-align: end;
+}
+
+.inline-flex {
+    display: inline-flex;
+}
+
+.menu-text {
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.max-width {
+    width: 100%;
+}
+
+@media screen and (max-width: 768px){
+    #user-welcome {
+        display: none;
+    }
+
+    #top-rated {
+        display: none;
+    }
+
+    #movie-list {
+        display: none;
+    }
 }
