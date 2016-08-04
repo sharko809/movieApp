@@ -62,3 +62,11 @@
 .fixed {
     position: fixed;
 }
+
+.remove-underline {
+    text-decoration: none;
+}
+
+.center-text {
+    text-align: center;
+}

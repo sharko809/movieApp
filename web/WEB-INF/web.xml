@@ -88,6 +88,15 @@
         <servlet-name>NewMovie</servlet-name>
         <url-pattern>/admin/addmovie</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MovieServlet</servlet-name>
+        <servlet-class>com.moviesApp.controller.MovieServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MovieServlet</servlet-name>
+        <url-pattern>/movies</url-pattern>
+    </servlet-mapping>
     
     <servlet>
         <servlet-name>ErrorServlet</servlet-name>
@@ -110,10 +119,10 @@
         <!--<error-code>405</error-code>-->
         <!--<location>/error</location>-->
     <!--</error-page>-->
-    <error-page>
-        <exception-type>javax.servlet.ServletException</exception-type>
-        <location>/error</location>
-    </error-page>
+    <!--<error-page>-->
+        <!--<exception-type>javax.servlet.ServletException</exception-type>-->
+        <!--<location>/error</location>-->
+    <!--</error-page>-->
 
     <session-config>
         <session-timeout>30</session-timeout>

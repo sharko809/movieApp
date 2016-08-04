@@ -32,7 +32,9 @@
                     <div class="pure-u-lg-1-2 pure-u-sm-1 movie-info">
                         <div>
                             <h4 class="inline">Title: </h4>
-                            <span>${movie.movieName}</span>
+                            <a class="remove-underline" href="/movies?movieId=${movie.id}">
+                                    ${movie.movieName}
+                            </a>
                         </div>
                         <div>
                             <h4 class="inline">Director: </h4>
@@ -47,18 +49,18 @@
                             <span>${movie.rating}</span>
                         </div>
                         <div>
-                            <h4 class="inline">Descrition:</h4>
+                            <h4 class="inline">Description:</h4>
                             <span>${movie.description}</span>
                         </div>
                     </div>
                     <div class="pure-u-lg-1-2 pure-u-sm-1 movie-trailer">
-                        <iframe width="100%" height="315" src="${movie.trailerURL}" frameborder="0" allowfullscreen></iframe>
+                        <iframe width="100%" height="315" src="${movie.trailerURL}" frameborder="0"
+                                allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
         </c:forEach>
     </div>
 </div>
-
 </body>
 </html>

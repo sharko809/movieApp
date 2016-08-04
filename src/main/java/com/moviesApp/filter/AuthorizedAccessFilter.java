@@ -1,5 +1,6 @@
 package com.moviesApp.filter;
 
+import com.moviesApp.entities.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,7 +33,8 @@ public class AuthorizedAccessFilter implements Filter {
         if (session.getAttribute("user") == null) {
             filterChain.doFilter(request, response);
         } else {
-            LOGGER.warn("Attempt to access content for unauthorized users while authorized");
+            User user = (User) session.getAttribute("user");
+            LOGGER.warn("Attempt to access content for unauthorized users while authorized. User: " + user.getName() + " admin: " + user.getAdmin());
             request.getSession().setAttribute("errorDetails", "You are already authorized");
             response.sendRedirect(request.getContextPath() + "/error");
         }

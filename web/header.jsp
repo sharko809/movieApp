@@ -27,7 +27,7 @@
             <div id="user-welcome" class="pure-u-md-3-8 pure-u-sm-3-8 max-width">
                 <p class="menu-text">
                     Logged in as
-                    <a class="menu-text" href="/account?${user.id}">
+                    <a class="menu-text" href="/account?user=${user.id}">
                         ${user.name}.
                     </a>
                 </p>

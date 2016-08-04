@@ -36,7 +36,7 @@ public class AdminRoleAccessFilter implements Filter {
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
-            LOGGER.error("Not authorized access to: " + request.getRequestURI());
+            LOGGER.error("Not authorized access to: " + request.getRequestURI() + " Remote user details: " + request.getRemoteAddr());
             request.getSession().setAttribute("errorDetails", "You are not authorized");
             response.sendRedirect(request.getContextPath() + "/error");
         } else {
@@ -44,7 +44,7 @@ public class AdminRoleAccessFilter implements Filter {
                 filterChain.doFilter(request, response);
             } else {
                 LOGGER.error("Attempt to access admin services without permission. User: " +
-                        ((User) session.getAttribute("user")).getLogin() + " admin:" + ((User) session.getAttribute("user")).getAdmin());
+                        ((User) session.getAttribute("user")).getLogin() + " admin: " + ((User) session.getAttribute("user")).getAdmin());
                 request.getSession().setAttribute("errorDetails", "You do not have permission to access this page");
                 response.sendRedirect(request.getContextPath() + "/error");
             }
