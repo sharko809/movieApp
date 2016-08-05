@@ -64,43 +64,81 @@
 
         <div class="pure-u-1" style="margin: 5px;">
             <div class="review-section">
-                <form class="pure-form" method="post" action="/postreview">
-                    <div class="pure-u-1 inline-flex">
-                        <div class="pure-u-6-8 max-width" style="margin-top: 7px;">
-                            <input class="max-width" type="text"
-                                   placeholder="Review title. You can SHORTLY describe your impression."/>
-                        </div>
-                        <div class="pure-u-1-8">
-                            <div class="center-text">
-                                <p>
-                                    Rating:
-                                </p>
+                <c:choose>
+                    <c:when test="${user == null}">
+                        <div class="pure-u-md-1 pure-u-sm-1">
+                            <div style="margin-bottom: 5px; text-align: center">
+                                Please, sign in to write reviews.
                             </div>
                         </div>
-                        <div class="pure-u-1-8" style="margin-top: 7px;">
-                            <select class="max-width">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
+                    </c:when>
+                    <c:otherwise>
+                        <form class="pure-form" method="post" action="/postreview" onsubmit="setTimeout(function () { window.location.reload(); }, 10)">
+                            <div class="pure-u-1 inline-flex">
+                                <div class="pure-u-6-8 max-width" style="margin-top: 7px;">
+                                    <input class="max-width" type="text" name="reviewTitle" placeholder="Review title. You can SHORTLY describe your impression."/>
+                                </div>
+                                <div class="pure-u-1-8">
+                                    <div class="center-text">
+                                        <p>
+                                            Rating:
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="pure-u-1-8" style="margin-top: 7px;">
+                                    <select class="max-width" name="userRating">
+                                        <option value="1" selected>1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="pure-u-1" style="height: 200px; margin-bottom: 5px;">
+                                <textarea style="height: 100%;" class="max-width" name="reviewText" placeholder="Your review"></textarea>
+                                <input type="hidden" name="movieID" value="${movie.id}"/>
+                                <input type="hidden" name="from_" value="${pageContext.request.requestURI}"/>
+                                <input type="hidden" name="from" value="${pageContext.request.queryString}"/>
+                            </div>
+                            <div class="pure-u-1 inline-flex">
+                                <div>
+                                    <button id="submitReview" class="pure-button" type="submit">Post review</button>
+                                </div>
+                                <div style="margin-left: 5px;">
+                                    <c:forEach items="${reviewError}" var="error">
+                                        ${error}<br/>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </form>
+                    </c:otherwise>
+                </c:choose>
+                <c:forEach items="${reviews}" var="review">
+                    <div class="review pure-u-md-1 max-width" style="margin-bottom: 5px;">
+                        <div class="pure-u-md-1 inline-flex max-width" style="margin: 5px;">
+                            <div class="pure-u-md-6-8 pure-u-sm-6-12 max-width">
+                                <strong>${review.title}</strong> by ${users.get(review.userId)}
+                            </div>
+                            <div class="pure-u-md-1-8 pure-u-sm-4-12" style="text-align: center;">
+                                Posted: ${review.postDate}
+                            </div>
+                            <div class="pure-u-md-1-8 pure-u-sm-2-12" style="text-align: center;">
+                                Rated: ${review.rating}/10
+                            </div>
+                        </div>
+                        <div class="pure-u-md-1 max-width" style="margin: 5px;">
+                            <div class="pure-u-md-1 pure-u-sm-1 max-width">
+                                    ${review.reviewText}
+                            </div>
                         </div>
                     </div>
-                    <%--<div>--%>
-                    <div class="pure-u-1">
-                        <textarea class="max-width" placeholder="Your review"></textarea>
-                    </div>
-                    <%--</div>--%>
-                    <div class="pure-u-1">
-                        <button type="submit">Submit review</button>
-                    </div>
-                </form>
+                </c:forEach>
             </div>
         </div>
 
@@ -109,32 +147,3 @@
 
 </body>
 </html>
-<%--<form method="post" action="/postreview" class="pure-form">--%>
-<%--<fieldset>--%>
-<%--<div class="pure-g">--%>
-<%--<div class="pure-u-1 pure-u-md-6-8">--%>
-<%--<input type="text" placeholder="Title"/>--%>
-<%--</div>--%>
-<%--<div class="pure-u-1 pure-md-2-8">--%>
-<%--<label for="rating">Rating</label>--%>
-<%--<select id="rating">--%>
-<%--<option value="1">1</option>--%>
-<%--<option value="2">2</option>--%>
-<%--<option value="3">3</option>--%>
-<%--<option value="4">4</option>--%>
-<%--<option value="5">5</option>--%>
-<%--<option value="6">6</option>--%>
-<%--<option value="7">7</option>--%>
-<%--<option value="8">8</option>--%>
-<%--<option value="9">9</option>--%>
-<%--<option value="10">10</option>--%>
-<%--</select>--%>
-<%--</div>--%>
-<%--<div class="pure-u-1 pure-u-md-1">--%>
-<%--<textarea placeholder="Review text"></textarea>--%>
-<%--</div>--%>
-<%--<button type="submit" class="pure-button pure-input-1-2 pure-button-primary">Submit review--%>
-<%--</button>--%>
-<%--</div>--%>
-<%--</fieldset>--%>
-<%--</form>--%>

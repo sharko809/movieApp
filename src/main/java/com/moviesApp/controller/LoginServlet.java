@@ -46,12 +46,17 @@ public class LoginServlet extends HttpServlet {
                     req.getSession().setAttribute("result", errors);
                     req.getRequestDispatcher("/index.jsp").forward(req, resp);
                 } else {
-                    if (searchResult.getAdmin()) {
-                        req.getSession().setAttribute("user", searchResult);
-                        resp.sendRedirect(req.getContextPath() + "/admin");
+                    if (req.getParameter("regPage") != null) {
+                        if (searchResult.getAdmin()) {
+                            req.getSession().setAttribute("user", searchResult);
+                            resp.sendRedirect(req.getContextPath() + "/admin");
+                        } else {
+                            req.getSession().setAttribute("user", searchResult);
+                            resp.sendRedirect(req.getContextPath() + "/home");
+                        }
                     } else {
                         req.getSession().setAttribute("user", searchResult);
-                        resp.sendRedirect(req.getContextPath() + "/home");
+//                        resp.sendRedirect(req.getParameter("from"));// TODO this fails. Number 1 priority to refactor
                     }
                 }
             }

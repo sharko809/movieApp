@@ -7,6 +7,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dsharko on 7/29/2016.
@@ -59,8 +61,20 @@ public class ReviewService {
         return review;
     }
 
+    public List<Review> getReviewsByMovieId(Long movieID) {
+        ReviewDAO reviewDAO = new ReviewDAO();
+        List<Review> reviews = new ArrayList<Review>();
+        try {
+            reviews.addAll(reviewDAO.getReviewsByMovieId(movieID));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            LOGGER.fatal("SQLException: " + e);
+        }
+        return reviews;
+    }
+
     public void updateReview(Review review) {
-        if (review.getId() <= 0) {
+        if (review.getId() <= 0) { // TODO do this in validator
             LOGGER.error("Failed to update review. Wrong review id: " + review.getId());
             return;
         }

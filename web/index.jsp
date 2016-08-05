@@ -4,51 +4,106 @@
 <html>
 <head>
     <title>Movies list</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/base-min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+    <!--<![endif]-->
     <link rel="stylesheet" type="text/css" href="/resources/css/mainPage.css" rel="stylesheet">
-    <link rel="stylesheet" href="/resources/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.1.0.js"
-            integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk=" crossorigin="anonymous"></script>
-    <script src="/resources/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/resources/css/authPage.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/resources/css/authHeader.css" rel="stylesheet">
 </head>
 <body style="background-color:beige">
-<header class="header fixed z-index">
-    <div class="header-inner">
-        <form class="float-right">
-            <input placeholder="Search (not yet implemented)" style="border-radius: 4px;">
-        </form>
+<%--<jsp:include page="header.jsp"/>--%>
+<header class="pure-g header fixed z-index">
+    <div class="pure-u-md-4-5 pure-u-sm-7-8 centered inline-flex">
+        <div class="pure-u-1 inline-flex">
+            <div id="top-rated" class="pure-u-md-1-8 pure-u-sm-1-8 max-width" style="text-align: center;">
+                <a class="menu-text" href="/toprated">
+                    <p>
+                        Top rated
+                    </p>
+                </a>
+            </div>
+            <div id="movie-list" class="pure-u-md-1-8 pure-u-sm-1-8 max-width" style="text-align: center;">
+                <a class="menu-text" href="/movielist">
+                    <p>
+                        Movie list
+                    </p>
+                </a>
+            </div>
+            <form class="pure-u-md-2-8 pure-u-sm-2-8 float-search">
+                <input class="search-style" placeholder="Search (not yet implemented)">
+            </form>
+        </div>
     </div>
 </header>
 <div class="padding-top"></div>
-<div class="container" style="width: 80%">
-    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <div>
-            <form method="post" action="/login">
-                <label for="userName">Email: </label>
-                <input id="userName" type="text" name="userLogin"/><br/>
-                <label for="userPassword">Password: </label>
-                <input id="userPassword" type="password" name="userPassword"/><br/>
-                <input type="submit" value="Login"/>
-            </form>
+
+<div class="pure-g">
+    <div class="pure-u-md-3-4 pure-u-sm-1 centered">
+        <div id="auth-block" class="pure-u-1 inline-flex">
+            <div class="pure-u-md-1-2 pure-u-sm-1">
+                <form class="pure-form pure-form-aligned" method="post" action="/login">
+                    <fieldset>
+                        <div class="pure-control-group">
+                            <label for="userName">E-mail: </label>
+                            <input id="userName" type="text" name="userLogin" placeholder="E-mail"/>
+                        </div>
+                        <div class="pure-control-group">
+                            <label for="userPassword">Password: </label>
+                            <input id="userPassword" type="password" name="userPassword" placeholder="Password"/>
+                        </div>
+                        <div class="pure-controls">
+                            <input class="pure-button" type="submit" value="Login"/>
+                        </div>
+                        <input type="hidden" name="regPage" value="regPage"/>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="pure-u-md-1-2 pure-u-sm-1">
+                <form class="pure-form pure-form-aligned" method="post" action="/registration">
+                    <fieldset>
+                        <div class="pure-control-group">
+                            <label for="newUserName">Nickname: </label>
+                            <input id="newUserName" type="text" name="newUserName" placeholder="Name to display"/>
+                        </div>
+                        <div class="pure-control-group">
+                            <label for="newUserLogin">Your email:</label>
+                            <input id="newUserLogin" type="email" name="newUserLogin" placeholder="E-mail"/>
+                        </div>
+                        <div class="pure-control-group">
+                            <label for="newUserPassword">Enter password: </label>
+                            <input id="newUserPassword" type="password" name="newUserPassword" placeholder="Password"/>
+                        </div>
+                        <div class="pure-controls">
+                            <input class="pure-button" type="submit" value="Register">
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
         </div>
-    </div>
-    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <div>
-            <form method="post" action="/registration">
-                <label for="newUserName">Nickname: </label>
-                <input id="newUserName" type="text" name="newUserName"/><br/>
-                <label for="newUserLogin">Your email:</label>
-                <input id="newUserLogin" type="email" name="newUserLogin"/><br/>
-                <label for="newUserPassword">Enter password: </label>
-                <input id="newUserPassword" type="password" name="newUserPassword"/><br/>
-                <input type="submit" value="Register">
-            </form>
+        <div class="pure-u-1">
+            <div class="info-block">
+                <p>
+                    To post reviews and rate movies you need to sign in.
+                </p>
+                <p>
+                    You don't need to register to see movies list, watch trailers and read description.
+                </p>
+                <p>
+                    <a id="home-link" href="/home">
+                        Click this message to proceed to movies list without registration.
+                    </a>
+                </p>
+            </div>
         </div>
-    </div>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <c:forEach items="${result}" var="r">
-            ${r}<br/>
-        </c:forEach>
     </div>
 </div>
+
 </body>
 </html>

@@ -1,0 +1,37 @@
+#auth-block {
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 768px) {
+
+    #auth-block {
+        display: block;
+        margin: 10px;
+        padding-left: 43px;
+    }
+
+}
+
+#home-link:link {
+    text-decoration: none;
+}
+
+#home-link:visited {
+    text-decoration: none;
+}
+
+#home-link:hover {
+    text-decoration: underline;
+}
+
+#home-link:active {
+    text-decoration: underline;
+}
+
+.info-block {
+    border: 1px;
+    border-style: double;
+    border-color: darkgray;
+    border-radius: 4px;
+    text-align: center;
+}

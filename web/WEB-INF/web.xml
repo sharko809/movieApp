@@ -11,8 +11,9 @@
     </filter>
     <filter-mapping>
         <filter-name>UnauthorizedAccessFilter</filter-name>
-        <url-pattern>/home</url-pattern>
+        <!--<url-pattern>/home</url-pattern>-->
         <url-pattern>/logout</url-pattern>
+        <url-pattern>/postreview</url-pattern>
     </filter-mapping>
 
     <filter>
@@ -96,6 +97,15 @@
     <servlet-mapping>
         <servlet-name>MovieServlet</servlet-name>
         <url-pattern>/movies</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PostReview</servlet-name>
+        <servlet-class>com.moviesApp.controller.PostReviewServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PostReview</servlet-name>
+        <url-pattern>/postreview</url-pattern>
     </servlet-mapping>
     
     <servlet>

@@ -3,6 +3,8 @@ package com.moviesApp.daoLayer;
 import com.moviesApp.entities.Review;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dsharko on 7/29/2016.
@@ -20,6 +22,7 @@ public class ReviewDAO {
             "reviewtitle = ?," +
             "rating = ?, " +
             "reviewtext = ? WHERE ID = ?";
+    private static final String SQL_GET_REVIEWS_BY_MOVIE_ID = "SELECT * FROM REVIEW WHERE movieid = ?";
 
     public Long create(Long userID, Long movieID, Date postDate, String reviewTitle, Integer rating, String reviewText) throws SQLException {
         Connection connection = ConnectionManager.getInstance().getConnection();
@@ -67,17 +70,42 @@ public class ReviewDAO {
         Connection connection = ConnectionManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_REVIEW);
 
-        statement.setLong   (1, review.getUserId());
-        statement.setLong   (2, review.getMovieId());
-        statement.setDate   (3, review.getPostDate());
-        statement.setString (4, review.getTitle());
-        statement.setInt    (5, review.getRating());
-        statement.setString (6, review.getReviewText());
-        statement.setLong   (7, review.getId());
+        statement.setLong(1, review.getUserId());
+        statement.setLong(2, review.getMovieId());
+        statement.setDate(3, review.getPostDate());
+        statement.setString(4, review.getTitle());
+        statement.setInt(5, review.getRating());
+        statement.setString(6, review.getReviewText());
+        statement.setLong(7, review.getId());
         statement.executeUpdate();
 
         statement.close();
         connection.close();
+    }
+
+    public List<Review> getReviewsByMovieId(Long movieID) throws SQLException {
+        List<Review> reviews = new ArrayList<Review>();
+
+        Connection connection = ConnectionManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(SQL_GET_REVIEWS_BY_MOVIE_ID);
+        statement.setLong(1, movieID);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            Review review = new Review();
+            review.setId(resultSet.getLong("id"));
+            review.setUserId(resultSet.getLong("userid"));
+            review.setMovieId(resultSet.getLong("movieid"));
+            review.setPostDate(resultSet.getDate("postdate"));
+            review.setTitle(resultSet.getString("reviewtitle"));
+            review.setRating(resultSet.getInt("rating"));
+            review.setReviewText(resultSet.getString("reviewtext"));
+            reviews.add(review);
+        }
+        resultSet.close();
+        statement.close();
+        connection.close();
+
+        return reviews;
     }
 
     public boolean delete(Long reviewID) throws SQLException {

@@ -46,7 +46,14 @@
                         </div>
                         <div>
                             <h4 class="inline">Rating: </h4>
-                            <span>${movie.rating}</span>
+                            <c:choose>
+                                <c:when test="${movie.rating <= 0.0}">
+                                    <span>Not enough votes yet</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span>${movie.rating}</span>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <div>
                             <h4 class="inline">Description:</h4>
