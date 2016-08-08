@@ -36,8 +36,8 @@
                     </p>
                 </a>
             </div>
-            <form class="pure-u-md-2-8 pure-u-sm-2-8 float-search">
-                <input class="search-style" placeholder="Search (not yet implemented)">
+            <form class="pure-u-md-2-8 pure-u-sm-2-8 float-search" method="post" action="/search">
+                <input id="searchInput" name="searchInput" type="text" class="search-style" placeholder="Search movie">
             </form>
         </div>
     </div>

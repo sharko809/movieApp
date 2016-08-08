@@ -31,10 +31,12 @@
                 <c:when test="${user == null}">
                     <div id="login-form" class="pure-u-md-3-8 pure-u-sm-3-8 max-width">
                         <form class="pure-form inline-flex" method="post" action="/login"
-                              <%--onsubmit="setTimeout(function () { window.location.reload(); }, 10)"--%>
+                            <%--onsubmit="setTimeout(function () { window.location.reload(); }, 10)"--%>
                               style="margin: 5px auto 5px auto;">
-                            <input class="pure-input-1-2 input-margin" type="text" name="userLogin" placeholder="E-mail" required/><br/>
-                            <input class="pure-input-1-2 input-margin" type="password" name="userPassword" placeholder="Password" required/><br/>
+                            <input class="pure-input-1-2 input-margin" type="text" name="userLogin" placeholder="E-mail"
+                                   required/><br/>
+                            <input class="pure-input-1-2 input-margin" type="password" name="userPassword"
+                                   placeholder="Password" required/><br/>
                             <input type="hidden" id="redirectFrom" name="redirectFrom" value=""/>
                             <input type="image" src="login-32.ico" alt="Submit"/>
                                 <%--<button class="pure-button" type="submit">Post review</button>--%>
@@ -71,7 +73,7 @@
             </div>
 
             <form class="pure-u-md-2-8 pure-u-sm-2-8 float-search" method="post" action="/search">
-                <input class="search-style" placeholder="Search movie">
+                <input id="searchInput" name="searchInput" type="text" class="search-style" placeholder="Search movie">
             </form>
             <c:if test="${user != null}">
                 <div class="pure-u-md-1-8 pure-u-sm-1-8 logout">

@@ -6,6 +6,5 @@
 (function() {
     $(document).ready(function () {
         document.getElementById("redirectFrom").value = document.location.href;
-        console.log(document.location.href);
     });
 })();
