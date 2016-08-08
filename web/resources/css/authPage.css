@@ -10,21 +10,29 @@
         padding-left: 43px;
     }
 
+    #error-info {
+        width:100%;
+    }
+
 }
 
 #home-link:link {
     text-decoration: none;
+    color:#333;
 }
 
 #home-link:visited {
+    color:#333;
     text-decoration: none;
 }
 
 #home-link:hover {
+    color:#333;
     text-decoration: underline;
 }
 
 #home-link:active {
+    color:#333;
     text-decoration: underline;
 }
 
@@ -34,4 +42,15 @@
     border-color: darkgray;
     border-radius: 4px;
     text-align: center;
+}
+
+.error-info {
+    border: 1px;
+    border-style: double;
+    border-color: darkgray;
+    border-radius: 4px;
+    text-align: center;
+    margin: 10px auto 10px auto;
+    background-color: #FFCCCC;
+    width: 40%;
 }

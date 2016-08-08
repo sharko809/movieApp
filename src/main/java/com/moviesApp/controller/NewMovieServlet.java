@@ -32,17 +32,19 @@ public class NewMovieServlet extends HttpServlet {
         String title = req.getParameter("title");
         String director = req.getParameter("director");
         String releaseDate = req.getParameter("releaseDate");
+        String posterUrl = req.getParameter("posterUrl");
         String trailerUrl = req.getParameter("trailerUrl");
         String description = req.getParameter("description");
 
         Movie movie = new Movie();
         movie.setMovieName(title);
-        movie.setDescription(director);
+        movie.setDirector(director);
         if (releaseDate.isEmpty()) {
             movie.setReleaseDate(new Date(new java.util.Date().getTime()));// TODO handle it in some other way
         } else {
             movie.setReleaseDate(Date.valueOf(releaseDate));// TODO check this
         }
+        movie.setPosterURL(posterUrl);
         movie.setTrailerURL(trailerUrl);
         movie.setDescription(description);
 
@@ -51,12 +53,12 @@ public class NewMovieServlet extends HttpServlet {
 
         if (errors.isEmpty()) {
             MovieService movieService = new MovieService();
-            movieService.addMovie(title, director, movie.getReleaseDate(), trailerUrl, 0D, description);
-            req.getSession().setAttribute("result", "Movie " + title + " added successfully.");
+            movieService.addMovie(movie.getMovieName(), movie.getDirector(), movie.getReleaseDate(), movie.getPosterURL(), movie.getTrailerURL(), 0D, movie.getDescription());
+            req.setAttribute("result", "Movie " + title + " added successfully.");
             req.getRequestDispatcher("/addmovie.jsp").forward(req, resp);
         } else {
             // TODO here I should save data entered on the page
-            req.getSession().setAttribute("result", errors);
+            req.setAttribute("result", errors);
             req.getRequestDispatcher("/addmovie.jsp").forward(req, resp);
         }
 

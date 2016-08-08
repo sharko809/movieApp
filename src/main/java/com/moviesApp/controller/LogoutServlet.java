@@ -14,7 +14,7 @@ public class LogoutServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();// TODO not sure if it can be null
+        HttpSession session = req.getSession(false);// TODO not sure if it can be null
         if (session != null) {
             session.removeAttribute("user");// TODO add "false" to getSession()?
             session.invalidate();

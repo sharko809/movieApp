@@ -1,5 +1,6 @@
 package com.moviesApp.controller;
 
+import com.moviesApp.UrlParametersManager;
 import com.moviesApp.entities.User;
 import com.moviesApp.security.PasswordManager;
 import com.moviesApp.service.UserService;
@@ -34,16 +35,26 @@ public class LoginServlet extends HttpServlet {
         UserService userService = new UserService();
         User searchResult = userService.getUserByLogin(userLogin);
 
+        String from = "/home";// TODO think of it. But I prefer let it be default.
+        String redirect = req.getParameter("redirectFrom");
+        if (redirect != null) {
+            if (!redirect.isEmpty()) {
+                from = redirect;
+            }
+        }
+
         if (errors.isEmpty()) {
             if (searchResult == null) {
                 errors.add("No such user");
-                req.getSession().setAttribute("result", errors);
+                req.setAttribute("result", errors);
+//                req.getSession().setAttribute("result", errors);
                 req.getRequestDispatcher("/index.jsp").forward(req, resp);
             } else {
                 if (!searchResult.getLogin().equals(userLogin) |
                         !PasswordManager.getSaltedHashPassword(password).equals(searchResult.getPassword())) {
                     errors.add("Wrong email or password");
-                    req.getSession().setAttribute("result", errors);
+//                    req.getSession().setAttribute("result", errors);
+                    req.setAttribute("result", errors);
                     req.getRequestDispatcher("/index.jsp").forward(req, resp);
                 } else {
                     if (req.getParameter("regPage") != null) {
@@ -56,12 +67,13 @@ public class LoginServlet extends HttpServlet {
                         }
                     } else {
                         req.getSession().setAttribute("user", searchResult);
-//                        resp.sendRedirect(req.getParameter("from"));// TODO this fails. Number 1 priority to refactor
+                        resp.sendRedirect(from);// TODO this fails. Number 1 priority to refactor
                     }
                 }
             }
         } else {
-            req.getSession().setAttribute("result", errors);
+//            req.getSession().setAttribute("result", errors);
+            req.setAttribute("result", errors);
             req.getRequestDispatcher("/index.jsp").forward(req, resp);
         }
 

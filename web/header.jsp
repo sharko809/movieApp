@@ -18,7 +18,9 @@
     <![endif]-->
     <!--[if gt IE 8]><!-->
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/header.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/resources/css/header.css">
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="resources/js/redirect-url.js"></script>
 </head>
 <body>
 <header class="pure-g header fixed z-index">
@@ -29,12 +31,13 @@
                 <c:when test="${user == null}">
                     <div id="login-form" class="pure-u-md-3-8 pure-u-sm-3-8 max-width">
                         <form class="pure-form inline-flex" method="post" action="/login"
-                              onsubmit="setTimeout(function () { window.location.reload(); }, 10)" style="margin: 5px auto 5px auto;">
-                            <input class="pure-input-1-2 input-margin" type="text" name="userLogin" placeholder="E-mail"/><br/>
-                            <input class="pure-input-1-2 input-margin" type="password" name="userPassword" placeholder="Password"/><br/>
-                            <input type="hidden" name="from" value="${pageContext.request.requestURI}"/>
+                              <%--onsubmit="setTimeout(function () { window.location.reload(); }, 10)"--%>
+                              style="margin: 5px auto 5px auto;">
+                            <input class="pure-input-1-2 input-margin" type="text" name="userLogin" placeholder="E-mail" required/><br/>
+                            <input class="pure-input-1-2 input-margin" type="password" name="userPassword" placeholder="Password" required/><br/>
+                            <input type="hidden" id="redirectFrom" name="redirectFrom" value=""/>
                             <input type="image" src="login-32.ico" alt="Submit"/>
-                            <%--<button class="pure-button" type="submit">Post review</button>--%>
+                                <%--<button class="pure-button" type="submit">Post review</button>--%>
                         </form>
                     </div>
                 </c:when>
@@ -42,7 +45,7 @@
                     <div id="user-welcome" class="pure-u-md-3-8 pure-u-sm-3-8 max-width">
                         <p class="menu-text">
                             Logged in as
-                            <a class="menu-text" href="/account?user=${user.id}">
+                            <a class="menu-text" href="/account?id=${user.id}">
                                     ${user.name}.
                             </a>
                         </p>
@@ -60,15 +63,15 @@
             </div>
 
             <div id="movie-list" class="pure-u-md-1-8 pure-u-sm-1-8 max-width" style="text-align: center;">
-                <a class="menu-text" href="/movielist">
+                <a class="menu-text" href="/home">
                     <p>
                         Movie list
                     </p>
                 </a>
             </div>
 
-            <form class="pure-u-md-2-8 pure-u-sm-2-8 float-search">
-                <input class="search-style" placeholder="Search (not yet implemented)">
+            <form class="pure-u-md-2-8 pure-u-sm-2-8 float-search" method="post" action="/search">
+                <input class="search-style" placeholder="Search movie">
             </form>
             <c:if test="${user != null}">
                 <div class="pure-u-md-1-8 pure-u-sm-1-8 logout">

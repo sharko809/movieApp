@@ -12,11 +12,20 @@ public class Movie {
     private String movieName;
     private String director;
     private Date releaseDate;
+    private String posterURL;
     private String trailerURL; // consider this
     private Double rating;
     private String description;
 
     public Movie() {
+    }
+
+    public String getPosterURL() {
+        return posterURL;
+    }
+
+    public void setPosterURL(String posterURL) {
+        this.posterURL = posterURL;
     }
 
     public Long getId() {

@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
     <!--<![endif]-->
     <link rel="stylesheet" type="text/css" href="/resources/css/mainPage.css" rel="stylesheet">
+    <%--<link rel="stylesheet" type="text/css" href="/resources/css/addMovie.css" rel="stylesheet">--%>
 </head>
 <body>
 <jsp:include page="header.jsp"/>
@@ -35,6 +36,7 @@
             </fieldset>
 
             <fieldset class="pure-group">
+                <input name="posterUrl" type="url" class="pure-input-1-2" placeholder="Poster URL"/>
                 <input name="trailerUrl" type="url" class="pure-input-1-2" placeholder="Trailer URL" />
                 <textarea name="description" class="pure-input-1-2" placeholder="Description"></textarea>
             </fieldset>

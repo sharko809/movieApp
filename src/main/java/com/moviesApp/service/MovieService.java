@@ -17,7 +17,7 @@ public class MovieService {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Long addMovie(String movieName, String director, Date releaseDate, String trailerUrl, Double rating, String description) {
+    public Long addMovie(String movieName, String director, Date releaseDate, String posterURL, String trailerUrl, Double rating, String description) {
         if (movieName == null || movieName.trim().equals("")) {
             LOGGER.error("Null or empty movieName during adding new Movie. Movie name: " + movieName);
             return 0L;
@@ -30,7 +30,7 @@ public class MovieService {
         MovieDAO movieDAO = new MovieDAO();
         Long movieID = 0L;
         try {
-            movieID = movieDAO.create(movieName, director, releaseDate, trailerUrl, rating, description);
+            movieID = movieDAO.create(movieName, director, releaseDate, posterURL, trailerUrl, rating, description);
         } catch (SQLException e) {
             e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e);
@@ -57,7 +57,7 @@ public class MovieService {
     public void updateMovie(Movie movie) {
         MovieDAO movieDAO = new MovieDAO();
         try {
-            if (movie.getId() <= 0) {
+            if (movie.getId() <= 0) {// TODO proper validator. Don't validate shit here
                 LOGGER.error("Failed to update movie. Wrong movieID: " + movie.getId());
                 return;
             }

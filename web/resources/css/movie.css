@@ -19,6 +19,21 @@
     border-radius: 4px;
 }
 
+#error-info {
+    border: 1px;
+    border-style: double;
+    border-color: darkgray;
+    border-radius: 4px;
+    text-align: center;
+    margin: 10px auto 10px auto;
+    background-color: #FFCCCC;
+    width: 40%;
+}
+
+.error-paragraph {
+    margin: 5px auto 5px auto;
+}
+
 @media screen and (max-width: 768px) {
 
     #movie-content {
@@ -29,5 +44,11 @@
         width: 100%;
     }
 
+    #error-info {
+        width: 100%;
+    }
+
 }
+
+
 

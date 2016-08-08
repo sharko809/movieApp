@@ -16,20 +16,21 @@ CREATE TABLE USER (
 DROP TABLE IF EXISTS MOVIE;
 
 CREATE TABLE MOVIE (
-  ID           BIGINT       NOT NULL AUTO_INCREMENT,
+  ID          BIGINT       NOT NULL AUTO_INCREMENT,
   moviename   VARCHAR(255) NOT NULL,
-  director     VARCHAR(255),
+  director    VARCHAR(255),
   releasedate DATE,
+  posterurl   VARCHAR(100),
   trailerurl  VARCHAR(100),
-  rating       DOUBLE,
-  description  TEXT,
+  rating      DOUBLE,
+  description TEXT,
   PRIMARY KEY (ID)
 );
 
 DROP TABLE IF EXISTS REVIEW;
 
 CREATE TABLE REVIEW (
-  ID           BIGINT NOT NULL AUTO_INCREMENT,
+  ID          BIGINT NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (ID),
   userID      BIGINT NOT NULL,
   FOREIGN KEY (userID)
@@ -41,7 +42,7 @@ CREATE TABLE REVIEW (
     ON DELETE CASCADE,
   postdate    DATE,
   reviewtitle VARCHAR(100),
-  rating       INT,
+  rating      INT,
   reviewtext  TEXT
 );
 

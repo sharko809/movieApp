@@ -21,7 +21,7 @@
     <!--<![endif]-->
     <link rel="stylesheet" type="text/css" href="/resources/css/mainPage.css" rel="stylesheet">
 </head>
-<body>
+<body class="body-style">
 <jsp:include page="header.jsp"/>
 <div class="padding-top"></div>
 <div class="pure-g">
@@ -32,7 +32,7 @@
                     <div class="pure-u-lg-1-2 pure-u-sm-1 movie-info">
                         <div>
                             <h4 class="inline">Title: </h4>
-                            <a class="remove-underline" href="/movies?movieId=${movie.id}">
+                            <a class="remove-link-style" href="/movies?movieId=${movie.id}">
                                     ${movie.movieName}
                             </a>
                         </div>

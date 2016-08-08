@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/authPage.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/resources/css/authHeader.css" rel="stylesheet">
 </head>
-<body style="background-color:beige">
+<body class="body-style">
 <%--<jsp:include page="header.jsp"/>--%>
 <header class="pure-g header fixed z-index">
     <div class="pure-u-md-4-5 pure-u-sm-7-8 centered inline-flex">
@@ -30,7 +30,7 @@
                 </a>
             </div>
             <div id="movie-list" class="pure-u-md-1-8 pure-u-sm-1-8 max-width" style="text-align: center;">
-                <a class="menu-text" href="/movielist">
+                <a class="menu-text" href="/home">
                     <p>
                         Movie list
                     </p>
@@ -52,11 +52,12 @@
                     <fieldset>
                         <div class="pure-control-group">
                             <label for="userName">E-mail: </label>
-                            <input id="userName" type="text" name="userLogin" placeholder="E-mail"/>
+                            <input id="userName" type="text" name="userLogin" placeholder="E-mail" required/>
                         </div>
                         <div class="pure-control-group">
                             <label for="userPassword">Password: </label>
-                            <input id="userPassword" type="password" name="userPassword" placeholder="Password"/>
+                            <input id="userPassword" type="password" name="userPassword" placeholder="Password"
+                                   required/>
                         </div>
                         <div class="pure-controls">
                             <input class="pure-button" type="submit" value="Login"/>
@@ -70,15 +71,17 @@
                     <fieldset>
                         <div class="pure-control-group">
                             <label for="newUserName">Nickname: </label>
-                            <input id="newUserName" type="text" name="newUserName" placeholder="Name to display"/>
+                            <input id="newUserName" type="text" name="newUserName" placeholder="Name to display"
+                                   required/>
                         </div>
                         <div class="pure-control-group">
                             <label for="newUserLogin">Your email:</label>
-                            <input id="newUserLogin" type="email" name="newUserLogin" placeholder="E-mail"/>
+                            <input id="newUserLogin" type="email" name="newUserLogin" placeholder="E-mail" required/>
                         </div>
                         <div class="pure-control-group">
                             <label for="newUserPassword">Enter password: </label>
-                            <input id="newUserPassword" type="password" name="newUserPassword" placeholder="Password"/>
+                            <input id="newUserPassword" type="password" name="newUserPassword" placeholder="Password"
+                                   required/>
                         </div>
                         <div class="pure-controls">
                             <input class="pure-button" type="submit" value="Register">
@@ -86,6 +89,15 @@
                     </fieldset>
                 </form>
             </div>
+        </div>
+        <div class="pure-u-1">
+            <c:if test="${result.size() >= 1}">
+                <div id="error-info" class="error-info">
+                    <c:forEach items="${result}" var="r">
+                        <p>${r}</p>
+                    </c:forEach>
+                </div>
+            </c:if>
         </div>
         <div class="pure-u-1">
             <div class="info-block">

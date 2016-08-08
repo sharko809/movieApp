@@ -21,21 +21,30 @@
     <!--<![endif]-->
     <link rel="stylesheet" type="text/css" href="/resources/css/mainPage.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/resources/css/movie.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="resources/js/redirect-url.js"></script>
 </head>
-<body>
+<body class="body-style">
 <jsp:include page="header.jsp"/>
 <div class="padding-top"></div>
 <div class="pure-g">
     <div class="pure-u-md-3-4 pure-u-sm-1 centered">
         <div id="movie-content" class="pure-u-1 inline-flex" style="margin-top: 15px; margin-bottom: 10px;">
             <div class="pure-u-md-1-3 pure-u-sm-1" style="margin: 5px;">
-                <img class="pure-img" src="http://screencrush.com/files/2015/11/warcraft-poster-full.jpg"/>
+                <c:choose>
+                    <c:when test="${movie.posterURL != null}">
+                        <img class="pure-img" src="${movie.posterURL}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <img class="pure-img" src="http://i54.fastpic.ru/big/2013/0122/06/ad6165a3db36f5d79f3707c1bb10ab06.jpg"/>
+                    </c:otherwise>
+                </c:choose>
             </div>
             <div class="info-class pure-u-md-2-3 pure-u-sm-1" style="margin: 5px;">
                 <div class="pure-u-1">
                     <div>
                         <h4 class="inline">Title: </h4>
-                        <span class="remove-underline">${movie.movieName}</span>
+                        <span class="remove-link-style">${movie.movieName}</span>
                     </div>
                     <div>
                         <h4 class="inline">Director: </h4>
@@ -64,6 +73,13 @@
 
         <div class="pure-u-1" style="margin: 5px;">
             <div class="review-section">
+                <c:if test="${reviewError.size() >= 1}">
+                    <div id="error-info">
+                        <c:forEach items="${reviewError}" var="error">
+                            <p class="error-paragraph">${error}</p>
+                        </c:forEach>
+                    </div>
+                </c:if>
                 <c:choose>
                     <c:when test="${user == null}">
                         <div class="pure-u-md-1 pure-u-sm-1">
@@ -73,10 +89,13 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <form class="pure-form" method="post" action="/postreview" onsubmit="setTimeout(function () { window.location.reload(); }, 10)">
+                        <form class="pure-form" method="post" action="/postreview"
+                            <%--onsubmit="setTimeout(function () { window.location.reload(); }, 10)"--%>
+                        >
                             <div class="pure-u-1 inline-flex">
                                 <div class="pure-u-6-8 max-width" style="margin-top: 7px;">
-                                    <input class="max-width" type="text" name="reviewTitle" placeholder="Review title. You can SHORTLY describe your impression."/>
+                                    <input class="max-width" type="text" name="reviewTitle"
+                                           placeholder="Review title. You can SHORTLY describe your impression."/>
                                 </div>
                                 <div class="pure-u-1-8">
                                     <div class="center-text">
@@ -101,19 +120,16 @@
                                 </div>
                             </div>
                             <div class="pure-u-1" style="height: 200px; margin-bottom: 5px;">
-                                <textarea style="height: 100%;" class="max-width" name="reviewText" placeholder="Your review"></textarea>
+                                <textarea style="height: 100%;" class="max-width" name="reviewText"
+                                          placeholder="Your review"></textarea>
                                 <input type="hidden" name="movieID" value="${movie.id}"/>
-                                <input type="hidden" name="from_" value="${pageContext.request.requestURI}"/>
-                                <input type="hidden" name="from" value="${pageContext.request.queryString}"/>
+                                    <%--<input type="hidden" name="from" value="${pageContext.request.requestURI}"/>--%>
+                                    <%--<input type="hidden" name="query" value="${pageContext.request.queryString}"/>--%>
+                                <input type="hidden" id="redirectFrom" name="redirectFrom" value=""/>
                             </div>
                             <div class="pure-u-1 inline-flex">
                                 <div>
                                     <button id="submitReview" class="pure-button" type="submit">Post review</button>
-                                </div>
-                                <div style="margin-left: 5px;">
-                                    <c:forEach items="${reviewError}" var="error">
-                                        ${error}<br/>
-                                    </c:forEach>
                                 </div>
                             </div>
                         </form>

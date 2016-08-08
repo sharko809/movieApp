@@ -38,7 +38,7 @@
 
     <servlet>
         <servlet-name>MainPageServlet</servlet-name>
-        <servlet-class>com.moviesApp.controller.MainPageServlet</servlet-class>
+        <servlet-class>com.moviesApp.controller.HomePageServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MainPageServlet</servlet-name>
@@ -106,6 +106,15 @@
     <servlet-mapping>
         <servlet-name>PostReview</servlet-name>
         <url-pattern>/postreview</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>TopRated</servlet-name>
+        <servlet-class>com.moviesApp.controller.TopRatedServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TopRated</servlet-name>
+        <url-pattern>/toprated</url-pattern>
     </servlet-mapping>
     
     <servlet>

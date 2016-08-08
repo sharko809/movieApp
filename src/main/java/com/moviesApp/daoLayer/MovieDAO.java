@@ -13,25 +13,27 @@ public class MovieDAO {
 
     private static final String SQL_GET_ALL_MOVIES = "SELECT * FROM MOVIE";
     private static final String SQL_GET_MOVIE_BY_ID = "SELECT * FROM MOVIE WHERE ID = ?";
-    private static final String SQL_ADD_MOVIE = "INSERT INTO MOVIE (moviename, director, releasedate, trailerurl, rating, description) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String SQL_ADD_MOVIE = "INSERT INTO MOVIE (moviename, director, releasedate, posterurl, trailerurl, rating, description) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE_MOVIE = "UPDATE MOVIE SET " +
             "moviename = ?, " +
             "director = ?, " +
             "releasedate = ?, " +
+            "posterurl = ?, " +
             "trailerurl = ?, " +
             "rating = ?, " +
             "description = ? WHERE ID = ?";
     private static final String SQL_DELETE_MOVIE = "DELETE FROM MOVIE WHERE ID = ?";
 
-    public Long create(String movieName, String director, Date releaseDate, String trailerUrl, Double rating, String description) throws SQLException {
+    public Long create(String movieName, String director, Date releaseDate, String posterURL, String trailerUrl, Double rating, String description) throws SQLException {
         Connection connection = ConnectionManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_ADD_MOVIE, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, movieName);
         statement.setString(2, director);
-        statement.setDate(3, releaseDate);
-        statement.setString(4, trailerUrl);
-        statement.setDouble(5, rating);
-        statement.setString(6, description);
+        statement.setDate  (3, releaseDate);
+        statement.setString(4, posterURL);
+        statement.setString(5, trailerUrl);
+        statement.setDouble(6, rating);
+        statement.setString(7, description);
         statement.executeUpdate();
         ResultSet resultSet = statement.getGeneratedKeys();
         Long movieID = 0L;
@@ -55,6 +57,7 @@ public class MovieDAO {
             movie.setMovieName(resultSet.getString("moviename"));
             movie.setDirector(resultSet.getString("director"));
             movie.setReleaseDate(resultSet.getDate("releasedate"));
+            movie.setPosterURL(resultSet.getString("posterurl"));
             movie.setTrailerURL(resultSet.getString("trailerurl"));
             movie.setRating(resultSet.getDouble("rating"));
             movie.setDescription(resultSet.getString("description"));
@@ -73,10 +76,11 @@ public class MovieDAO {
         statement.setString(1, movie.getMovieName());
         statement.setString(2, movie.getDirector());
         statement.setDate  (3, movie.getReleaseDate());
-        statement.setString(4, movie.getTrailerURL());
-        statement.setDouble(5, movie.getRating());
-        statement.setString(6, movie.getDescription());
-        statement.setLong  (7, movie.getId());
+        statement.setString(4, movie.getPosterURL());
+        statement.setString(5, movie.getTrailerURL());
+        statement.setDouble(6, movie.getRating());
+        statement.setString(7, movie.getDescription());
+        statement.setLong  (8, movie.getId());
         statement.executeUpdate();
 
         statement.close();
@@ -109,6 +113,7 @@ public class MovieDAO {
             movie.setMovieName(resultSet.getString("moviename"));
             movie.setDirector(resultSet.getString("director"));
             movie.setReleaseDate(resultSet.getDate("releasedate"));
+            movie.setPosterURL(resultSet.getString("posterurl"));
             movie.setTrailerURL(resultSet.getString("trailerurl"));
             movie.setRating(resultSet.getDouble("rating"));
             movie.setDescription(resultSet.getString("description"));

@@ -25,11 +25,13 @@
 <jsp:include page="header.jsp"/>
 <div class="padding-top"></div>
 <div class="pure-g">
-    <div class="pure-u">
-        <a href="/admin/addmovie">Add movie</a>
-    </div>
-    <div class="pure-u">
-        <a href="/admin/movielist">Movies list</a>
+    <div class="pure-u-3-4 pure-sm-1 centered">
+        <div class="pure-u-1">
+            <div class="pure-u">
+                <button class="pure-button" onclick="document.location.href='/admin/addmovie'">Add movie</button>
+                <%--<a href="/admin/addmovie">Add movie</a>--%>
+            </div>
+        </div>
     </div>
 </div>
 </body>

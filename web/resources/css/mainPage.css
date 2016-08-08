@@ -63,10 +63,43 @@
     position: fixed;
 }
 
-.remove-underline {
+.remove-link-style {
+    color:#333;
+    text-decoration: none;
+}
+
+.remove-link-style:link {
+    color:#333;
+    text-decoration: none;
+}
+
+.remove-link-style:visited {
+    color:#333;
+    text-decoration: none;
+}
+
+.remove-link-style:hover {
+    color:#333;
+    text-decoration: none;
+}
+
+.remove-link-style:active {
+    color:#333;
     text-decoration: none;
 }
 
 .center-text {
     text-align: center;
 }
+
+.body-style {
+    background-color: beige;
+    /*background-color: #e3e2dd;*/
+    font-family: Verdana, Arial, sans-serif;
+    color: #333;
+    font-size: 16px;
+}
+
+/*.input[type="text"], textarea {*/
+    /*background-color: #efefd6 !important;*/
+/*}*/

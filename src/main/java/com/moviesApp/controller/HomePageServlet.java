@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by dsharko on 7/28/2016.
  */
-public class MainPageServlet extends HttpServlet {
+public class HomePageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

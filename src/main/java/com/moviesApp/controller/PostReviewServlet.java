@@ -1,7 +1,10 @@
 package com.moviesApp.controller;
 
+import com.moviesApp.UrlParametersManager;
+import com.moviesApp.entities.Movie;
 import com.moviesApp.entities.Review;
 import com.moviesApp.entities.User;
+import com.moviesApp.service.MovieService;
 import com.moviesApp.service.ReviewService;
 import com.moviesApp.validation.ReviewValidator;
 import com.moviesApp.validation.Validator;
@@ -41,27 +44,44 @@ public class PostReviewServlet extends HttpServlet {
         Validator validator = new ReviewValidator();
         List<String> errors = validator.validate(review);
 
+//        String from = UrlParametersManager.makeURL(req.getParameter("from"), req.getParameter("query"));
+        String from = "/home";// TODO think of it. But I prefer let it be default.
+        String redirect = req.getParameter("redirectFrom");
+        if (redirect != null) {
+            if (!redirect.isEmpty()) {
+                from = redirect;
+            }
+        }
+
         if (errors.isEmpty()) {
             ReviewService reviewService = new ReviewService();
             reviewService.createReview(userId, movieId, postDate, reviewTitle, userRating, reviewText);
+            updateMovieRating(review.getMovieId(), review.getRating());
             req.getSession().removeAttribute("reviewError");
-//            req.setAttribute("reviewError", errors);
-//            resp.sendRedirect(req.getParameter("from"));
-//            req.getRequestDispatcher(req.getParameter("from")).forward(req, resp);
-//            System.out.println(req.getRequestURL() + req.getQueryString());
-//            resp.setHeader("Refresh", "0; URL=http://your-current-page");
-//            resp.sendRedirect(req.getParameter("from"));
-//            req.getRequestDispatcher(req.getContextPath()+req.getParameter("from")).forward(req, resp);
-//            String[] str = req.getParameter("from_").split("\\.");// TODO I'll fix this shit later
-//            System.out.println(req.getContextPath() + str[0] + "s?" + req.getParameter("from"));
-//            resp.sendRedirect(req.getContextPath() + str[0] + "s?" + req.getParameter("from"));
+            resp.sendRedirect(from);
         } else {
+//            req.getSession().setAttribute("reviewError", errors);
             req.getSession().setAttribute("reviewError", errors);
-            req.getRequestDispatcher("/movie.jsp").forward(req, resp);
+//            req.getRequestDispatcher("/movie.jsp").forward(req, resp);
+            resp.sendRedirect(from);
         }
+    }
 
+    private void updateMovieRating(Long movieID, Integer rating) {
+        MovieService movieService = new MovieService();
+        Movie movieToUpdate = movieService.getMovieByID(movieID);
 
-
+        if (movieToUpdate != null) {
+            Double oldRating = movieToUpdate.getRating();
+            Double newRating;
+            if (oldRating == 0.0) {
+                newRating = Double.valueOf(rating);
+            } else {
+                newRating = (oldRating + rating) / 2;
+            }
+            movieToUpdate.setRating(newRating);
+            movieService.updateMovie(movieToUpdate);
+        }
 
     }
 }
