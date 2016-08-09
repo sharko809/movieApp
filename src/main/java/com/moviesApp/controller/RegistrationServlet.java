@@ -45,23 +45,17 @@ public class RegistrationServlet extends HttpServlet {
             if (userService.getUserByLogin(userLogin) == null) {
                 String encodedPassword = PasswordManager.getSaltedHashPassword(password);
                 Long userId = userService.createUser(userName, userLogin, encodedPassword, user.getAdmin());
-                if (userId == 0) {// TODO not sure if necessary
-                    errors.add("User is not created. And I have no idea why.");
-                }
-                if (errors.isEmpty()) {
-//                    req.getSession().setAttribute("result", "User " + userName + " successfully created.");
-                    req.setAttribute("result", "User " + userName + " successfully created.");
-                    req.getRequestDispatcher("/index.jsp").forward(req, resp);
-                }
+                req.setAttribute("result", "User " + userName + " successfully created.");
+                req.getRequestDispatcher("/index.jsp").forward(req, resp);
             } else {
                 errors.add("User with such login already exists");
-//                req.getSession().setAttribute("result", errors);
                 req.setAttribute("result", errors);
+                req.setAttribute("regUser", user);
                 req.getRequestDispatcher("/index.jsp").forward(req, resp);
             }
         } else {
-//            req.getSession().setAttribute("result", errors);
             req.setAttribute("result", errors);
+            req.setAttribute("regUser", user);
             req.getRequestDispatcher("/index.jsp").forward(req, resp);
         }
 

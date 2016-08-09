@@ -16,6 +16,8 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/mainPage.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/resources/css/authPage.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/resources/css/authHeader.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="resources/js/reset-variables.js" type="text/javascript"></script>
 </head>
 <body class="body-style">
 <%--<jsp:include page="header.jsp"/>--%>
@@ -63,6 +65,11 @@
                             <input class="pure-button" type="submit" value="Login"/>
                         </div>
                         <input type="hidden" name="regPage" value="regPage"/>
+                        <c:if test="${logUser.login.length() > 1}">
+                            <script type="text/javascript">
+                                setLoginInputs('${logUser.login}');
+                            </script>
+                        </c:if>
                     </fieldset>
                 </form>
             </div>
@@ -87,6 +94,11 @@
                             <input class="pure-button" type="submit" value="Register">
                         </div>
                     </fieldset>
+                    <c:if test="${regUser.name.length() > 1}">
+                        <script type="text/javascript">
+                            setRegistrationInputs('${regUser.name}', '${regUser.login}');
+                        </script>
+                    </c:if>
                 </form>
             </div>
         </div>

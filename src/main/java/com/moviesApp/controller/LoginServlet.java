@@ -47,14 +47,14 @@ public class LoginServlet extends HttpServlet {
             if (searchResult == null) {
                 errors.add("No such user");
                 req.setAttribute("result", errors);
-//                req.getSession().setAttribute("result", errors);
+                req.setAttribute("logUser", user);
                 req.getRequestDispatcher("/index.jsp").forward(req, resp);
             } else {
                 if (!searchResult.getLogin().equals(userLogin) |
                         !PasswordManager.getSaltedHashPassword(password).equals(searchResult.getPassword())) {
                     errors.add("Wrong email or password");
-//                    req.getSession().setAttribute("result", errors);
                     req.setAttribute("result", errors);
+                    req.setAttribute("logUser", user);
                     req.getRequestDispatcher("/index.jsp").forward(req, resp);
                 } else {
                     if (req.getParameter("regPage") != null) {
@@ -67,13 +67,13 @@ public class LoginServlet extends HttpServlet {
                         }
                     } else {
                         req.getSession().setAttribute("user", searchResult);
-                        resp.sendRedirect(from);// TODO this fails. Number 1 priority to refactor
+                        resp.sendRedirect(from);
                     }
                 }
             }
         } else {
-//            req.getSession().setAttribute("result", errors);
             req.setAttribute("result", errors);
+            req.setAttribute("logUser", user);
             req.getRequestDispatcher("/index.jsp").forward(req, resp);
         }
 
