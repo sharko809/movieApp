@@ -70,17 +70,25 @@ public class PostReviewServlet extends HttpServlet {
         MovieService movieService = new MovieService();
         Movie movieToUpdate = movieService.getMovieByID(movieID);
 
-        if (movieToUpdate != null) {
-            Double oldRating = movieToUpdate.getRating();
-            Double newRating;
-            if (oldRating == 0.0) {
-                newRating = Double.valueOf(rating);
-            } else {
-                newRating = (oldRating + rating) / 2;
+        ReviewService reviewService = new ReviewService();
+        List<Review> reviews = reviewService.getReviewsByMovieId(movieID);
+
+        if (!reviews.isEmpty()) {
+            if (movieToUpdate != null) {
+                Double totalRating = 0D;
+                for (Review review : reviews) {
+                    totalRating += review.getRating();
+                }
+                Double newRating = (totalRating + rating) / (reviews.size() + 1);
+                movieToUpdate.setRating(newRating);
+                movieService.updateMovie(movieToUpdate);
             }
-            movieToUpdate.setRating(newRating);
+        } else {
+            movieToUpdate.setRating(Double.valueOf(rating));
             movieService.updateMovie(movieToUpdate);
         }
+
+
 
     }
 }

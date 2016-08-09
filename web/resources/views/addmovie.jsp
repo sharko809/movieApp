@@ -38,7 +38,7 @@
             <a class="pure-menu-heading" href="/admin">Admin tools</a>
 
             <ul class="pure-menu-list">
-                <li class="menu-item"><a href="/admin/addmovie" class="pure-menu-link">Add moive</a></li>
+                <li class="menu-item"><a href="/admin/addmovie" class="pure-menu-link">Add movie</a></li>
                 <li class="menu-item"><a href="/admin/managemovies" class="pure-menu-link">Manage movies</a></li>
             </ul>
         </div>

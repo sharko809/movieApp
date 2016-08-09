@@ -133,6 +133,24 @@
         <servlet-name>Search</servlet-name>
         <url-pattern>/search</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminMovies</servlet-name>
+        <servlet-class>com.moviesApp.controller.AdminMoviesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminMovies</servlet-name>
+        <url-pattern>/admin/managemovies</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RatingServlet</servlet-name>
+        <servlet-class>com.moviesApp.controller.RatingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RatingServlet</servlet-name>
+        <url-pattern>/admin/updrating</url-pattern>
+    </servlet-mapping>
     
     <servlet>
         <servlet-name>ErrorServlet</servlet-name>

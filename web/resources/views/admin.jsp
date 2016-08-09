@@ -37,13 +37,12 @@
             <a class="pure-menu-heading" href="/admin">Admin tools</a>
 
             <ul class="pure-menu-list">
-                <li class="menu-item"><a href="/admin/addmovie" class="pure-menu-link">Add moive</a></li>
+                <li class="menu-item"><a href="/admin/addmovie" class="pure-menu-link">Add movie</a></li>
                 <li class="menu-item"><a href="/admin/managemovies" class="pure-menu-link">Manage movies</a></li>
             </ul>
         </div>
     </div>
 </div>
-<%--<jsp:include page="adminmenu.jsp"/>--%>
 <div class="pure-g">
     <div class="pure-u-3-4 pure-sm-1 centered">
         <div class="pure-u-1">
