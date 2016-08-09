@@ -18,7 +18,7 @@
     <![endif]-->
     <!--[if gt IE 8]><!-->
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/header.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/header.css">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="resources/js/redirect-url.js" type="text/javascript"></script>
 </head>

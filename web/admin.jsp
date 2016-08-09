@@ -19,7 +19,7 @@
     <!--[if gt IE 8]><!-->
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
     <!--<![endif]-->
-    <link rel="stylesheet" type="text/css" href="/resources/css/mainPage.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="resources/css/mainPage.css">
 </head>
 <body>
 <jsp:include page="header.jsp"/>
@@ -29,7 +29,6 @@
         <div class="pure-u-1">
             <div class="pure-u">
                 <button class="pure-button" onclick="document.location.href='/admin/addmovie'">Add movie</button>
-                <%--<a href="/admin/addmovie">Add movie</a>--%>
             </div>
         </div>
     </div>

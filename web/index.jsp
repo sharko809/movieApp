@@ -13,9 +13,9 @@
     <!--[if gt IE 8]><!-->
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
     <!--<![endif]-->
-    <link rel="stylesheet" type="text/css" href="/resources/css/mainPage.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/resources/css/authPage.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/resources/css/authHeader.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="resources/css/mainPage.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/authPage.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/authHeader.css">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="resources/js/reset-variables.js" type="text/javascript"></script>
 </head>

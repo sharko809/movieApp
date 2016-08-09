@@ -19,7 +19,7 @@
     <!--[if gt IE 8]><!-->
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
     <!--<![endif]-->
-    <link rel="stylesheet" type="text/css" href="/resources/css/mainPage.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/mainPage.css">
 </head>
 <body class="body-style">
 <jsp:include page="header.jsp"/>

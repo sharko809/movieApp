@@ -19,8 +19,8 @@
     <!--[if gt IE 8]><!-->
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
     <!--<![endif]-->
-    <link rel="stylesheet" type="text/css" href="/resources/css/mainPage.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/resources/css/movie.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="resources/css/mainPage.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/movie.css">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="resources/js/redirect-url.js"></script>
 </head>
@@ -36,7 +36,8 @@
                         <img class="pure-img" src="${movie.posterURL}"/>
                     </c:when>
                     <c:otherwise>
-                        <img class="pure-img" src="http://i54.fastpic.ru/big/2013/0122/06/ad6165a3db36f5d79f3707c1bb10ab06.jpg"/>
+                        <img class="pure-img"
+                             src="http://i54.fastpic.ru/big/2013/0122/06/ad6165a3db36f5d79f3707c1bb10ab06.jpg"/>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -89,9 +90,7 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <form class="pure-form" method="post" action="/postreview"
-                            <%--onsubmit="setTimeout(function () { window.location.reload(); }, 10)"--%>
-                        >
+                        <form class="pure-form" method="post" action="/postreview">
                             <div class="pure-u-1 inline-flex">
                                 <div class="pure-u-6-8 max-width" style="margin-top: 7px;">
                                     <input class="max-width" type="text" name="reviewTitle"
@@ -120,11 +119,8 @@
                                 </div>
                             </div>
                             <div class="pure-u-1" style="height: 200px; margin-bottom: 5px;">
-                                <textarea style="height: 100%;" class="max-width" name="reviewText"
-                                          placeholder="Your review"></textarea>
+                                <textarea style="height: 100%;" class="max-width" name="reviewText" placeholder="Your review"></textarea>
                                 <input type="hidden" name="movieID" value="${movie.id}"/>
-                                    <%--<input type="hidden" name="from" value="${pageContext.request.requestURI}"/>--%>
-                                    <%--<input type="hidden" name="query" value="${pageContext.request.queryString}"/>--%>
                                 <input type="hidden" id="redirectFrom" name="redirectFrom" value=""/>
                             </div>
                             <div class="pure-u-1 inline-flex">

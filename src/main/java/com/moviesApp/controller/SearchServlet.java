@@ -29,10 +29,7 @@ public class SearchServlet extends HttpServlet {
                 if (!movies.isEmpty()) {
                     movies.stream()
                             .filter(m -> m.getMovieName().toLowerCase().contains(search.toLowerCase()))
-                            .forEach(m -> {
-                                System.out.println(m.getMovieName());
-                                result.add(m);
-                            });
+                            .forEach(result::add);
                 }
             }
         }
