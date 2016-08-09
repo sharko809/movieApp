@@ -28,6 +28,6 @@ public class TopRatedServlet extends HttpServlet {
         sorted.addAll(movies);
 
         req.setAttribute("movies", sorted);
-        req.getRequestDispatcher("/home.jsp").forward(req, resp);
+        req.getRequestDispatcher("/resources/views/home.jsp").forward(req, resp);
     }
 }

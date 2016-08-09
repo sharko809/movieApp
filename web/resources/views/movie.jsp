@@ -37,7 +37,7 @@
                     </c:when>
                     <c:otherwise>
                         <img class="pure-img"
-                             src="http://i54.fastpic.ru/big/2013/0122/06/ad6165a3db36f5d79f3707c1bb10ab06.jpg"/>
+                             src="resources/images/no-poster-available.png"/>
                     </c:otherwise>
                 </c:choose>
             </div>

@@ -55,7 +55,7 @@ public class MovieServlet extends HttpServlet {
             req.getSession().setAttribute("movie", movie);
             req.getSession().setAttribute("users", users);
             req.getSession().setAttribute("reviews", reviews);
-            req.getRequestDispatcher("/movie.jsp").forward(req, resp);
+            req.getRequestDispatcher("/resources/views/movie.jsp").forward(req, resp);
 
         }
 

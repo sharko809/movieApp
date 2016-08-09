@@ -20,7 +20,6 @@
     <script src="resources/js/reset-variables.js" type="text/javascript"></script>
 </head>
 <body class="body-style">
-<%--<jsp:include page="header.jsp"/>--%>
 <header class="pure-g header fixed z-index">
     <div class="pure-u-md-4-5 pure-u-sm-7-8 centered inline-flex">
         <div class="pure-u-1 inline-flex">

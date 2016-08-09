@@ -21,6 +21,6 @@ public class ErrorServlet extends HttpServlet {
         errorDetails.add("Requested URL: " + req.getRequestURL());
         errorDetails.add("Reason: " + req.getSession().getAttribute("errorDetails"));
         req.setAttribute("errorDetails", errorDetails);
-        req.getRequestDispatcher("/error.jsp").forward(req, resp);
+        req.getRequestDispatcher("/resources/views/error.jsp").forward(req, resp);
     }
 }

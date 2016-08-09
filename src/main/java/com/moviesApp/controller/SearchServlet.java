@@ -35,7 +35,7 @@ public class SearchServlet extends HttpServlet {
         }
 
         req.setAttribute("movies", result);
-        req.getRequestDispatcher("/searchresult.jsp").forward(req, resp);
+        req.getRequestDispatcher("/resources/views/searchresult.jsp").forward(req, resp);
 
     }
 }

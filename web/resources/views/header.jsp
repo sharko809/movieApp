@@ -31,26 +31,38 @@
                 <c:when test="${user == null}">
                     <div id="login-form" class="pure-u-md-3-8 pure-u-sm-3-8 max-width">
                         <form class="pure-form inline-flex" method="post" action="/login"
-                            <%--onsubmit="setTimeout(function () { window.location.reload(); }, 10)"--%>
                               style="margin: 5px auto 5px auto;">
                             <input class="pure-input-1-2 input-margin" type="text" name="userLogin" placeholder="E-mail"
                                    required/><br/>
                             <input class="pure-input-1-2 input-margin" type="password" name="userPassword"
                                    placeholder="Password" required/><br/>
                             <input type="hidden" id="redirectFrom" name="redirectFrom" value=""/>
-                            <input type="image" src="login-32.ico" alt="Submit"/>
-                                <%--<button class="pure-button" type="submit">Post review</button>--%>
+                            <input type="image" src="resources/icons/login-32.ico" alt="Submit"/>
                         </form>
                     </div>
                 </c:when>
                 <c:otherwise>
                     <div id="user-welcome" class="pure-u-md-3-8 pure-u-sm-3-8 max-width">
-                        <p class="menu-text">
-                            Logged in as
-                            <a class="menu-text" href="/account?id=${user.id}">
-                                    ${user.name}.
-                            </a>
-                        </p>
+                        <div class="pure-u-1 inline-flex">
+                            <p class="pure-u-1-2 menu-text">
+                                Logged in as
+                                <a id="loggedInName" class="menu-text" href="/account?id=${user.id}">
+                                    <c:if test="${user.getAdmin()}">
+                                        <script type="text/javascript">
+                                            document.getElementById('loggedInName').style.color = '#FFCCCC';
+                                        </script>
+                                    </c:if>
+                                        ${user.name}.
+                                </a>
+                            </p>
+                            <c:if test="${user.getAdmin()}">
+                                <a class="pure-u-1-2 menu-text" href="/admin" style="text-align: center;">
+                                    <p>
+                                        Admin panel
+                                    </p>
+                                </a>
+                            </c:if>
+                        </div>
                     </div>
                 </c:otherwise>
             </c:choose>
@@ -78,7 +90,7 @@
             <c:if test="${user != null}">
                 <div class="pure-u-md-1-8 pure-u-sm-1-8 logout">
                     <form method="post" action="/logout">
-                        <input title="Logout" type="image" src="logout-32.ico" alt="Submit"/>
+                        <input title="Logout" type="image" src="resources/icons/logout-32.ico" alt="Submit"/>
                     </form>
                 </div>
             </c:if>

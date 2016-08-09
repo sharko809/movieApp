@@ -22,7 +22,7 @@ public class NewMovieServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getSession().setAttribute("result", null);
-        req.getRequestDispatcher("/addmovie.jsp").forward(req, resp);
+        req.getRequestDispatcher("/resources/views/addmovie.jsp").forward(req, resp);
     }
 
     @Override
@@ -55,11 +55,11 @@ public class NewMovieServlet extends HttpServlet {
             MovieService movieService = new MovieService();
             movieService.addMovie(movie.getMovieName(), movie.getDirector(), movie.getReleaseDate(), movie.getPosterURL(), movie.getTrailerURL(), 0D, movie.getDescription());
             req.setAttribute("result", "Movie " + title + " added successfully.");
-            req.getRequestDispatcher("/addmovie.jsp").forward(req, resp);
+            req.getRequestDispatcher("/resources/views/addmovie.jsp").forward(req, resp);
         } else {
             // TODO here I should save data entered on the page
             req.setAttribute("result", errors);
-            req.getRequestDispatcher("/addmovie.jsp").forward(req, resp);
+            req.getRequestDispatcher("/resources/views/addmovie.jsp").forward(req, resp);
         }
 
 

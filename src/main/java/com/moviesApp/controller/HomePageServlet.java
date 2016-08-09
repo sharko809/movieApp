@@ -20,7 +20,7 @@ public class HomePageServlet extends HttpServlet {
         MovieService movieService = new MovieService();
         List<Movie> movies = movieService.getAllMovies();
         req.setAttribute("movies", movies);
-        req.getRequestDispatcher("/home.jsp").forward(req, resp);
+        req.getRequestDispatcher("/resources/views/home.jsp").forward(req, resp);
 
     }
 

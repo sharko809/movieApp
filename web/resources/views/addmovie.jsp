@@ -32,7 +32,6 @@
                 <input name="title" type="text" class="pure-input-1-2" placeholder="Title" />
                 <input name="director" type="text" class="pure-input-1-2" placeholder="Director" />
                 <input name="releaseDate" type="date" class="pure-input-1-2" placeholder="Release date" />
-
             </fieldset>
 
             <fieldset class="pure-group">
