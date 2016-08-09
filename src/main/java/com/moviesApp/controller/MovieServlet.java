@@ -49,12 +49,12 @@ public class MovieServlet extends HttpServlet {
         }
 
         if (movie == null) {
-            req.getSession().setAttribute("errorDetails", "Something wrong has happened and movie can't be found :(");
+            req.setAttribute("errorDetails", "Something wrong has happened and movie can't be found :(");
             resp.sendRedirect(req.getContextPath() + "/error");
         } else {
-            req.getSession().setAttribute("movie", movie);
-            req.getSession().setAttribute("users", users);
-            req.getSession().setAttribute("reviews", reviews);
+            req.setAttribute("movie", movie);
+            req.setAttribute("users", users);
+            req.setAttribute("reviews", reviews);
             req.getRequestDispatcher("/resources/views/movie.jsp").forward(req, resp);
 
         }
