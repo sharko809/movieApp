@@ -16,11 +16,11 @@
     <link rel="stylesheet" type="text/css" href="resources/css/mainPage.css">
     <link rel="stylesheet" type="text/css" href="resources/css/authPage.css">
     <link rel="stylesheet" type="text/css" href="resources/css/authHeader.css">
-    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="resources/js/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="resources/js/reset-variables.js" type="text/javascript"></script>
 </head>
 <body class="body-style">
-<header class="pure-g header fixed z-index">
+<header class="pure-g header-menu fixed z-index">
     <div class="pure-u-md-4-5 pure-u-sm-7-8 centered inline-flex">
         <div class="pure-u-1 inline-flex">
             <div id="top-rated" class="pure-u-md-1-8 pure-u-sm-1-8 max-width" style="text-align: center;">

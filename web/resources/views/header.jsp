@@ -10,20 +10,21 @@
 <html>
 <head>
     <title>Header</title>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/base-min.css">
+    <link rel="stylesheet" href="/resources/css/pure/pure-min.css">
+    <link rel="stylesheet" href="/resources/css/pure/base-min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+    <link rel="stylesheet" href="/resources/css/pure/grids-responsive-old-ie-min.css">
     <![endif]-->
     <!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
-    <link rel="stylesheet" type="text/css" href="resources/css/header.css">
-    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="resources/js/redirect-url.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/resources/css/pure/grids-responsive-min.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/header.css">
+    <script src="/resources/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="/resources/js/redirect-url.js" type="text/javascript"></script>
+    <script src="/resources/js/header.js" type="text/javascript"></script>
 </head>
 <body>
-<header class="pure-g header fixed z-index">
+<header class="pure-g header-menu fixed z-index">
     <div class="pure-u-md-4-5 pure-u-sm-1 centered inline-flex">
         <div class="pure-u-1 inline-flex">
 
@@ -37,7 +38,7 @@
                             <input class="pure-input-1-2 input-margin" type="password" name="userPassword"
                                    placeholder="Password" required/><br/>
                             <input type="hidden" id="redirectFrom" name="redirectFrom" value=""/>
-                            <input type="image" src="resources/icons/login-32.ico" alt="Submit"/>
+                            <input type="image" src="/resources/icons/login-32.ico" alt="Submit"/>
                         </form>
                     </div>
                 </c:when>
@@ -49,7 +50,7 @@
                                 <a id="loggedInName" class="menu-text" href="/account?id=${user.id}">
                                     <c:if test="${user.getAdmin()}">
                                         <script type="text/javascript">
-                                            document.getElementById('loggedInName').style.color = '#FFCCCC';
+                                            setAdminColor();
                                         </script>
                                     </c:if>
                                         ${user.name}.
@@ -66,7 +67,6 @@
                     </div>
                 </c:otherwise>
             </c:choose>
-
 
             <div id="top-rated" class="pure-u-md-1-8 pure-u-sm-1-8 max-width" style="text-align: center;">
                 <a class="menu-text" href="/toprated">
@@ -90,7 +90,7 @@
             <c:if test="${user != null}">
                 <div class="pure-u-md-1-8 pure-u-sm-1-8 logout">
                     <form method="post" action="/logout">
-                        <input title="Logout" type="image" src="resources/icons/logout-32.ico" alt="Submit"/>
+                        <input title="Logout" type="image" src="/resources/icons/logout-32.ico" alt="Submit"/>
                     </form>
                 </div>
             </c:if>

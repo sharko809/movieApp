@@ -44,7 +44,6 @@ public class PostReviewServlet extends HttpServlet {
         Validator validator = new ReviewValidator();
         List<String> errors = validator.validate(review);
 
-//        String from = UrlParametersManager.makeURL(req.getParameter("from"), req.getParameter("query"));
         String from = "/home";// TODO think of it. But I prefer let it be default.
         String redirect = req.getParameter("redirectFrom");
         if (redirect != null) {
@@ -58,11 +57,11 @@ public class PostReviewServlet extends HttpServlet {
             reviewService.createReview(userId, movieId, postDate, reviewTitle, userRating, reviewText);
             updateMovieRating(review.getMovieId(), review.getRating());
             req.getSession().removeAttribute("reviewError");
+            req.getSession().removeAttribute("review");
             resp.sendRedirect(from);
         } else {
-//            req.getSession().setAttribute("reviewError", errors);
             req.getSession().setAttribute("reviewError", errors);
-//            req.getRequestDispatcher("/movie.jsp").forward(req, resp);
+            req.getSession().setAttribute("review" ,review);
             resp.sendRedirect(from);
         }
     }

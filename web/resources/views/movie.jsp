@@ -10,19 +10,20 @@
 <html>
 <head>
     <title>${movie.movieName}</title>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/base-min.css">
+    <link rel="stylesheet" href="/resources/css/pure/pure-min.css">
+    <link rel="stylesheet" href="/resources/css/pure/base-min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+    <link rel="stylesheet" href="/resources/css/pure/grids-responsive-old-ie-min.css">
     <![endif]-->
     <!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+    <link rel="stylesheet" href="/resources/css/pure/grids-responsive-min.css">
     <!--<![endif]-->
-    <link rel="stylesheet" type="text/css" href="resources/css/mainPage.css">
-    <link rel="stylesheet" type="text/css" href="resources/css/movie.css">
-    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="resources/js/redirect-url.js"></script>
+    <link rel="stylesheet" type="text/css" href="/resources/css/mainPage.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/movie.css">
+    <script src="/resources/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="/resources/js/redirect-url.js"></script>
+    <script src="/resources/js/reset-variables.js"></script>
 </head>
 <body class="body-style">
 <jsp:include page="header.jsp"/>
@@ -36,8 +37,7 @@
                         <img class="pure-img" src="${movie.posterURL}"/>
                     </c:when>
                     <c:otherwise>
-                        <img class="pure-img"
-                             src="resources/images/no-poster-available.png"/>
+                        <img class="pure-img" src="/resources/images/no-poster-available.png"/>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -93,8 +93,7 @@
                         <form class="pure-form" method="post" action="/postreview">
                             <div class="pure-u-1 inline-flex">
                                 <div class="pure-u-6-8 max-width" style="margin-top: 7px;">
-                                    <input class="max-width" type="text" name="reviewTitle"
-                                           placeholder="Review title. You can SHORTLY describe your impression."/>
+                                    <input id="reviewTitle" class="max-width" type="text" name="reviewTitle" placeholder="Review title. You can SHORTLY describe your impression."/>
                                 </div>
                                 <div class="pure-u-1-8">
                                     <div class="center-text">
@@ -104,7 +103,7 @@
                                     </div>
                                 </div>
                                 <div class="pure-u-1-8" style="margin-top: 7px;">
-                                    <select class="max-width" name="userRating">
+                                    <select id="rating" class="max-width" name="userRating">
                                         <option value="1" selected>1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -119,7 +118,7 @@
                                 </div>
                             </div>
                             <div class="pure-u-1" style="height: 200px; margin-bottom: 5px;">
-                                <textarea style="height: 100%;" class="max-width" name="reviewText" placeholder="Your review"></textarea>
+                                <textarea id="reviewText" style="height: 100%;" class="max-width" name="reviewText" placeholder="Your review"></textarea>
                                 <input type="hidden" name="movieID" value="${movie.id}"/>
                                 <input type="hidden" id="redirectFrom" name="redirectFrom" value=""/>
                             </div>
@@ -128,6 +127,11 @@
                                     <button id="submitReview" class="pure-button" type="submit">Post review</button>
                                 </div>
                             </div>
+                            <c:if test="${review.title.length() > 1}">
+                                <script type="text/javascript">
+                                    setReviewInputs('${review.title}','${review.rating}','${review.reviewText}');
+                                </script>
+                            </c:if>
                         </form>
                     </c:otherwise>
                 </c:choose>

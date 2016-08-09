@@ -59,6 +59,7 @@ public class NewMovieServlet extends HttpServlet {
         } else {
             // TODO here I should save data entered on the page
             req.setAttribute("result", errors);
+            req.setAttribute("movie", movie);
             req.getRequestDispatcher("/resources/views/addmovie.jsp").forward(req, resp);
         }
 

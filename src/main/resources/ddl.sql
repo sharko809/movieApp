@@ -20,8 +20,8 @@ CREATE TABLE MOVIE (
   moviename   VARCHAR(255) NOT NULL,
   director    VARCHAR(255),
   releasedate DATE,
-  posterurl   VARCHAR(100),
-  trailerurl  VARCHAR(100),
+  posterurl   VARCHAR(255),
+  trailerurl  VARCHAR(255),
   rating      DOUBLE,
   description TEXT,
   PRIMARY KEY (ID)
