@@ -29,7 +29,7 @@ public class MovieServlet extends HttpServlet {
 
         UrlParametersManager.getUrlParams(req.getQueryString()).forEach((key, value) -> {
             if (key.equals("movieId")) {// TODO think if multiply params are necessary
-                movieID[0] = Long.valueOf(value.get(0));
+                movieID[0] = Long.valueOf(value.get(0));// TODO why 0 is hardcoded. Make it OK
             }
         });
 
