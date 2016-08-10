@@ -15,7 +15,7 @@ public class UserDAO {
     private static final String SQL_GET_USER = "SELECT * FROM USER WHERE ID = ?";
     private static final String SQL_DELETE_USER = "DELETE FROM USER WHERE ID = ?";
     private static final String SQL_GET_ALL_USERS = "SELECT * FROM USER";
-    private static final String SQL_UPDATE_USER = "UPDATE USER SET username = ?, login = ?, password = ? WHERE ID = ?";
+    private static final String SQL_UPDATE_USER = "UPDATE USER SET username = ?, login = ?, password = ?, isadmin = ?, isbanned = ? WHERE ID = ?";
     private static final String SQL_GET_USER_BY_NAME = "SELECT * FROM USER WHERE login = ?";
 
     public Long create(String userName, String login, String password, Boolean isAdmin) throws SQLException {
@@ -49,6 +49,7 @@ public class UserDAO {
             user.setLogin(resultSet.getString("login"));
             user.setPassword(resultSet.getString("password"));
             user.setAdmin(resultSet.getBoolean("isadmin"));
+            user.setBanned(resultSet.getBoolean("isbanned"));
         } else {
             user = null;
         }
@@ -70,6 +71,7 @@ public class UserDAO {
             user.setLogin(resultSet.getString("login"));
             user.setPassword(resultSet.getString("password"));
             user.setAdmin(resultSet.getBoolean("isadmin"));
+            user.setBanned(resultSet.getBoolean("isbanned"));
         }
         resultSet.close();
         statement.close();
@@ -83,7 +85,9 @@ public class UserDAO {
         statement.setString(1, user.getName()); // TODO update according to the new DB
         statement.setString(2, user.getLogin());
         statement.setString(3, user.getPassword());
-        statement.setLong(4, user.getId());
+        statement.setBoolean(4, user.getAdmin());
+        statement.setBoolean(5, user.getBanned());
+        statement.setLong(6, user.getId());
         statement.executeUpdate();
 
         statement.close();
@@ -117,6 +121,7 @@ public class UserDAO {
             user.setLogin(resultSet.getString("login"));
             user.setPassword(resultSet.getString("password"));
             user.setAdmin(resultSet.getBoolean("isadmin"));
+            user.setBanned(resultSet.getBoolean("isbanned"));
             users.add(user);
         }
         resultSet.close();

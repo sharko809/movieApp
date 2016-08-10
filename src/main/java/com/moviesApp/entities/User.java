@@ -10,8 +10,17 @@ public class User {
     private String login;
     private String password;
     private Boolean isAdmin;
+    private Boolean isBanned;
 
     public User() {
+    }
+
+    public Boolean getBanned() {
+        return isBanned;
+    }
+
+    public void setBanned(Boolean banned) {
+        isBanned = banned;
     }
 
     public Boolean getAdmin() {

@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
         List<String> errors = validator.validate(user);
 
         UserService userService = new UserService();
-        User searchResult = userService.getUserByLogin(userLogin);
+        User foundUser = userService.getUserByLogin(userLogin);
 
         String from = "/home";// TODO think of it. But I prefer let it be default.
         String redirect = req.getParameter("redirectFrom");
@@ -44,31 +44,38 @@ public class LoginServlet extends HttpServlet {
         }
 
         if (errors.isEmpty()) {
-            if (searchResult == null) {
+            if (foundUser == null) {
                 errors.add("No such user");
                 req.setAttribute("result", errors);
                 req.setAttribute("logUser", user);
                 req.getRequestDispatcher("/index.jsp").forward(req, resp);
             } else {
-                if (!searchResult.getLogin().equals(userLogin) |
-                        !PasswordManager.getSaltedHashPassword(password).equals(searchResult.getPassword())) {
-                    errors.add("Wrong email or password");
+                if (!foundUser.getBanned()) {
+                    if (!foundUser.getLogin().equals(userLogin) |
+                            !PasswordManager.getSaltedHashPassword(password).equals(foundUser.getPassword())) {
+                        errors.add("Wrong email or password");
+                        req.setAttribute("result", errors);
+                        req.setAttribute("logUser", user);
+                        req.getRequestDispatcher("/index.jsp").forward(req, resp);
+                    } else {
+                        if (req.getParameter("regPage") != null) {
+                            if (foundUser.getAdmin()) {
+                                req.getSession().setAttribute("user", foundUser);
+                                resp.sendRedirect(req.getContextPath() + "/admin");
+                            } else {
+                                req.getSession().setAttribute("user", foundUser);
+                                resp.sendRedirect(req.getContextPath() + "/home");
+                            }
+                        } else {
+                            req.getSession().setAttribute("user", foundUser);
+                            resp.sendRedirect(from);
+                        }
+                    }
+                } else {
+                    errors.add("You are banned and can't login");
                     req.setAttribute("result", errors);
                     req.setAttribute("logUser", user);
                     req.getRequestDispatcher("/index.jsp").forward(req, resp);
-                } else {
-                    if (req.getParameter("regPage") != null) {
-                        if (searchResult.getAdmin()) {
-                            req.getSession().setAttribute("user", searchResult);
-                            resp.sendRedirect(req.getContextPath() + "/admin");
-                        } else {
-                            req.getSession().setAttribute("user", searchResult);
-                            resp.sendRedirect(req.getContextPath() + "/home");
-                        }
-                    } else {
-                        req.getSession().setAttribute("user", searchResult);
-                        resp.sendRedirect(from);
-                    }
                 }
             }
         } else {

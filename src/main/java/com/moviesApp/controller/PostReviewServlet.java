@@ -40,7 +40,6 @@ public class PostReviewServlet extends HttpServlet {
         review.setReviewText(reviewText);
         review.setPostDate(postDate);
 
-        // TODO validate!!!
         Validator validator = new ReviewValidator();
         List<String> errors = validator.validate(review);
 

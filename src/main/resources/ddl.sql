@@ -10,6 +10,7 @@ CREATE TABLE USER (
   login    VARCHAR(60)  NOT NULL,
   password VARCHAR(255) NOT NULL,
   isadmin  TINYINT      NOT NULL DEFAULT 0,
+  isbanned TINYINT      NOT NULL DEFAULT 0,
   PRIMARY KEY (ID)
 );
 
@@ -46,10 +47,10 @@ CREATE TABLE REVIEW (
   reviewtext  TEXT
 );
 
-INSERT INTO USER (username, login, password, isadmin)
-VALUES ('Lothar', '123@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0),
-  ('Medivh', 'qwe@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0),
-  ('Neltarion', 'asd@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 1);
+INSERT INTO USER (username, login, password, isadmin, isbanned)
+VALUES ('Lothar', '123@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Medivh', 'qwe@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 1),
+  ('Neltarion', 'asd@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 1, 0);
 
 INSERT INTO MOVIE (moviename, director, releasedate, trailerurl, rating, description)
 VALUES ('Warcraft', 'Duncan Jones', '2016-06-10', 'https://www.youtube.com/embed/RhFMIRuHAL4', 7.4,
