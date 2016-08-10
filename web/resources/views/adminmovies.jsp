@@ -95,6 +95,7 @@
                             <button type="submit" class="pure-button" title="Recalculates movie rating">Rating</button>
                         </form>
                         <form method="get" action="/admin/editmovie">
+                            <input type="hidden" name="movieID" value="${movie.id}"/>
                             <button class="pure-button" title="Allows to edit movie data">Edit</button>
                         </form>
                     </div>

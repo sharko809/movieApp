@@ -13,7 +13,7 @@ public class Movie {
     private String director;
     private Date releaseDate;
     private String posterURL;
-    private String trailerURL; // consider this
+    private String trailerURL;
     private Double rating;
     private String description;
 

@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,7 +45,7 @@ public class SortUsersServlet extends HttpServlet {
             case "banned":
                 users.sort((User u1, User u2) -> u1.getBanned().compareTo(u2.getBanned()));
 //                users.sort((o1, o2) -> {
-//                    boolean b1 = o1.getBanned();
+//                    boolean b1 = o1.getBanned();// TODO this does nothing. Think of it
 //                    boolean b2 = o2.getBanned();
 //                    return (b1 ^ b2) ? (b1 ? 1 : -1) : 0;
 //                });

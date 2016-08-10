@@ -1,7 +1,6 @@
 package com.moviesApp.validation;
 
 import com.moviesApp.entities.Movie;
-import org.apache.commons.validator.UrlValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -76,12 +75,12 @@ public class MovieValidator implements Validator {
         String posterURL = movie.getPosterURL();
         org.apache.commons.validator.routines.UrlValidator urlValidator = new org.apache.commons.validator.routines.UrlValidator();
 
-        if (!urlValidator.isValid(trailerURL)) {
-            errors.add("Invalid poster URL");
-        }
-        if (!urlValidator.isValid(posterURL)) {
-            errors.add("Invalid trailer URL");
-        }
+//        if (!urlValidator.isValid(trailerURL)) {
+//            errors.add("Invalid poster URL");// TODO fails on regular URL's
+//        }
+//        if (!urlValidator.isValid(posterURL)) {
+//            errors.add("Invalid trailer URL");
+//        }
 
         Double rating = movie.getRating();
         if (rating != null) {
