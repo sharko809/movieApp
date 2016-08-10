@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="/resources/css/pure/layouts/side-menu.css">
     <!--<![endif]-->
     <link rel="stylesheet" href="/resources/css/mainPage.css">
+    <link rel="stylesheet" href="/resources/css/admin.css">
     <script src="/resources/js/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="/resources/js/admin-redirect-url.js" type="text/javascript"></script>
 </head>
@@ -45,7 +46,7 @@
     </div>
 </div>
 
-<div class="pure-g">
+<div class="pure-g custom-margin">
     <div class="pure-u-md-3-4 pure-u-sm-1 centered">
         <c:forEach items="${movies}" var="movie">
             <div class="pure-u-1" style="height: 100px; margin: 10px;">
@@ -93,7 +94,9 @@
                             <input type="hidden" name="movieID" value="${movie.id}"/>
                             <button type="submit" class="pure-button" title="Recalculates movie rating">Rating</button>
                         </form>
-                        <button class="pure-button" title="Allows to edit movie data">Edit</button>
+                        <form method="get" action="/admin/editmovie">
+                            <button class="pure-button" title="Allows to edit movie data">Edit</button>
+                        </form>
                     </div>
                 </div>
             </div>

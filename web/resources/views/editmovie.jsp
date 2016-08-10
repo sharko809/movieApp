@@ -1,15 +1,14 @@
 <%--
   Created by IntelliJ IDEA.
   User: dsharko
-  Date: 8/3/2016
-  Time: 12:48 PM
+  Date: 8/10/2016
+  Time: 11:28 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Admin panel</title>
+    <title>Edit movie ${movie.movieName}</title>
     <link rel="stylesheet" href="/resources/css/pure/pure-min.css">
     <link rel="stylesheet" href="/resources/css/pure/base-min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,25 +38,13 @@
             <ul class="pure-menu-list">
                 <li class="menu-item"><a href="/admin/addmovie" class="pure-menu-link">Add movie</a></li>
                 <li class="menu-item"><a href="/admin/managemovies" class="pure-menu-link">Manage movies</a></li>
-                <li class="menu-item"><a href="/admin/users" class="pure-menu-link">Users</a></li>
             </ul>
         </div>
     </div>
 </div>
+
 <div class="pure-g custom-margin">
-    <div class="pure-u-3-4 centered">
-        <div class="pure-u-1">
-            <div class="pure-g"></div>
-            <div class="pure-u-7-8 pure-u-sm-1 centered" style="margin-top: 20px;">
-                <div id="welcome-block">
-                    <p>Welcome to your admin panel, ${user.name}.</p>
-                    <p>Here you are able to manage all site activities. Adding and deleting movies, banning users
-                        and other functions are present here. Be wise admin!</p>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </div>
-<script src="/resources/js/pure/ui.js" type="text/javascript"></script>
 </body>
 </html>

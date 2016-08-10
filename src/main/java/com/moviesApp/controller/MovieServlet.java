@@ -49,7 +49,7 @@ public class MovieServlet extends HttpServlet {
         }
 
         if (movie == null) {
-            req.setAttribute("errorDetails", "Something wrong has happened and movie can't be found :(");
+            req.getSession().setAttribute("errorDetails", "Something wrong has happened and movie can't be found :(");
             resp.sendRedirect(req.getContextPath() + "/error");
         } else {
             req.setAttribute("movie", movie);

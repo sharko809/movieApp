@@ -44,7 +44,7 @@
         </div>
     </div>
 </div>
-<div class="pure-g">
+<div class="pure-g custom-margin">
     <div class="pure-u-2-5 centered">
         <form class="pure-form" method="post" action="/admin/addmovie">
             <fieldset class="pure-group">
