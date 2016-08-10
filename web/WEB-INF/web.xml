@@ -187,6 +187,15 @@
         <servlet-name>Ban</servlet-name>
         <url-pattern>/admin/ban</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SortUsers</servlet-name>
+        <servlet-class>com.moviesApp.controller.SortUsersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SortUsers</servlet-name>
+        <url-pattern>/admin/sortusers</url-pattern>
+    </servlet-mapping>
     
     <servlet>
         <servlet-name>ErrorServlet</servlet-name>

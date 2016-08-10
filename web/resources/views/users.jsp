@@ -52,18 +52,48 @@
             <table class="pure-table pure-table-bordered" style="width: 100%; margin: 10px auto 10px auto;">
                 <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Login</th>
-                    <th>Username</th>
-                    <th>Admin</th>
-                    <th>Banned</th>
+                    <th>
+                        <form style="margin: auto;" id="sortID" method="post" action="/admin/sortusers">
+                            <input type="hidden" name="sortBy" value="id"/>
+                            <input type="hidden" name="redirectFrom" value=""/>
+                            <span id="id">ID</span>
+                        </form>
+                    </th>
+                    <th>
+                        <form style="margin: auto;" id="sortLogin" method="post" action="/admin/sortusers">
+                            <input type="hidden" name="sortBy" value="login"/>
+                            <input type="hidden" name="redirectFrom" value=""/>
+                            <span id="login">Login</span>
+                        </form>
+                    </th>
+                    <th>
+                        <form style="margin: auto;" id="sortName" method="post" action="/admin/sortusers">
+                            <input type="hidden" name="sortBy" value="userName"/>
+                            <input type="hidden" name="redirectFrom" value=""/>
+                            <span id="userName">Username</span>
+                        </form>
+                    </th>
+                    <th>
+                        <form style="margin: auto;" id="sortAdmin" method="post" action="/admin/sortusers">
+                            <input type="hidden" name="sortBy" value="admin"/>
+                            <input type="hidden" name="redirectFrom" value=""/>
+                            <span id="admin">Admin</span>
+                        </form>
+                    </th>
+                    <th>
+                        <form style="margin: auto;" id="sortBanned" method="post" action="/admin/sortusers">
+                            <input type="hidden" name="sortBy" value="banned"/>
+                            <input type="hidden" name="redirectFrom" value=""/>
+                            <span id="banned">Banned</span>
+                        </form>
+                    </th>
                 </tr>
                 </thead>
 
                 <tbody>
                 <c:choose>
-                    <c:when test="${users.size() >= 1}">
-                        <c:forEach items="${users}" var="user">
+                    <c:when test="${sortedUsers != null && sortedUsers.size() > 1}">
+                        <c:forEach items="${sortedUsers}" var="user">
                             <tr>
                                 <td>${user.id}</td>
                                 <td>${user.login}</td>
@@ -74,7 +104,10 @@
                                             <form method="post" action="/admin/adminize" style="margin: 0px;">
                                                 <input type="hidden" name="userID" value="${user.id}"/>
                                                 <input type="hidden" name="redirectFrom" value=""/>
-                                                <button class="pure-button max-width" style="background-color: #7FFF00;" type="submit">${user.getAdmin()}</button>
+                                                <button class="pure-button max-width"
+                                                        style="background-color: #7FFF00;"
+                                                        title="Remove admin permissions"
+                                                        type="submit">${user.getAdmin()}</button>
                                             </form>
                                         </td>
                                     </c:when>
@@ -83,7 +116,8 @@
                                             <form method="post" action="/admin/adminize" style="margin: 0px;">
                                                 <input type="hidden" name="userID" value="${user.id}"/>
                                                 <input type="hidden" name="redirectFrom" value=""/>
-                                                <button class="pure-button max-width" type="submit">${user.getAdmin()}</button>
+                                                <button class="pure-button max-width" title="Set admin"
+                                                        type="submit">${user.getAdmin()}</button>
                                             </form>
                                         </td>
                                     </c:otherwise>
@@ -94,7 +128,9 @@
                                             <form method="post" action="/admin/ban" style="margin: 0px;">
                                                 <input type="hidden" name="userID" value="${user.id}"/>
                                                 <input type="hidden" name="redirectFrom" value=""/>
-                                                <button class="pure-button max-width" style="background-color: #FFCCCC;"
+                                                <button class="pure-button max-width"
+                                                        style="background-color: #FFCCCC;"
+                                                        title="Unban user"
                                                         type="submit">${user.getBanned()}</button>
                                             </form>
                                         </td>
@@ -105,6 +141,7 @@
                                                 <input type="hidden" name="userID" value="${user.id}"/>
                                                 <input type="hidden" name="redirectFrom" value=""/>
                                                 <button class="pure-button max-width"
+                                                        title="Ban user"
                                                         type="submit">${user.getBanned()}</button>
                                             </form>
                                         </td>
@@ -114,9 +151,71 @@
                         </c:forEach>
                     </c:when>
                     <c:otherwise>
-                        <tr>
-                            No users found.
-                        </tr>
+                        <c:choose>
+                            <c:when test="${users.size() >= 1}">
+                                <c:forEach items="${users}" var="user">
+                                    <tr>
+                                        <td>${user.id}</td>
+                                        <td>${user.login}</td>
+                                        <td>${user.name}</td>
+                                        <c:choose>
+                                            <c:when test="${user.getAdmin()}">
+                                                <td>
+                                                    <form method="post" action="/admin/adminize" style="margin: 0px;">
+                                                        <input type="hidden" name="userID" value="${user.id}"/>
+                                                        <input type="hidden" name="redirectFrom" value=""/>
+                                                        <button class="pure-button max-width"
+                                                                style="background-color: #7FFF00;"
+                                                                title="Remove admin permissions"
+                                                                type="submit">${user.getAdmin()}</button>
+                                                    </form>
+                                                </td>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <td>
+                                                    <form method="post" action="/admin/adminize" style="margin: 0px;">
+                                                        <input type="hidden" name="userID" value="${user.id}"/>
+                                                        <input type="hidden" name="redirectFrom" value=""/>
+                                                        <button class="pure-button max-width" title="Set admin"
+                                                                type="submit">${user.getAdmin()}</button>
+                                                    </form>
+                                                </td>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:choose>
+                                            <c:when test="${user.getBanned()}">
+                                                <td>
+                                                    <form method="post" action="/admin/ban" style="margin: 0px;">
+                                                        <input type="hidden" name="userID" value="${user.id}"/>
+                                                        <input type="hidden" name="redirectFrom" value=""/>
+                                                        <button class="pure-button max-width"
+                                                                style="background-color: #FFCCCC;"
+                                                                title="Unban user"
+                                                                type="submit">${user.getBanned()}</button>
+                                                    </form>
+                                                </td>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <td>
+                                                    <form method="post" action="/admin/ban" style="margin: 0px;">
+                                                        <input type="hidden" name="userID" value="${user.id}"/>
+                                                        <input type="hidden" name="redirectFrom" value=""/>
+                                                        <button class="pure-button max-width"
+                                                                title="Ban user"
+                                                                type="submit">${user.getBanned()}</button>
+                                                    </form>
+                                                </td>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </tr>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <tr>
+                                    No users found.
+                                </tr>
+                            </c:otherwise>
+                        </c:choose>
                     </c:otherwise>
                 </c:choose>
                 </tbody>
@@ -124,6 +223,6 @@
         </div>
     </div>
 </div>
-
+<script src="/resources/js/sort-users.js" type="text/javascript"></script>
 </body>
 </html>
