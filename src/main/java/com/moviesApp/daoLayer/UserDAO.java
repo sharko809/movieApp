@@ -56,7 +56,7 @@ public class UserDAO {
         resultSet.close();
         statement.close();
         connection.close();
-        return user;// TODO watch closely to catch all NULLs
+        return user;
     }
 
     public User get(Long userID) throws SQLException {
@@ -82,7 +82,7 @@ public class UserDAO {
     public void update(User user) throws SQLException {
         Connection connection = ConnectionManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER);
-        statement.setString(1, user.getName()); // TODO update according to the new DB
+        statement.setString(1, user.getName());
         statement.setString(2, user.getLogin());
         statement.setString(3, user.getPassword());
         statement.setBoolean(4, user.isAdmin());
@@ -103,7 +103,7 @@ public class UserDAO {
             statement.close();
             connection.close();
             return true;
-        } // TODO repeated code. mb make some abstract DAO?..
+        }
         statement.close();
         connection.close();
         return false;

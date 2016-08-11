@@ -33,7 +33,7 @@ public class UserService {
     }
 
     public User getUserByLogin(String login) {
-        UserDAO userDAO = new UserDAO(); // login is checked for validity by validators in controller
+        UserDAO userDAO = new UserDAO();
         User user = new User();
         try {
             user = userDAO.getByLogin(login);
@@ -45,7 +45,6 @@ public class UserService {
     }
 
     public Long createUser(String userName, String login, String password, Boolean isAdmin) {
-        // name, login and password are checked for validity by validators in controller
         UserDAO userDAO = new UserDAO();
         Long userID = 0L;
         try {

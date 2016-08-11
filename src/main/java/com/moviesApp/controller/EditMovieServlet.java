@@ -63,13 +63,11 @@ public class EditMovieServlet extends HttpServlet {
 
         if (errors.isEmpty()) {
             movieService.updateMovie(movie);
-            System.out.println("OK");// TODO handle this errors
             req.setAttribute("result", "Movie updated");// TODO ok, this is to be done properly. I need to properly display errors on the same page
             req.setAttribute("updMovie", movie);
             req.getRequestDispatcher("/resources/views/editmovie.jsp").forward(req, resp);
         } else {
             req.setAttribute("result", errors);
-            System.out.println("NOT OK");
             req.setAttribute("updMovie", movie);
 //            req.setAttribute("movie", movie);
             req.getRequestDispatcher("/resources/views/editmovie.jsp").forward(req, resp);

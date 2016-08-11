@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
         UserService userService = new UserService();
         User foundUser = userService.getUserByLogin(userLogin);
 
-        String from = "/home";// TODO think of it. But I prefer let it be default.
+        String from = "/home";
         String redirect = req.getParameter("redirectFrom");
         if (redirect != null) {
             if (!redirect.isEmpty()) {
@@ -81,8 +81,6 @@ public class LoginServlet extends HttpServlet {
             req.setAttribute("logUser", user);
             req.getRequestDispatcher("/index.jsp").forward(req, resp);
         }
-
-
     }
 
 }

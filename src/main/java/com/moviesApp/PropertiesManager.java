@@ -13,6 +13,7 @@ import java.util.Properties;
 public class PropertiesManager {
 
     private static final Logger LOGGER = LogManager.getLogger();
+    private final static String FILE_NAME = "movieApp.properties";
 
     public static String getProperty(String propName) {
 
@@ -22,13 +23,10 @@ public class PropertiesManager {
         }
 
         Properties properties = new Properties();
-        InputStream inputStream = null;
-
-        String fileName = "movieApp.properties";
-        inputStream = PropertiesManager.class.getClassLoader().getResourceAsStream(fileName);
+        InputStream inputStream = PropertiesManager.class.getClassLoader().getResourceAsStream(FILE_NAME);
         if (inputStream == null) {
-            LOGGER.fatal("Unable to find file: " + fileName);
-            throw new RuntimeException("Unable to find file: " + fileName);
+            LOGGER.fatal("Unable to find file: " + FILE_NAME);
+            throw new RuntimeException("Unable to find file: " + FILE_NAME);
         }
         String prop = "";
         try {
@@ -42,7 +40,7 @@ public class PropertiesManager {
             try {
                 inputStream.close();
             } catch (IOException e) {
-                e.printStackTrace(); // TODO handle
+                e.printStackTrace();
                 LOGGER.error("Error while closing input stream. " + e);
             }
         }

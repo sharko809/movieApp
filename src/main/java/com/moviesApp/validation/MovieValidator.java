@@ -32,8 +32,6 @@ public class MovieValidator implements Validator {
 
     @Override
     public List<String> validate(Object object) {
-
-        // TODO double check this
         List<String> errors = new ArrayList<>();
 
         if (object == null) {

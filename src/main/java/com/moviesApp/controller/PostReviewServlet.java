@@ -43,7 +43,7 @@ public class PostReviewServlet extends HttpServlet {
         Validator validator = new ReviewValidator();
         List<String> errors = validator.validate(review);
 
-        String from = "/home";// TODO think of it. But I prefer let it be default.
+        String from = "/home";
         String redirect = req.getParameter("redirectFrom");
         if (redirect != null) {
             if (!redirect.isEmpty()) {

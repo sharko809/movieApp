@@ -40,7 +40,7 @@ public class MovieDAO {
         if (resultSet.next()) {
             movieID = resultSet.getLong(1);
         }
-        resultSet.close();// TODO may be I should put this all in extra try/catch?
+        resultSet.close();
         statement.close();
         connection.close();
         return movieID;

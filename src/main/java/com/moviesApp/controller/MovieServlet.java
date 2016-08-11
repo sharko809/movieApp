@@ -7,6 +7,8 @@ import com.moviesApp.entities.User;
 import com.moviesApp.service.MovieService;
 import com.moviesApp.service.ReviewService;
 import com.moviesApp.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,6 +25,8 @@ import java.util.Map;
  */
 public class MovieServlet extends HttpServlet {
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final Long[] movieID = new Long[1];
@@ -36,13 +40,25 @@ public class MovieServlet extends HttpServlet {
         MovieService movieService = new MovieService();
         Movie movie = null;
         ReviewService reviewService = new ReviewService();
-        List<Review> reviews = reviewService.getReviewsByMovieId(movieID[0]);
+        List<Review> reviews = new ArrayList<>();
+        if (movieID[0] != null) {
+            if (movieID[0] >= 1) {
+                reviews = reviewService.getReviewsByMovieId(movieID[0]);
+            }
+        }
         UserService userService = new UserService();
 
         Map<Long, String> users = new HashMap<Long, String>();
-        reviews.forEach(review -> {
-            users.put(review.getUserId(), userService.getUserByID(review.getUserId()).getName());
-        });
+        if (reviews.size() >= 1) {
+            reviews.forEach(review -> {
+                User user = userService.getUserByID(review.getUserId());
+                if (user != null) {
+                    users.put(review.getUserId(), user.getName());
+                } else {
+                    LOGGER.error("No user with ID " + review.getUserId() + " found for review ID " + review.getId() + " movie ID " + review.getMovieId());
+                }
+            });
+        }
 
         if (movieID[0] != null) {
             movie = movieService.getMovieByID(movieID[0]);

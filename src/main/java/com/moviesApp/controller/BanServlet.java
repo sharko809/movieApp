@@ -21,21 +21,36 @@ public class BanServlet extends HttpServlet {
         User currentUser = (User) req.getSession().getAttribute("user");
 
         UserService userService = new UserService();
-        User user = userService.getUserByID(userID);
+        User user = null;
+        if (userID != null) {
+            if (userID >= 1) {
+                user = userService.getUserByID(userID);
+                if (userID.longValue() != currentUser.getId().longValue()) {
+                    if (user != null) {
+                        if (user.isBanned()) {
+                            user.setBanned(false);
+                        } else {
+                            user.setBanned(true);
+                        }
 
-        if (userID.longValue() != currentUser.getId().longValue()) {
-            if (user.isBanned()) {
-                user.setBanned(false);
-            } else {
-                user.setBanned(true);
+                        userService.updateUser(user);
+                        resp.sendRedirect(fromURL);
+                    } else {
+                        req.getSession().setAttribute("errorDetails", "User not found");
+                        resp.sendRedirect(req.getContextPath() + "/error");
+                    }
+
+                } else {
+                    req.getSession().setAttribute("errorDetails", "Can't ban yourself");
+                    resp.sendRedirect(req.getContextPath() + "/error");
+                }
             }
-
-            userService.updateUser(user);
-            resp.sendRedirect(fromURL);
         } else {
-            req.getSession().setAttribute("errorDetails", "Can't ban yourself");
+            req.getSession().setAttribute("errorDetails", "Can't identify you");
             resp.sendRedirect(req.getContextPath() + "/error");
         }
+
+
 
     }
 }

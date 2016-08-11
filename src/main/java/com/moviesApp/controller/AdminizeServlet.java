@@ -22,21 +22,35 @@ public class AdminizeServlet extends HttpServlet {
 
 
         UserService userService = new UserService();
-        User user = userService.getUserByID(userID);
+        User user = null;
 
-        if (userID.longValue() != currentUser.getId().longValue()) {
-            if (user.isAdmin()) {
-                user.setAdmin(false);
-            } else {
-                user.setAdmin(true);
-            }
-
-            userService.updateUser(user);
-            resp.sendRedirect(fromURL);
+        if (userID != null) {
+                         if (userID >= 1) {
+                             user = userService.getUserByID(userID);
+                             if (userID.longValue() != currentUser.getId().longValue()) {
+                                 if (user != null) {
+                                     if (user.isAdmin()) {
+                                         user.setAdmin(false);
+                                     } else {
+                                         user.setAdmin(true);
+                                     }
+                                     userService.updateUser(user);
+                                     resp.sendRedirect(fromURL);
+                                 } else {
+                                     req.getSession().setAttribute("errorDetails", "User not found");
+                                     resp.sendRedirect(req.getContextPath() + "/error");
+                                 }
+                             } else {
+                                 req.getSession().setAttribute("errorDetails", "Can't change your own admin state");
+                                 resp.sendRedirect(req.getContextPath() + "/error");
+                             }
+                         }
         } else {
-            req.getSession().setAttribute("errorDetails", "Can't change your own admin state");
+            req.getSession().setAttribute("errorDetails", "Can't identify you");
             resp.sendRedirect(req.getContextPath() + "/error");
         }
+
+
 
 
     }

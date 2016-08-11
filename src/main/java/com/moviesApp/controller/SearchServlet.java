@@ -38,4 +38,9 @@ public class SearchServlet extends HttpServlet {
         req.getRequestDispatcher("/resources/views/searchresult.jsp").forward(req, resp);
 
     }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doGet(req, resp);
+    }
 }
