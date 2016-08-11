@@ -17,6 +17,10 @@ public class UserService {
     private static final Logger LOGGER = LogManager.getLogger();
 
     public User getUserByID(Long userID) {
+        if (userID == null) {
+            LOGGER.error("Failed to get user. ID = null");
+            return null;
+        }
         if (userID <= 0) {
             LOGGER.error("Failed to get user. User id must be > 0. User id: " + userID);
             return null;

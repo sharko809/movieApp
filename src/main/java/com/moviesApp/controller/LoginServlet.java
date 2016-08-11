@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
         List<String> errors = validator.validate(user);
 
         UserService userService = new UserService();
-        User foundUser = userService.getUserByLogin(userLogin);
+        User foundUser = userService.getUserByLogin(user.getLogin());
 
         String from = "/home";
         String redirect = req.getParameter("redirectFrom");
@@ -50,7 +50,8 @@ public class LoginServlet extends HttpServlet {
                 req.getRequestDispatcher("/index.jsp").forward(req, resp);
             } else {
                 if (!foundUser.isBanned()) {
-                    if (!foundUser.getLogin().equals(userLogin) || !PasswordManager.getSaltedHashPassword(password).equals(foundUser.getPassword())) {
+                    if (!foundUser.getLogin().equals(user.getLogin()) ||
+                            !PasswordManager.getSaltedHashPassword(user.getPassword()).equals(foundUser.getPassword())) {
                         errors.add("Wrong email or password");
                         req.setAttribute("result", errors);
                         req.setAttribute("logUser", user);

@@ -34,11 +34,11 @@ public class MovieValidator implements Validator {
     public List<String> validate(Object object) {
         List<String> errors = new ArrayList<>();
 
-        if (object == null) {
-            errors.add("Can't validate null objects");
-            LOGGER.error("Attempt to validate null object in movie validator");
-            return errors;
-        }
+//        if (object == null) {
+//            errors.add("Can't validate null objects");
+//            LOGGER.error("Attempt to validate null object in movie validator");
+//            return errors;
+//        }
 
         if (!(object instanceof Movie)) {
             errors.add("Attempt to validate non-Movie object in movie validator");
@@ -83,8 +83,10 @@ public class MovieValidator implements Validator {
         Double rating = movie.getRating();
         if (rating != null) {
             if (rating < 1) {
-                errors.add("Negative ratings are not allowed.");
+                errors.add("Negative ratings are not allowed");
             }
+        } else {
+            errors.add("NULL ratings are not allowed");
         }
 
         // TODO dunno if description worth validating

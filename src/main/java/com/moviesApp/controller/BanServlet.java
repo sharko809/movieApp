@@ -32,14 +32,12 @@ public class BanServlet extends HttpServlet {
                         } else {
                             user.setBanned(true);
                         }
-
                         userService.updateUser(user);
                         resp.sendRedirect(fromURL);
                     } else {
                         req.getSession().setAttribute("errorDetails", "User not found");
                         resp.sendRedirect(req.getContextPath() + "/error");
                     }
-
                 } else {
                     req.getSession().setAttribute("errorDetails", "Can't ban yourself");
                     resp.sendRedirect(req.getContextPath() + "/error");
@@ -49,8 +47,6 @@ public class BanServlet extends HttpServlet {
             req.getSession().setAttribute("errorDetails", "Can't identify you");
             resp.sendRedirect(req.getContextPath() + "/error");
         }
-
-
 
     }
 }

@@ -20,38 +20,34 @@ public class AdminizeServlet extends HttpServlet {
         String fromURL = req.getParameter("redirectFrom");
         User currentUser = (User) req.getSession().getAttribute("user");
 
-
         UserService userService = new UserService();
         User user = null;
 
         if (userID != null) {
-                         if (userID >= 1) {
-                             user = userService.getUserByID(userID);
-                             if (userID.longValue() != currentUser.getId().longValue()) {
-                                 if (user != null) {
-                                     if (user.isAdmin()) {
-                                         user.setAdmin(false);
-                                     } else {
-                                         user.setAdmin(true);
-                                     }
-                                     userService.updateUser(user);
-                                     resp.sendRedirect(fromURL);
-                                 } else {
-                                     req.getSession().setAttribute("errorDetails", "User not found");
-                                     resp.sendRedirect(req.getContextPath() + "/error");
-                                 }
-                             } else {
-                                 req.getSession().setAttribute("errorDetails", "Can't change your own admin state");
-                                 resp.sendRedirect(req.getContextPath() + "/error");
-                             }
-                         }
+            if (userID >= 1) {
+                user = userService.getUserByID(userID);
+                if (userID.longValue() != currentUser.getId().longValue()) {
+                    if (user != null) {
+                        if (user.isAdmin()) {
+                            user.setAdmin(false);
+                        } else {
+                            user.setAdmin(true);
+                        }
+                        userService.updateUser(user);
+                        resp.sendRedirect(fromURL);
+                    } else {
+                        req.getSession().setAttribute("errorDetails", "User not found");
+                        resp.sendRedirect(req.getContextPath() + "/error");
+                    }
+                } else {
+                    req.getSession().setAttribute("errorDetails", "Can't change your own admin state");
+                    resp.sendRedirect(req.getContextPath() + "/error");
+                }
+            }
         } else {
             req.getSession().setAttribute("errorDetails", "Can't identify you");
             resp.sendRedirect(req.getContextPath() + "/error");
         }
-
-
-
 
     }
 }

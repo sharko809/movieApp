@@ -24,7 +24,9 @@ public class RegistrationServlet extends HttpServlet {
         String userName = req.getParameter("newUserName");
         String userLogin = req.getParameter("newUserLogin");
         String password = req.getParameter("newUserPassword");
-        String userRole = req.getParameter("newUserRole");// TODO watch this
+        String userRole = req.getParameter("newUserRole");// TODO watch this.
+        // Any sick bastard can become admin just by simple POST request. I'll make another reg servlet specially for admin
+
 
         User user = new User();
         user.setName(userName);
