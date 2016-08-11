@@ -40,7 +40,7 @@ public class AuthorizedAccessFilter implements Filter {
             } else {
                 User user = (User) session.getAttribute("user");
                 request.getSession().setAttribute("errorDetails", "You are already authorized");
-                LOGGER.warn("Attempt to access content for unauthorized users while authorized. User: " + user.getName() + " admin: " + user.getAdmin());
+                LOGGER.warn("Attempt to access content for unauthorized users while authorized. User: " + user.getName() + " admin: " + user.isAdmin());
                 response.sendRedirect(request.getContextPath() + "/error");
             }
         }

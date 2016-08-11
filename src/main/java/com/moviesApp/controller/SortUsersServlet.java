@@ -35,18 +35,18 @@ public class SortUsersServlet extends HttpServlet {
                 users.sort((User u1, User u2) -> u1.getName().compareTo(u2.getName()));
                 break;
             case "admin":
-                users.sort((User u1, User u2) -> u1.getAdmin().compareTo(u2.getAdmin()));
+                users.sort((User u1, User u2) -> u1.isAdmin().compareTo(u2.isAdmin()));
 //                users.sort((o1, o2) -> {
-//                    boolean b1 = o1.getAdmin();// TODO this does nothing. Think of it
-//                    boolean b2 = o2.getAdmin();
+//                    boolean b1 = o1.isAdmin();// TODO this does nothing. Think of it
+//                    boolean b2 = o2.isAdmin();
 //                    return (b1 ^ b2) ? (b1 ? 1 : -1) : 0;
 //                });
                 break;
             case "banned":
-                users.sort((User u1, User u2) -> u1.getBanned().compareTo(u2.getBanned()));
+                users.sort((User u1, User u2) -> u1.isBanned().compareTo(u2.isBanned()));
 //                users.sort((o1, o2) -> {
-//                    boolean b1 = o1.getBanned();// TODO this does nothing. Think of it
-//                    boolean b2 = o2.getBanned();
+//                    boolean b1 = o1.isBanned();// TODO this does nothing. Think of it
+//                    boolean b2 = o2.isBanned();
 //                    return (b1 ^ b2) ? (b1 ? 1 : -1) : 0;
 //                });
                 break;

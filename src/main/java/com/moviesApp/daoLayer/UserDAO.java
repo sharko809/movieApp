@@ -85,8 +85,8 @@ public class UserDAO {
         statement.setString(1, user.getName()); // TODO update according to the new DB
         statement.setString(2, user.getLogin());
         statement.setString(3, user.getPassword());
-        statement.setBoolean(4, user.getAdmin());
-        statement.setBoolean(5, user.getBanned());
+        statement.setBoolean(4, user.isAdmin());
+        statement.setBoolean(5, user.isBanned());
         statement.setLong(6, user.getId());
         statement.executeUpdate();
 

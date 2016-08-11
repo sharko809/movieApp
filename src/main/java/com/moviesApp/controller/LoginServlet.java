@@ -1,6 +1,5 @@
 package com.moviesApp.controller;
 
-import com.moviesApp.UrlParametersManager;
 import com.moviesApp.entities.User;
 import com.moviesApp.security.PasswordManager;
 import com.moviesApp.service.UserService;
@@ -50,16 +49,15 @@ public class LoginServlet extends HttpServlet {
                 req.setAttribute("logUser", user);
                 req.getRequestDispatcher("/index.jsp").forward(req, resp);
             } else {
-                if (!foundUser.getBanned()) {
-                    if (!foundUser.getLogin().equals(userLogin) |
-                            !PasswordManager.getSaltedHashPassword(password).equals(foundUser.getPassword())) {
+                if (!foundUser.isBanned()) {
+                    if (!foundUser.getLogin().equals(userLogin) || !PasswordManager.getSaltedHashPassword(password).equals(foundUser.getPassword())) {
                         errors.add("Wrong email or password");
                         req.setAttribute("result", errors);
                         req.setAttribute("logUser", user);
                         req.getRequestDispatcher("/index.jsp").forward(req, resp);
                     } else {
                         if (req.getParameter("regPage") != null) {
-                            if (foundUser.getAdmin()) {
+                            if (foundUser.isAdmin()) {
                                 req.getSession().setAttribute("user", foundUser);
                                 resp.sendRedirect(req.getContextPath() + "/admin");
                             } else {

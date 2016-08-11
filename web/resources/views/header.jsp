@@ -48,7 +48,7 @@
                             <p class="pure-u-1-2 menu-text">
                                 Logged in as
                                 <a id="loggedInName" class="menu-text" href="/account?id=${user.id}">
-                                    <c:if test="${user.getAdmin()}">
+                                    <c:if test="${user.isAdmin()}">
                                         <script type="text/javascript">
                                             setAdminColor();
                                         </script>
@@ -56,7 +56,7 @@
                                         ${user.name}.
                                 </a>
                             </p>
-                            <c:if test="${user.getAdmin()}">
+                            <c:if test="${user.isAdmin()}">
                                 <a class="pure-u-1-2 menu-text" href="/admin" style="text-align: center;">
                                     <p>
                                         Admin panel

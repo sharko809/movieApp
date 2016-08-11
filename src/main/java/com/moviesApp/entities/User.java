@@ -9,26 +9,26 @@ public class User {
     private String name;
     private String login;
     private String password;
-    private Boolean isAdmin;
-    private Boolean isBanned;
+    private Boolean admin;
+    private Boolean banned;
 
     public User() {
     }
 
-    public Boolean getBanned() {
-        return isBanned;
+    public Boolean isBanned() {
+        return banned;
     }
 
     public void setBanned(Boolean banned) {
-        isBanned = banned;
+        this.banned = banned;
     }
 
-    public Boolean getAdmin() {
-        return isAdmin;
+    public Boolean isAdmin() {
+        return admin;
     }
 
     public void setAdmin(Boolean admin) {
-        isAdmin = admin;
+        this.admin = admin;
     }
 
     public String getLogin() {

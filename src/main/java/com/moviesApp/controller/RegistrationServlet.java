@@ -44,7 +44,7 @@ public class RegistrationServlet extends HttpServlet {
             UserService userService = new UserService();
             if (userService.getUserByLogin(userLogin) == null) {
                 String encodedPassword = PasswordManager.getSaltedHashPassword(password);
-                Long userId = userService.createUser(userName, userLogin, encodedPassword, user.getAdmin());
+                Long userId = userService.createUser(userName, userLogin, encodedPassword, user.isAdmin());
                 req.setAttribute("result", "User " + userName + " successfully created.");
                 req.getRequestDispatcher("/index.jsp").forward(req, resp);
             } else {

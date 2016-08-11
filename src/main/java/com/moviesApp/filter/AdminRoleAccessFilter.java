@@ -40,11 +40,11 @@ public class AdminRoleAccessFilter implements Filter {
             request.getSession().setAttribute("errorDetails", "You are not authorized");
             response.sendRedirect(request.getContextPath() + "/error");
         } else {
-            if (user.getAdmin()) {
+            if (user.isAdmin()) {
                 filterChain.doFilter(request, response);
             } else {
                 LOGGER.error("Attempt to access admin services without permission. User: " +
-                        ((User) session.getAttribute("user")).getLogin() + " admin: " + ((User) session.getAttribute("user")).getAdmin());
+                        ((User) session.getAttribute("user")).getLogin() + " admin: " + ((User) session.getAttribute("user")).isAdmin());
                 request.getSession().setAttribute("errorDetails", "You do not have permission to access this page");
                 response.sendRedirect(request.getContextPath() + "/error");
             }

@@ -25,7 +25,7 @@ public class AdminizeServlet extends HttpServlet {
         User user = userService.getUserByID(userID);
 
         if (userID.longValue() != currentUser.getId().longValue()) {
-            if (user.getAdmin()) {
+            if (user.isAdmin()) {
                 user.setAdmin(false);
             } else {
                 user.setAdmin(true);

@@ -24,7 +24,7 @@ public class BanServlet extends HttpServlet {
         User user = userService.getUserByID(userID);
 
         if (userID.longValue() != currentUser.getId().longValue()) {
-            if (user.getBanned()) {
+            if (user.isBanned()) {
                 user.setBanned(false);
             } else {
                 user.setBanned(true);

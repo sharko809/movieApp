@@ -47,7 +47,7 @@ public class AccountFilter implements Filter {
             filterChain.doFilter(request, response);
         } else {
             LOGGER.error("Attempt to access another users account. User: " +
-                    ((User) session.getAttribute("user")).getLogin() + " admin: " + ((User) session.getAttribute("user")).getAdmin());
+                    ((User) session.getAttribute("user")).getLogin() + " admin: " + ((User) session.getAttribute("user")).isAdmin());
             request.getSession().setAttribute("errorDetails", "You do not have permission to access this page");
             response.sendRedirect(request.getContextPath() + "/error");
         }
