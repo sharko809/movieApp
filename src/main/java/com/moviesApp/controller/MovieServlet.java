@@ -32,11 +32,19 @@ public class MovieServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final Long[] movieID = new Long[1];
 
-        UrlParametersManager.getUrlParams(req.getQueryString()).forEach((key, value) -> {
-            if (key.equals("movieId")) {// TODO think if multiply params are necessary
-                movieID[0] = Long.valueOf(value.get(0));// TODO why 0 is hardcoded. Make it OK
-            }
-        });
+        Map<String, List<String>> urlParams = UrlParametersManager.getUrlParams(req.getQueryString());
+
+        if (urlParams != null) {
+            urlParams.forEach((key, value) -> {
+                if ("movieId".equals(key)) {
+                    movieID[0] = Long.valueOf(value.get(0));
+                }
+            });
+        } else {
+            req.getSession().setAttribute("errorDetails", "Invalid request url");
+            resp.sendRedirect(req.getContextPath() + "/error");
+            return;
+        }
 
         MovieService movieService = new MovieService();
         Movie movie = null;

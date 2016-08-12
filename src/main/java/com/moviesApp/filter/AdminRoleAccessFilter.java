@@ -45,7 +45,7 @@ public class AdminRoleAccessFilter implements Filter {
             } else {
                 LOGGER.error("Attempt to access admin services without permission. User: " +
                         ((User) session.getAttribute("user")).getLogin() + " admin: " + ((User) session.getAttribute("user")).isAdmin());
-                request.getSession().setAttribute("errorDetails", "You do not have permission to access this page");
+                request.getSession().setAttribute("errorDetails", "You do not have admin permission to access this page");
                 response.sendRedirect(request.getContextPath() + "/error");
             }
         }

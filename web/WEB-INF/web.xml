@@ -21,6 +21,9 @@
     <filter-mapping>
         <filter-name>UnauthorizedAccessFilter</filter-name>
         <url-pattern>/account</url-pattern>
+        <url-pattern>/updaccount</url-pattern>
+        <url-pattern>/admin</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
         <url-pattern>/logout</url-pattern>
         <url-pattern>/postreview</url-pattern>
     </filter-mapping>
@@ -227,6 +230,15 @@
         <url-pattern>/account</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>UpdateAccount</servlet-name>
+        <servlet-class>com.moviesApp.controller.UpdateAccountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateAccount</servlet-name>
+        <url-pattern>/updaccount</url-pattern>
+    </servlet-mapping>
+    
     <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.moviesApp.controller.ErrorServlet</servlet-class>

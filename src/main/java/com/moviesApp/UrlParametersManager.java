@@ -18,6 +18,12 @@ public class UrlParametersManager {
     private static final Logger LOGGER = LogManager.getLogger();
 
     public static Map<String, List<String>> getUrlParams(String url) {
+
+        if (url == null) {
+            LOGGER.error("Trying to parse null URL");
+            return null;
+        }
+
         Map<String, List<String>> params = new HashMap<String, List<String>>();
 //        String[] urlParts = url.split("\\?");
 

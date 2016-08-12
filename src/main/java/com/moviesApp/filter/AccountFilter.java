@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -36,15 +38,22 @@ public class AccountFilter implements Filter {
 
         User currentUser = (User) session.getAttribute("user");
         final Long[] userID = new Long[1];
-        UrlParametersManager.getUrlParams(request.getQueryString()).forEach((key, value) -> {
-            if (key.equals("id")) {
-                userID[0] = Long.valueOf(value.get(0));
-            }
-        });
+        Map<String, List<String>> urlParams = UrlParametersManager.getUrlParams(request.getQueryString());
 
+        if (urlParams != null) {
+            urlParams.forEach((key, value) -> {
+                if ("id".equals(key)) {
+                    userID[0] = Long.valueOf(value.get(0));
+                }
+            });
+        } else {
+            request.getSession().setAttribute("errorDetails", "Invalid request url");
+            response.sendRedirect(request.getContextPath() + "/error");
+            return;
+        }
 
-        if (Objects.equals(userID[0], currentUser.getId())) {
-            filterChain.doFilter(request, response);
+        if (Objects.equals(currentUser.getId(), userID[0])) {
+            filterChain.doFilter(request, response);// TODO can I pass userID from here? I think - yes.
         } else {
             LOGGER.error("Attempt to access another users account. User: " +
                     ((User) session.getAttribute("user")).getLogin() + " admin: " + ((User) session.getAttribute("user")).isAdmin());

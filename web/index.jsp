@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="resources/css/authHeader.css">
     <script src="resources/js/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="resources/js/reset-variables.js" type="text/javascript"></script>
+    <script src="/resources/js/test.js" type="text/javascript"></script>
 </head>
 <body class="body-style">
 <header class="pure-g header-menu fixed z-index">

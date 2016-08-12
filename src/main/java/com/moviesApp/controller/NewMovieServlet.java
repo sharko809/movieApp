@@ -28,7 +28,6 @@ public class NewMovieServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // TODO something wrong happens after updating page - movie is created once more
 
         String title = req.getParameter("title");
         String director = req.getParameter("director");
