@@ -5,18 +5,23 @@ import com.moviesApp.security.PasswordManager;
 import com.moviesApp.service.UserService;
 import com.moviesApp.validation.LoginValidator;
 import com.moviesApp.validation.Validator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
  * Created by dsharko on 8/1/2016.
  */
 public class LoginServlet extends HttpServlet {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,7 +37,15 @@ public class LoginServlet extends HttpServlet {
         List<String> errors = validator.validate(user);
 
         UserService userService = new UserService();
-        User foundUser = userService.getUserByLogin(user.getLogin());
+        User foundUser = null;
+        try {
+            foundUser = userService.getUserByLogin(user.getLogin());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            req.getSession().setAttribute("errorDetails", e);
+            resp.sendRedirect(req.getContextPath() + "/error");
+            return;
+        }
 
         String from = "/home";
         String redirect = req.getParameter("redirectFrom");

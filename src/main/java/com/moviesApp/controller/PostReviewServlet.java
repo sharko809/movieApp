@@ -8,6 +8,8 @@ import com.moviesApp.service.MovieService;
 import com.moviesApp.service.ReviewService;
 import com.moviesApp.validation.ReviewValidator;
 import com.moviesApp.validation.Validator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,8 @@ import java.util.List;
  * Created by dsharko on 8/5/2016.
  */
 public class PostReviewServlet extends HttpServlet {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -53,8 +58,22 @@ public class PostReviewServlet extends HttpServlet {
 
         if (errors.isEmpty()) {
             ReviewService reviewService = new ReviewService();
-            reviewService.createReview(userId, movieId, postDate, reviewTitle, userRating, reviewText);
-            updateMovieRating(review.getMovieId(), review.getRating());
+            try {
+                reviewService.createReview(userId, movieId, postDate, reviewTitle, userRating, reviewText);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                req.getSession().setAttribute("errorDetails", e);
+                resp.sendRedirect(req.getContextPath() + "/error");
+                return;
+            }
+            try {
+                updateMovieRating(review.getMovieId(), review.getRating());
+            } catch (SQLException e) {
+                e.printStackTrace();
+                req.getSession().setAttribute("errorDetails", e);
+                resp.sendRedirect(req.getContextPath() + "/error");
+                return;
+            }
             req.getSession().removeAttribute("reviewError");
             req.getSession().removeAttribute("review");
             resp.sendRedirect(from);
@@ -65,12 +84,17 @@ public class PostReviewServlet extends HttpServlet {
         }
     }
 
-    private void updateMovieRating(Long movieID, Integer rating) {
+    private void updateMovieRating(Long movieID, Integer rating) throws SQLException {
         MovieService movieService = new MovieService();
         Movie movieToUpdate = movieService.getMovieByID(movieID);
 
         ReviewService reviewService = new ReviewService();
         List<Review> reviews = reviewService.getReviewsByMovieId(movieID);
+
+        if (reviews == null) {
+            LOGGER.error("Unable to update rating");
+            return;// TODO this might be totally unnecessary since 'reviews' (I think so) is never null
+        }
 
         if (!reviews.isEmpty()) {
             if (movieToUpdate != null) {

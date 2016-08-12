@@ -42,7 +42,7 @@ public class ReviewValidator implements Validator {
             errors.add("Invalid movie reference. Try once more.");
         }
 
-        if (review.getPostDate() == null) {
+        if (review.getPostDate() == null) {// TODO which fields may be null?
             errors.add("Date must not be empty.");// TODO think of it
         }
 

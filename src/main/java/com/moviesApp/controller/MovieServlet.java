@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,25 +44,47 @@ public class MovieServlet extends HttpServlet {
         List<Review> reviews = new ArrayList<>();
         if (movieID[0] != null) {
             if (movieID[0] >= 1) {
-                reviews = reviewService.getReviewsByMovieId(movieID[0]);
+                try {
+                    reviews = reviewService.getReviewsByMovieId(movieID[0]);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    req.getSession().setAttribute("errorDetails", e);
+                    resp.sendRedirect(req.getContextPath() + "/error");
+                    return;
+                }
             }
         }
         UserService userService = new UserService();
 
         Map<Long, String> users = new HashMap<Long, String>();
         if (reviews.size() >= 1) {
-            reviews.forEach(review -> {
-                User user = userService.getUserByID(review.getUserId());
+            for (Review review : reviews) {
+                User user = null;
+                try {
+                    user = userService.getUserByID(review.getUserId());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    req.getSession().setAttribute("errorDetails", e);
+                    resp.sendRedirect(req.getContextPath() + "/error");
+                    return;
+                }
                 if (user != null) {
                     users.put(review.getUserId(), user.getName());
                 } else {
                     LOGGER.error("No user with ID " + review.getUserId() + " found for review ID " + review.getId() + " movie ID " + review.getMovieId());
                 }
-            });
+            }
         }
 
         if (movieID[0] != null) {
-            movie = movieService.getMovieByID(movieID[0]);
+            try {
+                movie = movieService.getMovieByID(movieID[0]);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                req.getSession().setAttribute("errorDetails", e);
+                resp.sendRedirect(req.getContextPath() + "/error");
+                return;
+            }
         }
 
         if (movie == null) {

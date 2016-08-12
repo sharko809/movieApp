@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +21,12 @@ public class UsersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserService userService = new UserService();
-        List<User> users = userService.getAllUsers();
+        List<User> users = new ArrayList<>();
+        try {
+            users = userService.getAllUsers();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         // TODO add pagination!!!
 
@@ -31,6 +38,7 @@ public class UsersServlet extends HttpServlet {
             Set<User> sortedUsers = (Set<User>) sortedAttribute;
             req.getSession().setAttribute("users", sortedUsers);
             req.getRequestDispatcher("/resources/views/users.jsp").forward(req, resp);
+            return;
         }
 
         req.setAttribute("users", users);

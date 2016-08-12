@@ -17,7 +17,7 @@ public class MovieService {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Long addMovie(String movieName, String director, Date releaseDate, String posterURL, String trailerUrl, Double rating, String description) {
+    public Long addMovie(String movieName, String director, Date releaseDate, String posterURL, String trailerUrl, Double rating, String description) throws SQLException {
         if (movieName == null || movieName.trim().equals("")) {
             LOGGER.error("Null or empty movieName during adding new Movie. Movie name: " + movieName);
             return 0L;
@@ -32,13 +32,13 @@ public class MovieService {
         try {
             movieID = movieDAO.create(movieName, director, releaseDate, posterURL, trailerUrl, rating, description);
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
         }
         return movieID;
     }
 
-    public Movie getMovieByID(Long ID) {
+    public Movie getMovieByID(Long ID) throws SQLException {
         if (ID < 1) {
             LOGGER.error("Failed to get movie. Wrong id: " + ID);
             return null;
@@ -48,13 +48,13 @@ public class MovieService {
         try {
             movie = movieDAO.get(ID);
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
         }
         return movie;
     }
 
-    public void updateMovie(Movie movie) {
+    public void updateMovie(Movie movie) throws SQLException {
         MovieDAO movieDAO = new MovieDAO();
         try {
             if (movie.getId() <= 0) {// TODO proper validator. Don't validate shit here
@@ -71,12 +71,12 @@ public class MovieService {
             }
             movieDAO.update(movie);
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
         }
     }
 
-    public boolean deleteMovie(Long movieID) {
+    public boolean deleteMovie(Long movieID) throws SQLException {
         if (movieID < 1) {
             LOGGER.error("Failed to delete movie. Wrong id: " + movieID);
             return false;
@@ -85,20 +85,19 @@ public class MovieService {
         try {
             return movieDAO.delete(movieID);
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
         }
-        return false;
     }
 
-    public List<Movie> getAllMovies() {
+    public List<Movie> getAllMovies() throws SQLException {
         MovieDAO movieDAO = new MovieDAO();
         List<Movie> movies = new ArrayList<Movie>();
         try {
             movies = movieDAO.getAll();
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle. aka column not found etc.
             LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
         }
         return movies;
     }

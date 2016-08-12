@@ -63,4 +63,30 @@ public class User {
         this.name = name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (!getId().equals(user.getId())) return false;
+        if (!getName().equals(user.getName())) return false;
+        if (!getLogin().equals(user.getLogin())) return false;
+        if (!getPassword().equals(user.getPassword())) return false;
+        if (!admin.equals(user.admin)) return false;
+        return banned.equals(user.banned);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + getLogin().hashCode();
+        result = 31 * result + getPassword().hashCode();
+        result = 31 * result + admin.hashCode();
+        result = 31 * result + banned.hashCode();
+        return result;
+    }
 }

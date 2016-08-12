@@ -16,7 +16,7 @@ public class UserService {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public User getUserByID(Long userID) {
+    public User getUserByID(Long userID) throws SQLException {
         if (userID == null) {
             LOGGER.error("Failed to get user. ID = null");
             return null;
@@ -26,43 +26,43 @@ public class UserService {
             return null;
         }
         UserDAO userDAO = new UserDAO();
-        User user = new User();
+        User user = null;
         try {
             user = userDAO.get(userID);
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
         }
         return user;
     }
 
-    public User getUserByLogin(String login) {
+    public User getUserByLogin(String login) throws SQLException {
         UserDAO userDAO = new UserDAO();
         User user = new User();
         try {
             user = userDAO.getByLogin(login);
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
         }
         return user;
     }
 
-    public Long createUser(String userName, String login, String password, Boolean isAdmin) {
+    public Long createUser(String userName, String login, String password, Boolean isAdmin) throws SQLException {
         UserDAO userDAO = new UserDAO();
         Long userID = 0L;
         try {
             userID = userDAO.create(userName, login, password, isAdmin);
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
         }
         return userID;
     }
 
-    public void updateUser(User user) {
+    public void updateUser(User user) throws SQLException {
         if (user.getId() <= 0) {
-            LOGGER.error("Failed to get user. User id must be > 0. User id: " + user.getId());
+            LOGGER.error("Failed to get user. User id must be > 0. User id: " + user.getId());// TODO necessary check?
             return;
         }
         if (user.getName() == null || user.getName().trim().equals("")) {
@@ -73,12 +73,12 @@ public class UserService {
         try {
             userDAO.update(user);
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
         }
     }
 
-    public boolean deleteUser(Long userID) {
+    public boolean deleteUser(Long userID) throws SQLException {
         if (userID <= 0) {
             LOGGER.error("Failed to get user. User id must be > 0. User id: " + userID);
             return false;
@@ -87,20 +87,19 @@ public class UserService {
         try {
             return userDAO.delete(userID);
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
         }
-        return false;
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers() throws SQLException {
         UserDAO userDAO = new UserDAO();
         List<User> users = new ArrayList<User>();
         try {
             users = userDAO.getAll();
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
         }
         return users;
     }

@@ -92,123 +92,127 @@
 
                 <tbody>
                 <c:choose>
-                    <c:when test="${sortedUsers != null && sortedUsers.size() > 1}">
-                        <c:forEach items="${sortedUsers}" var="user">
-                            <tr>
-                                <td>${user.id}</td>
-                                <td>${user.login}</td>
-                                <td>${user.name}</td>
-                                <c:choose>
-                                    <c:when test="${user.isAdmin()}">
-                                        <td>
-                                            <form method="post" action="/admin/adminize" style="margin: 0px;">
-                                                <input type="hidden" name="userID" value="${user.id}"/>
-                                                <input type="hidden" name="redirectFrom" value=""/>
-                                                <button class="pure-button max-width"
-                                                        style="background-color: #7FFF00;"
-                                                        title="Remove admin permissions"
-                                                        type="submit">${user.isAdmin()}</button>
-                                            </form>
-                                        </td>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <td>
-                                            <form method="post" action="/admin/adminize" style="margin: 0px;">
-                                                <input type="hidden" name="userID" value="${user.id}"/>
-                                                <input type="hidden" name="redirectFrom" value=""/>
-                                                <button class="pure-button max-width" title="Set admin"
-                                                        type="submit">${user.isAdmin()}</button>
-                                            </form>
-                                        </td>
-                                    </c:otherwise>
-                                </c:choose>
-                                <c:choose>
-                                    <c:when test="${user.isBanned()}">
-                                        <td>
-                                            <form method="post" action="/admin/ban" style="margin: 0px;">
-                                                <input type="hidden" name="userID" value="${user.id}"/>
-                                                <input type="hidden" name="redirectFrom" value=""/>
-                                                <button class="pure-button max-width"
-                                                        style="background-color: #FFCCCC;"
-                                                        title="Unban user"
-                                                        type="submit">${user.isBanned()}</button>
-                                            </form>
-                                        </td>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <td>
-                                            <form method="post" action="/admin/ban" style="margin: 0px;">
-                                                <input type="hidden" name="userID" value="${user.id}"/>
-                                                <input type="hidden" name="redirectFrom" value=""/>
-                                                <button class="pure-button max-width"
-                                                        title="Ban user"
-                                                        type="submit">${user.isBanned()}</button>
-                                            </form>
-                                        </td>
-                                    </c:otherwise>
-                                </c:choose>
-                            </tr>
-                        </c:forEach>
+                    <c:when test="${sortedUsers != null}">
+                        <c:if test="${sortedUsers.size() >= 1}">
+                            <c:forEach items="${sortedUsers}" var="user">
+                                <tr>
+                                    <td>${user.id}</td>
+                                    <td>${user.login}</td>
+                                    <td>${user.name}</td>
+                                    <c:choose>
+                                        <c:when test="${user.isAdmin()}">
+                                            <td>
+                                                <form method="post" action="/admin/adminize" style="margin: 0px;">
+                                                    <input type="hidden" name="userID" value="${user.id}"/>
+                                                    <input type="hidden" name="redirectFrom" value=""/>
+                                                    <button class="pure-button max-width"
+                                                            style="background-color: #7FFF00;"
+                                                            title="Remove admin permissions"
+                                                            type="submit">${user.isAdmin()}</button>
+                                                </form>
+                                            </td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td>
+                                                <form method="post" action="/admin/adminize" style="margin: 0px;">
+                                                    <input type="hidden" name="userID" value="${user.id}"/>
+                                                    <input type="hidden" name="redirectFrom" value=""/>
+                                                    <button class="pure-button max-width" title="Set admin"
+                                                            type="submit">${user.isAdmin()}</button>
+                                                </form>
+                                            </td>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:choose>
+                                        <c:when test="${user.isBanned()}">
+                                            <td>
+                                                <form method="post" action="/admin/ban" style="margin: 0px;">
+                                                    <input type="hidden" name="userID" value="${user.id}"/>
+                                                    <input type="hidden" name="redirectFrom" value=""/>
+                                                    <button class="pure-button max-width"
+                                                            style="background-color: #FFCCCC;"
+                                                            title="Unban user"
+                                                            type="submit">${user.isBanned()}</button>
+                                                </form>
+                                            </td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td>
+                                                <form method="post" action="/admin/ban" style="margin: 0px;">
+                                                    <input type="hidden" name="userID" value="${user.id}"/>
+                                                    <input type="hidden" name="redirectFrom" value=""/>
+                                                    <button class="pure-button max-width"
+                                                            title="Ban user"
+                                                            type="submit">${user.isBanned()}</button>
+                                                </form>
+                                            </td>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </tr>
+                            </c:forEach>
+                        </c:if>
                     </c:when>
                     <c:otherwise>
                         <c:choose>
-                            <c:when test="${users.size() >= 1}">
-                                <c:forEach items="${users}" var="user">
-                                    <tr>
-                                        <td>${user.id}</td>
-                                        <td>${user.login}</td>
-                                        <td>${user.name}</td>
-                                        <c:choose>
-                                            <c:when test="${user.isAdmin()}">
-                                                <td>
-                                                    <form method="post" action="/admin/adminize" style="margin: 0px;">
-                                                        <input type="hidden" name="userID" value="${user.id}"/>
-                                                        <input type="hidden" name="redirectFrom" value=""/>
-                                                        <button class="pure-button max-width"
-                                                                style="background-color: #7FFF00;"
-                                                                title="Remove admin permissions"
-                                                                type="submit">${user.isAdmin()}</button>
-                                                    </form>
-                                                </td>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <td>
-                                                    <form method="post" action="/admin/adminize" style="margin: 0px;">
-                                                        <input type="hidden" name="userID" value="${user.id}"/>
-                                                        <input type="hidden" name="redirectFrom" value=""/>
-                                                        <button class="pure-button max-width" title="Set admin"
-                                                                type="submit">${user.isAdmin()}</button>
-                                                    </form>
-                                                </td>
-                                            </c:otherwise>
-                                        </c:choose>
-                                        <c:choose>
-                                            <c:when test="${user.isBanned()}">
-                                                <td>
-                                                    <form method="post" action="/admin/ban" style="margin: 0px;">
-                                                        <input type="hidden" name="userID" value="${user.id}"/>
-                                                        <input type="hidden" name="redirectFrom" value=""/>
-                                                        <button class="pure-button max-width"
-                                                                style="background-color: #FFCCCC;"
-                                                                title="Unban user"
-                                                                type="submit">${user.isBanned()}</button>
-                                                    </form>
-                                                </td>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <td>
-                                                    <form method="post" action="/admin/ban" style="margin: 0px;">
-                                                        <input type="hidden" name="userID" value="${user.id}"/>
-                                                        <input type="hidden" name="redirectFrom" value=""/>
-                                                        <button class="pure-button max-width"
-                                                                title="Ban user"
-                                                                type="submit">${user.isBanned()}</button>
-                                                    </form>
-                                                </td>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </tr>
-                                </c:forEach>
+                            <c:when test="${users != null}">
+                                <c:if test="${users.size() >= 1}">
+                                    <c:forEach items="${users}" var="user">
+                                        <tr>
+                                            <td>${user.id}</td>
+                                            <td>${user.login}</td>
+                                            <td>${user.name}</td>
+                                            <c:choose>
+                                                <c:when test="${user.isAdmin()}">
+                                                    <td>
+                                                        <form method="post" action="/admin/adminize" style="margin: 0px;">
+                                                            <input type="hidden" name="userID" value="${user.id}"/>
+                                                            <input type="hidden" name="redirectFrom" value=""/>
+                                                            <button class="pure-button max-width"
+                                                                    style="background-color: #7FFF00;"
+                                                                    title="Remove admin permissions"
+                                                                    type="submit">${user.isAdmin()}</button>
+                                                        </form>
+                                                    </td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td>
+                                                        <form method="post" action="/admin/adminize" style="margin: 0px;">
+                                                            <input type="hidden" name="userID" value="${user.id}"/>
+                                                            <input type="hidden" name="redirectFrom" value=""/>
+                                                            <button class="pure-button max-width" title="Set admin"
+                                                                    type="submit">${user.isAdmin()}</button>
+                                                        </form>
+                                                    </td>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:choose>
+                                                <c:when test="${user.isBanned()}">
+                                                    <td>
+                                                        <form method="post" action="/admin/ban" style="margin: 0px;">
+                                                            <input type="hidden" name="userID" value="${user.id}"/>
+                                                            <input type="hidden" name="redirectFrom" value=""/>
+                                                            <button class="pure-button max-width"
+                                                                    style="background-color: #FFCCCC;"
+                                                                    title="Unban user"
+                                                                    type="submit">${user.isBanned()}</button>
+                                                        </form>
+                                                    </td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td>
+                                                        <form method="post" action="/admin/ban" style="margin: 0px;">
+                                                            <input type="hidden" name="userID" value="${user.id}"/>
+                                                            <input type="hidden" name="redirectFrom" value=""/>
+                                                            <button class="pure-button max-width"
+                                                                    title="Ban user"
+                                                                    type="submit">${user.isBanned()}</button>
+                                                        </form>
+                                                    </td>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </tr>
+                                    </c:forEach>
+                                </c:if>
                             </c:when>
                             <c:otherwise>
                                 <tr>

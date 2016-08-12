@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class RegistrationServlet extends HttpServlet {
         if (userRole != null) {
             user.setAdmin(true);// this is for the default user registration process
         } else {
-            user.setAdmin(false);
+            user.setAdmin(false);// TODO think may be separate with admin reg
         }
 
 
@@ -44,10 +45,26 @@ public class RegistrationServlet extends HttpServlet {
 
         if (errors.isEmpty()) {
             UserService userService = new UserService();
-            if (userService.getUserByLogin(userLogin) == null) {
-                String encodedPassword = PasswordManager.getSaltedHashPassword(password);
-                Long userId = userService.createUser(userName, userLogin, encodedPassword, user.isAdmin());
-                req.setAttribute("result", "User " + userName + " successfully created.");
+            User userToCheck = null;
+            try {
+                userToCheck = userService.getUserByLogin(user.getLogin());
+            } catch (SQLException e) {
+                e.printStackTrace();
+                req.getSession().setAttribute("errorDetails", e);
+                resp.sendRedirect(req.getContextPath() + "/error");
+                return;
+            }
+            if (userToCheck == null) {
+                String encodedPassword = PasswordManager.getSaltedHashPassword(user.getPassword());
+                try {
+                    userService.createUser(user.getName(), user.getLogin(), encodedPassword, user.isAdmin());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    req.getSession().setAttribute("errorDetails", e);
+                    resp.sendRedirect(req.getContextPath() + "/error");
+                    return;
+                }
+                req.setAttribute("result", "User " + user.getName() + " successfully created.");
                 req.getRequestDispatcher("/index.jsp").forward(req, resp);
             } else {
                 errors.add("User with such login already exists");

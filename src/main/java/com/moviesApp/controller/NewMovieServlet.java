@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +54,14 @@ public class NewMovieServlet extends HttpServlet {
 
         if (errors.isEmpty()) {
             MovieService movieService = new MovieService();
-            movieService.addMovie(movie.getMovieName(), movie.getDirector(), movie.getReleaseDate(), movie.getPosterURL(), movie.getTrailerURL(), 0D, movie.getDescription());
+            try {
+                movieService.addMovie(movie.getMovieName(), movie.getDirector(), movie.getReleaseDate(), movie.getPosterURL(), movie.getTrailerURL(), 0D, movie.getDescription());
+            } catch (SQLException e) {
+                e.printStackTrace();
+                req.getSession().setAttribute("errorDetails", e);
+                resp.sendRedirect(req.getContextPath() + "/error");
+                return;
+            }
             req.setAttribute("result", "Movie " + title + " added successfully.");
             req.getRequestDispatcher("/resources/views/addmovie.jsp").forward(req, resp);
         } else {

@@ -17,7 +17,7 @@ public class ReviewService {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Long createReview(Long userID, Long movieID, Date postDate, String reviewTitle, Integer rating, String reviewText) {
+    public Long createReview(Long userID, Long movieID, Date postDate, String reviewTitle, Integer rating, String reviewText) throws SQLException {
         ReviewDAO reviewDAO = new ReviewDAO();
         Long reviewID = 0L;
         try {
@@ -39,13 +39,13 @@ public class ReviewService {
             }
             reviewID = reviewDAO.create(userID, movieID, postDate, reviewTitle, rating, reviewText);
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
         }
         return reviewID;
     }
 
-    public Review getReview(Long reviewID) {
+    public Review getReview(Long reviewID) throws SQLException {
         if (reviewID <= 0) {
             LOGGER.error("Failed to get review. Wrong review id: " + reviewID);
             return null;
@@ -55,25 +55,25 @@ public class ReviewService {
         try {
             review = reviewDAO.get(reviewID);
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
         }
         return review;
     }
 
-    public List<Review> getReviewsByMovieId(Long movieID) {
+    public List<Review> getReviewsByMovieId(Long movieID) throws SQLException {
         ReviewDAO reviewDAO = new ReviewDAO();
         List<Review> reviews = new ArrayList<Review>();
         try {
             reviews.addAll(reviewDAO.getReviewsByMovieId(movieID));
         } catch (SQLException e) {
-            e.printStackTrace();
             LOGGER.fatal("SQLException: " + e);
+            throw new SQLException(e);
         }
         return reviews;
     }
 
-    public void updateReview(Review review) {
+    public void updateReview(Review review) throws SQLException {
         if (review.getId() <= 0) { // TODO do this in validator
             LOGGER.error("Failed to update review. Wrong review id: " + review.getId());
             return;
@@ -98,13 +98,13 @@ public class ReviewService {
         try {
             reviewDAO.update(review);
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
         }
 
     }
 
-    public boolean deleteReview(Long reviewID) {
+    public boolean deleteReview(Long reviewID) throws SQLException {
         if (reviewID <= 0) {
             LOGGER.error("Failed to delete review. Wrong review id: " + reviewID);
             return false;
@@ -113,10 +113,9 @@ public class ReviewService {
         try {
             return reviewDAO.delete(reviewID);
         } catch (SQLException e) {
-            e.printStackTrace();// TODO handle
             LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
         }
-        return false;
     }
 
 }

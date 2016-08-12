@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,7 +21,20 @@ public class SortUsersServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserService userService = new UserService();
-        List<User> users = userService.getAllUsers();
+        List<User> users = null;
+        try {
+            users = userService.getAllUsers();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            req.getSession().setAttribute("errorDetails", e);
+            resp.sendRedirect(req.getContextPath() + "/error");
+            return;
+        }
+
+        if (users == null) {
+            return;
+        }
+        
         String fromULR = req.getParameter("redirectFrom");
         String sortBy = req.getParameter("sortBy");
 

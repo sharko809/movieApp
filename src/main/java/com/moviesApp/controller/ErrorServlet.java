@@ -26,6 +26,15 @@ public class ErrorServlet extends HttpServlet {
             errorDetails.add("Reason: " + errors);
             req.setAttribute("errorDetails", errorDetails);
             req.getRequestDispatcher("/resources/views/error.jsp").forward(req, resp);
+        } else if (errorAttribute instanceof Throwable) {
+            Throwable errors = ((Throwable) errorAttribute).getCause();
+            req.getSession().removeAttribute("errorDetails");
+            errorDetails.add("Server name: " + req.getServerName());
+            errorDetails.add("Server port: " + req.getServerPort());
+            errorDetails.add("Requested URL: " + req.getRequestURL());
+            errorDetails.add("Reason: " + errors);
+            req.setAttribute("errorDetails", errorDetails);
+            req.getRequestDispatcher("/resources/views/error.jsp").forward(req, resp);
         } else {
             req.getSession().removeAttribute("errorDetails");
             errorDetails.add("Server name: " + req.getServerName());

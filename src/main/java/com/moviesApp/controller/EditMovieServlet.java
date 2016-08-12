@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -25,7 +26,18 @@ public class EditMovieServlet extends HttpServlet {
 
         MovieService movieService = new MovieService();
         if (movieId >= 1) {
-            Movie movie = movieService.getMovieByID(movieId);
+            Movie movie = null;
+            try {
+                movie = movieService.getMovieByID(movieId);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                req.getSession().setAttribute("errorDetails", e);
+                resp.sendRedirect(req.getContextPath() + "/error");
+                return;
+            }
+            if (movie == null) {
+                movie = new Movie();
+            }
             req.setAttribute("movie", movie);
             req.getRequestDispatcher("/resources/views/editmovie.jsp").forward(req, resp);
         } else {
@@ -46,7 +58,21 @@ public class EditMovieServlet extends HttpServlet {
 
         MovieService movieService = new MovieService();
 
-        Movie movie = movieService.getMovieByID(movieID);
+        Movie movie = null;
+        try {
+            movie = movieService.getMovieByID(movieID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            req.getSession().setAttribute("errorDetails", e);
+            resp.sendRedirect(req.getContextPath() + "/error");
+            return;
+        }
+        if (movie == null) {
+            req.getSession().setAttribute("errorDetails", "No movie found");
+            resp.sendRedirect(req.getContextPath() + "/error");
+            return;
+        }
+
         movie.setMovieName(title);
         movie.setDirector(director);
         if (releaseDate.isEmpty()) {
@@ -62,7 +88,14 @@ public class EditMovieServlet extends HttpServlet {
         List<String> errors = validator.validate(movie);
 
         if (errors.isEmpty()) {
-            movieService.updateMovie(movie);
+            try {
+                movieService.updateMovie(movie);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                req.getSession().setAttribute("errorDetails", e);
+                resp.sendRedirect(req.getContextPath() + "/error");
+                return;
+            }
             req.setAttribute("result", "Movie updated");// TODO ok, this is to be done properly. I need to properly display errors on the same page
             req.setAttribute("updMovie", movie);
             req.getRequestDispatcher("/resources/views/editmovie.jsp").forward(req, resp);

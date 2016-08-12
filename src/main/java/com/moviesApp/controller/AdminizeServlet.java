@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Created by dsharko on 8/10/2016.
@@ -25,7 +26,14 @@ public class AdminizeServlet extends HttpServlet {
 
         if (userID != null) {
             if (userID >= 1) {
-                user = userService.getUserByID(userID);
+                try {
+                    user = userService.getUserByID(userID);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    req.getSession().setAttribute("errorDetails", e);
+                    resp.sendRedirect(req.getContextPath() + "/error");
+                    return;
+                }
                 if (userID.longValue() != currentUser.getId().longValue()) {
                     if (user != null) {
                         if (user.isAdmin()) {
@@ -33,7 +41,14 @@ public class AdminizeServlet extends HttpServlet {
                         } else {
                             user.setAdmin(true);
                         }
-                        userService.updateUser(user);
+                        try {
+                            userService.updateUser(user);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            req.getSession().setAttribute("errorDetails", e);
+                            resp.sendRedirect(req.getContextPath() + "/error");
+                            return;
+                        }
                         resp.sendRedirect(fromURL);
                     } else {
                         req.getSession().setAttribute("errorDetails", "User not found");

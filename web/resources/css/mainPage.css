@@ -103,3 +103,22 @@
 /*.input[type="text"], textarea {*/
     /*background-color: #efefd6 !important;*/
 /*}*/
+#empty-set {
+    border: 1px;
+    border-style: double;
+    border-color: darkgray;
+    border-radius: 4px;
+    text-align: center;
+    /*margin: 10px auto 10px auto;*/
+    margin: auto;
+    background-color: #ccf1ff;
+    width: 40%;
+}
+
+@media screen and (max-width: 768px) {
+
+    #empty-set {
+        width: 100%;
+    }
+
+}
