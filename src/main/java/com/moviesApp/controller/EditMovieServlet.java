@@ -31,8 +31,8 @@ public class EditMovieServlet extends HttpServlet {
                 movie = movieService.getMovieByID(movieId);
             } catch (SQLException e) {
                 e.printStackTrace();
-                req.getSession().setAttribute("errorDetails", e);
-                resp.sendRedirect(req.getContextPath() + "/error");
+                req.setAttribute("errorDetails", e);
+                req.getRequestDispatcher("/error").forward(req, resp);
                 return;
             }
             if (movie == null) {
@@ -41,8 +41,8 @@ public class EditMovieServlet extends HttpServlet {
             req.setAttribute("movie", movie);
             req.getRequestDispatcher("/resources/views/editmovie.jsp").forward(req, resp);
         } else {
-            req.getSession().setAttribute("errorDetails", "No movie found");
-            resp.sendRedirect(req.getContextPath() + "/error");
+            req.setAttribute("errorDetails", "No movie found");
+            req.getRequestDispatcher("/error").forward(req, resp);
         }
     }
 
@@ -63,14 +63,13 @@ public class EditMovieServlet extends HttpServlet {
             movie = movieService.getMovieByID(movieID);
         } catch (SQLException e) {
             e.printStackTrace();
-            req.getSession().setAttribute("errorDetails", e);
-            resp.sendRedirect(req.getContextPath() + "/error");
+            req.setAttribute("errorDetails", e);
+            req.getRequestDispatcher("/error").forward(req, resp);
             return;
         }
         if (movie == null) {
-            req.getSession().setAttribute("errorDetails", "No movie found");
-            resp.sendRedirect(req.getContextPath() + "/error");
-            return;
+            req.setAttribute("errorDetails", "No movie found");
+            req.getRequestDispatcher("/error").forward(req, resp);
         }
 
         movie.setMovieName(title);
@@ -92,8 +91,8 @@ public class EditMovieServlet extends HttpServlet {
                 movieService.updateMovie(movie);
             } catch (SQLException e) {
                 e.printStackTrace();
-                req.getSession().setAttribute("errorDetails", e);
-                resp.sendRedirect(req.getContextPath() + "/error");
+                req.setAttribute("errorDetails", e);
+                req.getRequestDispatcher("/error").forward(req, resp);
                 return;
             }
             req.setAttribute("result", "Movie updated");// TODO ok, this is to be done properly. I need to properly display errors on the same page

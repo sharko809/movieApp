@@ -37,6 +37,7 @@
         <url-pattern>/account</url-pattern>
     </filter-mapping>
 
+
     <filter>
         <filter-name>AuthorizedAccessFilter</filter-name>
         <filter-class>com.moviesApp.filter.AuthorizedAccessFilter</filter-class>

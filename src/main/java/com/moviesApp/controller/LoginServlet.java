@@ -45,8 +45,8 @@ public class LoginServlet extends HttpServlet {
             foundUser = userService.getUserByLogin(user.getLogin());
         } catch (SQLException e) {
             e.printStackTrace();
-            req.getSession().setAttribute("errorDetails", e);
-            resp.sendRedirect(req.getContextPath() + "/error");
+            req.setAttribute("errorDetails", e);
+            req.getRequestDispatcher("/error").forward(req, resp);
             return;
         }
 
@@ -76,10 +76,10 @@ public class LoginServlet extends HttpServlet {
                         if (req.getParameter("regPage") != null) {
                             if (foundUser.isAdmin()) {
                                 req.getSession().setAttribute("user", foundUser);
-                                resp.sendRedirect(req.getContextPath() + "/admin");
+                                req.getRequestDispatcher("/admin").forward(req, resp);
                             } else {
                                 req.getSession().setAttribute("user", foundUser);
-                                resp.sendRedirect(req.getContextPath() + "/home");
+                                req.getRequestDispatcher("/home").forward(req, resp);
                             }
                         } else {
                             req.getSession().setAttribute("user", foundUser);

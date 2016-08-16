@@ -26,6 +26,9 @@ public class UsersServlet extends HttpServlet {
             users = userService.getAllUsers();
         } catch (SQLException e) {
             e.printStackTrace();
+            req.setAttribute("errorDetails", e);
+            req.getRequestDispatcher("/error").forward(req, resp);
+            return;
         }
 
         // TODO add pagination!!!

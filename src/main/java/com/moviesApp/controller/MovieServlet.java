@@ -16,10 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by dsharko on 8/4/2016.
@@ -30,34 +27,45 @@ public class MovieServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final Long[] movieID = new Long[1];
+        Long movieID = 0L;
 
         Map<String, List<String>> urlParams = UrlParametersManager.getUrlParams(req.getQueryString());
 
         if (urlParams != null) {
-            urlParams.forEach((key, value) -> {
-                if ("movieId".equals(key)) {
-                    movieID[0] = Long.valueOf(value.get(0));
+
+            Optional<List<String>> value = urlParams.entrySet().stream()
+                    .filter(params -> "movieId".equals(params.getKey()))
+                    .map(Map.Entry::getValue)
+                    .findFirst();
+
+            if (value.isPresent()) {
+                if (!value.get().isEmpty() && value.get().size() == 1) {
+                    try {
+                        movieID = Long.parseLong(value.get().get(0));
+                    } catch (NumberFormatException e) {
+                        req.setAttribute("errorDetails", "Invalid request URL");
+                        req.getRequestDispatcher("/error").forward(req, resp);
+                    }
                 }
-            });
+            }
+
         } else {
-            req.getSession().setAttribute("errorDetails", "Invalid request url");
-            resp.sendRedirect(req.getContextPath() + "/error");
-            return;
+            req.setAttribute("errorDetails", "Invalid request url");
+            req.getRequestDispatcher("/error").forward(req, resp);
         }
 
         MovieService movieService = new MovieService();
         Movie movie = null;
         ReviewService reviewService = new ReviewService();
         List<Review> reviews = new ArrayList<>();
-        if (movieID[0] != null) {
-            if (movieID[0] >= 1) {
+        if (movieID != null) {
+            if (movieID >= 1) {
                 try {
-                    reviews = reviewService.getReviewsByMovieId(movieID[0]);
+                    reviews = reviewService.getReviewsByMovieId(movieID);
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    req.getSession().setAttribute("errorDetails", e);
-                    resp.sendRedirect(req.getContextPath() + "/error");
+                    req.setAttribute("errorDetails", e);
+                    req.getRequestDispatcher("/error").forward(req, resp);
                     return;
                 }
             }
@@ -72,8 +80,8 @@ public class MovieServlet extends HttpServlet {
                     user = userService.getUserByID(review.getUserId());
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    req.getSession().setAttribute("errorDetails", e);
-                    resp.sendRedirect(req.getContextPath() + "/error");
+                    req.setAttribute("errorDetails", e);
+                    req.getRequestDispatcher("/error").forward(req, resp);
                     return;
                 }
                 if (user != null) {
@@ -84,20 +92,20 @@ public class MovieServlet extends HttpServlet {
             }
         }
 
-        if (movieID[0] != null) {
+        if (movieID != null) {
             try {
-                movie = movieService.getMovieByID(movieID[0]);
+                movie = movieService.getMovieByID(movieID);
             } catch (SQLException e) {
                 e.printStackTrace();
-                req.getSession().setAttribute("errorDetails", e);
-                resp.sendRedirect(req.getContextPath() + "/error");
+                req.setAttribute("errorDetails", e);
+                req.getRequestDispatcher("/error").forward(req, resp);
                 return;
             }
         }
 
         if (movie == null) {
-            req.getSession().setAttribute("errorDetails", "Something wrong has happened and movie can't be found :(");
-            resp.sendRedirect(req.getContextPath() + "/error");
+            req.setAttribute("errorDetails", "Something wrong has happened and movie can't be found :(");
+            req.getRequestDispatcher("/error").forward(req, resp);
         } else {
             req.setAttribute("movie", movie);
             req.setAttribute("users", users);

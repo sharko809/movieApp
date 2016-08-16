@@ -32,12 +32,12 @@ public class SearchFilter implements Filter {
             User user = (User) request.getSession().getAttribute("user");
             if (user != null) {
                 if (user.isAdmin()) {
-                    response.sendRedirect(request.getContextPath() + "/admin");
+                    request.getRequestDispatcher("/resources/views/admin.jsp").forward(request, response);
                 } else {
-                    response.sendRedirect(request.getContextPath() + "/home");
+                    request.getRequestDispatcher("/resources/views/home.jsp").forward(request, response);
                 }
             } else {
-                response.sendRedirect(request.getContextPath() + "/home");
+                request.getRequestDispatcher("/resources/views/home.jsp").forward(request, response);
             }
         } else {
             filterChain.doFilter(request, response);

@@ -31,17 +31,17 @@ public class AuthorizedAccessFilter implements Filter {
         HttpSession session = request.getSession(false);
 
         if (session == null) {
-            request.getSession().setAttribute("errorDetails", "You are not authorized");
+            request.setAttribute("errorDetails", "You are not authorized");
             LOGGER.error("Not authorized access to: " + request.getRequestURI() + " Remote user details: " + request.getRemoteAddr());
-            response.sendRedirect(request.getContextPath() + "/error");
+            request.getRequestDispatcher("/error").forward(request, response);
         } else {
             if (session.getAttribute("user") == null) {
                 filterChain.doFilter(request, response);
             } else {
                 User user = (User) session.getAttribute("user");
-                request.getSession().setAttribute("errorDetails", "You are already authorized");
+                request.setAttribute("errorDetails", "You are already authorized");
                 LOGGER.warn("Attempt to access content for unauthorized users while authorized. User: " + user.getName() + " admin: " + user.isAdmin());
-                response.sendRedirect(request.getContextPath() + "/error");
+                request.getRequestDispatcher("/error").forward(request, response);
             }
         }
 

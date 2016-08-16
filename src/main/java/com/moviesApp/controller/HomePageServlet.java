@@ -24,8 +24,8 @@ public class HomePageServlet extends HttpServlet {
             movies = movieService.getAllMovies();
         } catch (SQLException e) {
             e.printStackTrace();
-            req.getSession().setAttribute("errorDetails", e);
-            resp.sendRedirect(req.getContextPath() + "/error");
+            req.setAttribute("errorDetails", e);
+            req.getRequestDispatcher("/error").forward(req, resp);
             return;
         }
         req.setAttribute("movies", movies);
@@ -33,4 +33,8 @@ public class HomePageServlet extends HttpServlet {
 
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
+    }
 }

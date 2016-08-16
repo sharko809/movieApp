@@ -34,14 +34,14 @@ public class UnauthorizedAccessFilter implements Filter {
 
         if (session == null) {
             LOGGER.error("Not authorized access to: " + request.getRequestURI() + " Remote user details: " + request.getRemoteAddr());
-            request.getSession().setAttribute("errorDetails", "You are not authorized");
-            response.sendRedirect(request.getContextPath() + "/error");
+            request.setAttribute("errorDetails", "You are not authorized");
+            request.getRequestDispatcher("/error").forward(request, response);
         } else {
             User user = (User) session.getAttribute("user");
             if (user == null) {
                 LOGGER.error("Not authorized access to: " + request.getRequestURI() + " Remote user details: " + request.getRemoteAddr());
-                request.getSession().setAttribute("errorDetails", "You are not authorized");
-                response.sendRedirect(request.getContextPath() + "/error");
+                request.setAttribute("errorDetails", "You are not authorized");
+                request.getRequestDispatcher("/error").forward(request, response);
             } else {
                 filterChain.doFilter(request, response);
             }
@@ -50,8 +50,8 @@ public class UnauthorizedAccessFilter implements Filter {
 
 //        if (session.getAttribute("user") == null) {
 //            LOGGER.warn("Attempt to get unauthorized access to content");
-//            request.getSession().setAttribute("errorDetails", "Not authorized user");
-//            response.sendRedirect(request.getContextPath() + "/error");
+//            request.setAttribute("errorDetails", "Not authorized user");
+//            request.getRequestDispatcher("/error").forward(request, response);
 //        } else {
 //            filterChain.doFilter(request, response);
 //        }

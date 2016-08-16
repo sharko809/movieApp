@@ -30,8 +30,8 @@ public class AdminizeServlet extends HttpServlet {
                     user = userService.getUserByID(userID);
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    req.getSession().setAttribute("errorDetails", e);
-                    resp.sendRedirect(req.getContextPath() + "/error");
+                    req.setAttribute("errorDetails", e);
+                    req.getRequestDispatcher("/error").forward(req, resp);
                     return;
                 }
                 if (userID.longValue() != currentUser.getId().longValue()) {
@@ -45,23 +45,23 @@ public class AdminizeServlet extends HttpServlet {
                             userService.updateUser(user);
                         } catch (SQLException e) {
                             e.printStackTrace();
-                            req.getSession().setAttribute("errorDetails", e);
-                            resp.sendRedirect(req.getContextPath() + "/error");
+                            req.setAttribute("errorDetails", e);
+                            req.getRequestDispatcher("/error").forward(req, resp);
                             return;
                         }
                         resp.sendRedirect(fromURL);
                     } else {
-                        req.getSession().setAttribute("errorDetails", "User not found");
-                        resp.sendRedirect(req.getContextPath() + "/error");
+                        req.setAttribute("errorDetails", "User not found");
+                        req.getRequestDispatcher("/error").forward(req, resp);
                     }
                 } else {
-                    req.getSession().setAttribute("errorDetails", "Can't change your own admin state");
-                    resp.sendRedirect(req.getContextPath() + "/error");
+                    req.setAttribute("errorDetails", "Can't change your own admin state");
+                    req.getRequestDispatcher("/error").forward(req, resp);
                 }
             }
         } else {
-            req.getSession().setAttribute("errorDetails", "Can't identify you");
-            resp.sendRedirect(req.getContextPath() + "/error");
+            req.setAttribute("errorDetails", "Can't identify you");
+            req.getRequestDispatcher("/error").forward(req, resp);
         }
 
     }

@@ -16,10 +16,9 @@ public class ErrorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> errorDetails = new ArrayList<String>();
-        Object errorAttribute = req.getSession().getAttribute("errorDetails");
+        Object errorAttribute = req.getAttribute("errorDetails");
         if (errorAttribute instanceof String) {
             String errors = (String) errorAttribute;
-            req.getSession().removeAttribute("errorDetails");
             errorDetails.add("Server name: " + req.getServerName());
             errorDetails.add("Server port: " + req.getServerPort());
             errorDetails.add("Requested URL: " + req.getRequestURL());
@@ -28,7 +27,6 @@ public class ErrorServlet extends HttpServlet {
             req.getRequestDispatcher("/resources/views/error.jsp").forward(req, resp);
         } else if (errorAttribute instanceof Throwable) {
             Throwable errors = ((Throwable) errorAttribute).getCause();
-            req.getSession().removeAttribute("errorDetails");
             errorDetails.add("Server name: " + req.getServerName());
             errorDetails.add("Server port: " + req.getServerPort());
             errorDetails.add("Requested URL: " + req.getRequestURL());
@@ -36,7 +34,6 @@ public class ErrorServlet extends HttpServlet {
             req.setAttribute("errorDetails", errorDetails);
             req.getRequestDispatcher("/resources/views/error.jsp").forward(req, resp);
         } else {
-            req.getSession().removeAttribute("errorDetails");
             errorDetails.add("Server name: " + req.getServerName());
             errorDetails.add("Server port: " + req.getServerPort());
             errorDetails.add("Requested URL: " + req.getRequestURL());
@@ -45,5 +42,10 @@ public class ErrorServlet extends HttpServlet {
             req.getRequestDispatcher("/resources/views/error.jsp").forward(req, resp);
         }
 
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
     }
 }

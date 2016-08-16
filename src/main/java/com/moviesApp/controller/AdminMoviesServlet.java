@@ -24,8 +24,8 @@ public class AdminMoviesServlet extends HttpServlet {
             movies = movieService.getAllMovies();
         } catch (SQLException e) {
             e.printStackTrace();
-            req.getSession().setAttribute("errorDetails", e);
-            resp.sendRedirect(req.getContextPath() + "/error");
+            req.setAttribute("errorDetails", e);
+            req.getRequestDispatcher("/error").forward(req, resp);
             return;
         }
         req.setAttribute("movies", movies);

@@ -50,8 +50,8 @@ public class RegistrationServlet extends HttpServlet {
                 userToCheck = userService.getUserByLogin(user.getLogin());
             } catch (SQLException e) {
                 e.printStackTrace();
-                req.getSession().setAttribute("errorDetails", e);
-                resp.sendRedirect(req.getContextPath() + "/error");
+                req.setAttribute("errorDetails", e);
+                req.getRequestDispatcher("/error").forward(req, resp);
                 return;
             }
             if (userToCheck == null) {
@@ -60,8 +60,8 @@ public class RegistrationServlet extends HttpServlet {
                     userService.createUser(user.getName(), user.getLogin(), encodedPassword, user.isAdmin());
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    req.getSession().setAttribute("errorDetails", e);
-                    resp.sendRedirect(req.getContextPath() + "/error");
+                    req.setAttribute("errorDetails", e);
+                    req.getRequestDispatcher("/error").forward(req, resp);
                     return;
                 }
                 req.setAttribute("result", "User " + user.getName() + " successfully created.");

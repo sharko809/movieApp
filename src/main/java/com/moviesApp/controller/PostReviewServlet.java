@@ -31,9 +31,25 @@ public class PostReviewServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long userId = ((User) req.getSession().getAttribute("user")).getId();
-        Long movieId = Long.valueOf(req.getParameter("movieID"));
+        Long movieId = 0L;
+        try {
+            movieId = Long.valueOf(req.getParameter("movieID"));
+        } catch (NumberFormatException e) {
+            LOGGER.error("Invalid movie ID");
+            req.setAttribute("errorDetails", "Invalid request URL");
+            req.getRequestDispatcher("/resources/view/error.jsp").forward(req, resp);
+            return;
+        }
         String reviewTitle = req.getParameter("reviewTitle");
-        Integer userRating = Integer.valueOf(req.getParameter("userRating"));
+        Integer userRating;
+        try {
+            userRating = Integer.valueOf(req.getParameter("userRating"));
+        } catch (NumberFormatException e) {
+            LOGGER.error("Invalid user rating");
+            req.setAttribute("errorDetails", "Invalid request URL");
+            req.getRequestDispatcher("/resources/view/error.jsp").forward(req, resp);
+            return;
+        }
         String reviewText = req.getParameter("reviewText");
         Date postDate = new Date(new java.util.Date().getTime());
 
@@ -62,25 +78,29 @@ public class PostReviewServlet extends HttpServlet {
                 reviewService.createReview(userId, movieId, postDate, reviewTitle, userRating, reviewText);
             } catch (SQLException e) {
                 e.printStackTrace();
-                req.getSession().setAttribute("errorDetails", e);
-                resp.sendRedirect(req.getContextPath() + "/error");
+                req.setAttribute("errorDetails", e);
+                req.getRequestDispatcher("/error").forward(req, resp);
                 return;
             }
             try {
                 updateMovieRating(review.getMovieId(), review.getRating());
             } catch (SQLException e) {
                 e.printStackTrace();
-                req.getSession().setAttribute("errorDetails", e);
-                resp.sendRedirect(req.getContextPath() + "/error");
+                req.setAttribute("errorDetails", e);
+                req.getRequestDispatcher("/error").forward(req, resp);
                 return;
             }
-            req.getSession().removeAttribute("reviewError");
-            req.getSession().removeAttribute("review");
-            resp.sendRedirect(from);
+//            req.getSession().removeAttribute("reviewError");
+//            req.getSession().removeAttribute("review");
+//            resp.sendRedirect(from);
+            resp.sendRedirect("/movies?movieId=" + movieId);
         } else {
             req.getSession().setAttribute("reviewError", errors);
+//            req.setAttribute("reviewError", errors);
             req.getSession().setAttribute("review" ,review);
+//            req.setAttribute("review" ,review);
             resp.sendRedirect(from);
+//            req.getRequestDispatcher("/resources/views/movie.jsp").forward(req, resp);
         }
     }
 

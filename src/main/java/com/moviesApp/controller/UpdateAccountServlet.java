@@ -39,7 +39,15 @@ public class UpdateAccountServlet extends HttpServlet {
         if (userPassword == null || userPassword.isEmpty()) {
             user.setPassword(currentUser.getPassword());
         } else {
-            String newPassword = PasswordManager.getSaltedHashPassword(userPassword);
+            String newPassword = null;
+            try {
+                newPassword = PasswordManager.getSaltedHashPassword(userPassword);
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+                req.setAttribute("result", "Password should not be empty and must have at least 3 characters");
+                req.setAttribute("thisUser", user);
+                req.getRequestDispatcher("/resources/views/account.jsp").forward(req, resp);
+            }
             user.setPassword(newPassword);
         }
         user.setAdmin(currentUser.isAdmin());
@@ -54,16 +62,16 @@ public class UpdateAccountServlet extends HttpServlet {
                 userService.updateUser(user);
             } catch (SQLException e) {
                 e.printStackTrace();
-                req.getSession().setAttribute("errorDetails", "Invalid request url");
-                resp.sendRedirect(req.getContextPath() + "/error");
+                req.setAttribute("errorDetails", "Invalid request url");
+                req.getRequestDispatcher("/error").forward(req, resp);
                 return;
             }
             req.getSession().setAttribute("user", user);
-            req.setAttribute("result", "Update OK");// TODO it shouldn't go through all session
-            resp.sendRedirect(from);
+            resp.sendRedirect("/account?id=" + user.getId());
         } else {
-            req.setAttribute("result", errors);// TODO it shouldn't go through all session
-            resp.sendRedirect(from);
+            req.setAttribute("result", errors);
+            req.setAttribute("thisUser", user);
+            req.getRequestDispatcher("/resources/views/account.jsp").forward(req, resp);
         }
 
 

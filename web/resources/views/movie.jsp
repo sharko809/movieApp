@@ -127,7 +127,7 @@
                                     <button id="submitReview" class="pure-button" type="submit">Post review</button>
                                 </div>
                             </div>
-                            <c:if test="${review.title.length() > 1}">
+                            <c:if test="${review != null}">
                                 <script type="text/javascript">
                                     setReviewInputs('${review.title}','${review.rating}','${review.reviewText}');
                                 </script>

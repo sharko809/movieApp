@@ -31,8 +31,8 @@ public class SearchServlet extends HttpServlet {
                     movies = movieService.getAllMovies();
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    req.getSession().setAttribute("errorDetails", e);
-                    resp.sendRedirect(req.getContextPath() + "/error");
+                    req.setAttribute("errorDetails", e);
+                    req.getRequestDispatcher("/error").forward(req, resp);
                     return;
                 }
                 if (!movies.isEmpty()) {

@@ -33,12 +33,12 @@ public class RatingServlet extends HttpServlet {
             movie = movieService.getMovieByID(movieID);
         } catch (SQLException e) {
             e.printStackTrace();
-            req.getSession().setAttribute("errorDetails", e);
-            resp.sendRedirect(req.getContextPath() + "/error");
+            req.setAttribute("errorDetails", e);
+            req.getRequestDispatcher("/error").forward(req, resp);
             return;
         }
         if (movie == null) {
-            LOGGER.error("NO movie found. So rating can't be updated.");
+            LOGGER.error("NO movie found. So rating can't be updated.");// TODO mb inform user?
             return;
         }
 
@@ -48,12 +48,12 @@ public class RatingServlet extends HttpServlet {
             reviews = reviewService.getReviewsByMovieId(movieID);
         } catch (SQLException e) {
             e.printStackTrace();
-            req.getSession().setAttribute("errorDetails", e);
-            resp.sendRedirect(req.getContextPath() + "/error");
+            req.setAttribute("errorDetails", e);
+            req.getRequestDispatcher("/error").forward(req, resp);
             return;
         }
         if (reviews == null) {
-            LOGGER.error("NO reviews found. So rating can't be updated.");
+            LOGGER.error("NO reviews found. So rating can't be updated.");// TODO mb inform user?
             return;
         }
 
@@ -68,8 +68,8 @@ public class RatingServlet extends HttpServlet {
             movieService.updateMovie(movie);
         } catch (SQLException e) {
             e.printStackTrace();
-            req.getSession().setAttribute("errorDetails", e);
-            resp.sendRedirect(req.getContextPath() + "/error");
+            req.setAttribute("errorDetails", e);
+            req.getRequestDispatcher("/error").forward(req, resp);
             return;
         }
 

@@ -31,7 +31,8 @@
     <div class="pure-u-md-3-4 pure-u-sm-1 centered">
         <div class="pure-u-1">
             <c:if test="${user != null}">
-                <form class="pure-form pure-form-aligned" style="text-align: center; padding-right: 90px;" method="post" action="/updaccount">
+                <form class="pure-form pure-form-aligned" style="text-align: center; padding-right: 90px;" method="post"
+                      action="/updaccount">
                     <fieldset>
                         <div class="pure-control-group">
                             <label for="userName">Username: </label>
@@ -45,7 +46,9 @@
                         </div>
                         <div class="pure-control-group">
                             <label for="userPassword">Password: </label>
-                            <input type="password" id="userPassword" name="userPassword" title="If you want to change password - type new one here." placeholder="Leave blank to keep old password" readonly/>
+                            <input type="password" id="userPassword" name="userPassword"
+                                   title="If you want to change password - type new one here."
+                                   placeholder="Leave blank to keep old password" readonly/>
                             <button id="editPassword" type="button" class="pure-button">Edit</button>
                         </div>
                         <div class="pure-controls">
@@ -59,7 +62,9 @@
         <div class="pure-u-1">
             <c:if test="${result != null}">
                 <c:forEach items="${result}" var="r">
-                    ${r}<br/>
+                    <div id="empty-set">
+                            ${r}<br/>
+                    </div>
                 </c:forEach>
             </c:if>
         </div>

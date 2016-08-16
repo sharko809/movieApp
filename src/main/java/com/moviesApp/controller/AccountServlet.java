@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Created by dsharko on 8/10/2016.
@@ -20,32 +21,43 @@ public class AccountServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final Long userId[] = new Long[1];
+        Long userId = 0L;
 
         Map<String, List<String>> urlParams = UrlParametersManager.getUrlParams(req.getQueryString());
 
         if (urlParams != null) {
-            urlParams.forEach((key, value) -> {
-                if ("id".equals(key)) {
-                    userId[0] = Long.valueOf(value.get(0));
+
+            Optional<List<String>> value = urlParams.entrySet().stream()
+                    .filter(params -> "id".equals(params.getKey()))
+                    .map(Map.Entry::getValue)
+                    .findFirst();
+
+            if (value.isPresent()) {
+                if (!value.get().isEmpty() && value.get().size() == 1) {
+                    try {
+                        userId = Long.parseLong(value.get().get(0));
+                    } catch (NumberFormatException e) {
+                        req.setAttribute("errorDetails", "Invalid request URL");
+                        req.getRequestDispatcher("/resources/view/error.jsp").forward(req, resp);
+                    }
                 }
-            });
+            }
+
         } else {
-            req.getSession().setAttribute("errorDetails", "Invalid request url");
-            resp.sendRedirect(req.getContextPath() + "/error");
-            return;
+            req.setAttribute("errorDetails", "Invalid request url");
+            req.getRequestDispatcher("/error").forward(req, resp);
         }
 
         UserService userService = new UserService();
         User user = null;
-        if (userId[0] != null) {
-            if (userId[0] >= 1) {
+        if (userId != null) {
+            if (userId >= 1) {
                 try {
-                    user = userService.getUserByID(userId[0]);
+                    user = userService.getUserByID(userId);
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    req.getSession().setAttribute("errorDetails", "Invalid request url");
-                    resp.sendRedirect(req.getContextPath() + "/error");
+                    req.setAttribute("errorDetails", "Invalid request url");
+                    req.getRequestDispatcher("/error").forward(req, resp);
                     return;
                 }
             }
@@ -54,4 +66,5 @@ public class AccountServlet extends HttpServlet {
         req.setAttribute("thisUser", user);
         req.getRequestDispatcher("/resources/views/account.jsp").forward(req, resp);
     }
+
 }
