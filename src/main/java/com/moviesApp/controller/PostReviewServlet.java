@@ -1,11 +1,11 @@
 package com.moviesApp.controller;
 
-import com.moviesApp.UrlParametersManager;
 import com.moviesApp.entities.Movie;
 import com.moviesApp.entities.Review;
 import com.moviesApp.entities.User;
 import com.moviesApp.service.MovieService;
 import com.moviesApp.service.ReviewService;
+import com.moviesApp.service.UserService;
 import com.moviesApp.validation.ReviewValidator;
 import com.moviesApp.validation.Validator;
 import org.apache.logging.log4j.LogManager;
@@ -18,8 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by dsharko on 8/5/2016.
@@ -90,17 +93,41 @@ public class PostReviewServlet extends HttpServlet {
                 req.getRequestDispatcher("/error").forward(req, resp);
                 return;
             }
-//            req.getSession().removeAttribute("reviewError");
-//            req.getSession().removeAttribute("review");
-//            resp.sendRedirect(from);
             resp.sendRedirect("/movies?movieId=" + movieId);
         } else {
-            req.getSession().setAttribute("reviewError", errors);
-//            req.setAttribute("reviewError", errors);
-            req.getSession().setAttribute("review" ,review);
-//            req.setAttribute("review" ,review);
-            resp.sendRedirect(from);
-//            req.getRequestDispatcher("/resources/views/movie.jsp").forward(req, resp);
+            List<Review> reviews = null;
+            try {
+                reviews = getReviews(movieId);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                req.setAttribute("errorDetails", e);
+                req.getRequestDispatcher("/error").forward(req, resp);
+                return;
+            }
+            Movie movie = null;
+            try {
+                movie = getMovie(movieId);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                req.setAttribute("errorDetails", e);
+                req.getRequestDispatcher("/error").forward(req, resp);
+                return;
+            }
+            Map<Long, String> users = null;
+            try {
+                users = getUsers(reviews);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                req.setAttribute("errorDetails", e);
+                req.getRequestDispatcher("/error").forward(req, resp);
+                return;
+            }
+            req.setAttribute("reviews", reviews);
+            req.setAttribute("movie", movie);
+            req.setAttribute("users", users);
+            req.setAttribute("reviewError", errors);
+            req.setAttribute("review", review);
+            req.getRequestDispatcher("/resources/views/movie.jsp").forward(req, resp);
         }
     }
 
@@ -123,6 +150,8 @@ public class PostReviewServlet extends HttpServlet {
                     totalRating += review.getRating();
                 }
                 Double newRating = (totalRating + rating) / (reviews.size() + 1);
+                DecimalFormat df = new DecimalFormat("#.##");
+                newRating = Double.valueOf(df.format(newRating));
                 movieToUpdate.setRating(newRating);
                 movieService.updateMovie(movieToUpdate);
             }
@@ -132,6 +161,45 @@ public class PostReviewServlet extends HttpServlet {
         }
 
 
-
     }
+
+    private List<Review> getReviews(Long movieID) throws SQLException {
+        List<Review> reviews = new ArrayList<>();
+        ReviewService reviewService = new ReviewService();
+        if (movieID != null) {
+            if (movieID >= 1) {
+                reviews = reviewService.getReviewsByMovieId(movieID);
+            }
+        }
+        return reviews;
+    }
+
+    private Movie getMovie(Long movieID) throws SQLException {
+        Movie movie = null;
+        if (movieID != null) {
+            if (movieID >= 1) {
+                MovieService movieService = new MovieService();
+                movie = movieService.getMovieByID(movieID);
+            }
+        }
+        return movie;
+    }
+
+    private Map<Long, String> getUsers(List<Review> reviews) throws SQLException {
+        Map<Long, String> users = new HashMap<>();
+        if (reviews.size() >= 1) {
+            for (Review review : reviews) {
+                User user = null;
+                UserService userService = new UserService();
+                user = userService.getUserByID(review.getUserId());
+                if (user != null) {
+                    users.put(review.getUserId(), user.getName());
+                } else {
+                    LOGGER.error("No user with ID " + review.getUserId() + " found for review ID " + review.getId() + " movie ID " + review.getMovieId());
+                }
+            }
+        }
+        return users;
+    }
+
 }

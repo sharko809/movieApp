@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -62,6 +63,8 @@ public class RatingServlet extends HttpServlet {
             totalRating += review.getRating();
         }
         Double newRating = totalRating / reviews.size();
+        DecimalFormat df = new DecimalFormat("#.##");
+        newRating = Double.valueOf(df.format(newRating));
         movie.setRating(newRating);
 
         try {
