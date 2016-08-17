@@ -37,6 +37,14 @@
         <url-pattern>/account</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>com.moviesApp.filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/login</url-pattern>
+    </filter-mapping>
 
     <filter>
         <filter-name>AuthorizedAccessFilter</filter-name>
@@ -157,6 +165,7 @@
     <servlet-mapping>
         <servlet-name>Search</servlet-name>
         <url-pattern>/search</url-pattern>
+        <url-pattern>/search?</url-pattern>
     </servlet-mapping>
 
     <servlet>

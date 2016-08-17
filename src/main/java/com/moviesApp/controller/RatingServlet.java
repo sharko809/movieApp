@@ -1,5 +1,6 @@
 package com.moviesApp.controller;
 
+import com.moviesApp.ExceptionsUtil;
 import com.moviesApp.entities.Movie;
 import com.moviesApp.entities.Review;
 import com.moviesApp.service.MovieService;
@@ -25,7 +26,13 @@ public class RatingServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long movieID = Long.valueOf(req.getParameter("movieID"));
+        Long movieID = 0L;
+        try {
+            movieID = Long.valueOf(req.getParameter("movieID"));
+        } catch (NumberFormatException e) {
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Error parsing movie ID", e);
+            return;
+        }
         String from = req.getParameter("redirectFrom");
 
         MovieService movieService = new MovieService();
@@ -33,9 +40,7 @@ public class RatingServlet extends HttpServlet {
         try {
             movie = movieService.getMovieByID(movieID);
         } catch (SQLException e) {
-            e.printStackTrace();
-            req.setAttribute("errorDetails", e);
-            req.getRequestDispatcher("/error").forward(req, resp);
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
             return;
         }
         if (movie == null) {
@@ -48,9 +53,7 @@ public class RatingServlet extends HttpServlet {
         try {
             reviews = reviewService.getReviewsByMovieId(movieID);
         } catch (SQLException e) {
-            e.printStackTrace();
-            req.setAttribute("errorDetails", e);
-            req.getRequestDispatcher("/error").forward(req, resp);
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
             return;
         }
         if (reviews == null) {
@@ -64,15 +67,18 @@ public class RatingServlet extends HttpServlet {
         }
         Double newRating = totalRating / reviews.size();
         DecimalFormat df = new DecimalFormat("#.##");
-        newRating = Double.valueOf(df.format(newRating));
+        try {
+            newRating = Double.valueOf(df.format(newRating));
+        } catch (NumberFormatException e) {
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
+            return;
+        }
         movie.setRating(newRating);
 
         try {
             movieService.updateMovie(movie);
         } catch (SQLException e) {
-            e.printStackTrace();
-            req.setAttribute("errorDetails", e);
-            req.getRequestDispatcher("/error").forward(req, resp);
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
             return;
         }
 

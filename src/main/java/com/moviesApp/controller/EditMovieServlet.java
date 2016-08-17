@@ -1,9 +1,12 @@
 package com.moviesApp.controller;
 
+import com.moviesApp.ExceptionsUtil;
 import com.moviesApp.entities.Movie;
 import com.moviesApp.service.MovieService;
 import com.moviesApp.validation.MovieValidator;
 import com.moviesApp.validation.Validator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,10 +22,18 @@ import java.util.List;
  */
 public class EditMovieServlet extends HttpServlet {
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String movieIdParam = req.getParameter("movieID");
-        Long movieId = Long.valueOf(movieIdParam);
+        Long movieId = null;
+        try {
+            movieId = Long.valueOf(movieIdParam);
+        } catch (NumberFormatException e) {
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Error parsing movie ID", e);
+            return;
+        }
 
         MovieService movieService = new MovieService();
         if (movieId >= 1) {
@@ -30,9 +41,7 @@ public class EditMovieServlet extends HttpServlet {
             try {
                 movie = movieService.getMovieByID(movieId);
             } catch (SQLException e) {
-                e.printStackTrace();
-                req.setAttribute("errorDetails", e);
-                req.getRequestDispatcher("/error").forward(req, resp);
+                ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Error parsing user ID", e);
                 return;
             }
             if (movie == null) {
@@ -54,7 +63,13 @@ public class EditMovieServlet extends HttpServlet {
         String posterUrl = req.getParameter("posterUrl");
         String trailerUrl = req.getParameter("trailerUrl");
         String description = req.getParameter("description");
-        Long movieID = Long.valueOf(req.getParameter("movieID"));
+        Long movieID = null;
+        try {
+            movieID = Long.valueOf(req.getParameter("movieID"));
+        } catch (NumberFormatException e) {
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Error parsing movie ID", e);
+            return;
+        }
 
         MovieService movieService = new MovieService();
 
@@ -62,9 +77,7 @@ public class EditMovieServlet extends HttpServlet {
         try {
             movie = movieService.getMovieByID(movieID);
         } catch (SQLException e) {
-            e.printStackTrace();
-            req.setAttribute("errorDetails", e);
-            req.getRequestDispatcher("/error").forward(req, resp);
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
             return;
         }
         if (movie == null) {
@@ -77,7 +90,12 @@ public class EditMovieServlet extends HttpServlet {
         if (releaseDate.isEmpty()) {
             movie.setReleaseDate(new Date(new java.util.Date().getTime()));// TODO handle it in some other way
         } else {
-            movie.setReleaseDate(Date.valueOf(releaseDate));// TODO check this
+            try {
+                movie.setReleaseDate(Date.valueOf(releaseDate));// TODO check this
+            } catch (IllegalArgumentException e) {
+                ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Error parsing date", e);
+                return;
+            }
         }
         movie.setPosterURL(posterUrl);
         movie.setTrailerURL(trailerUrl);
@@ -90,9 +108,7 @@ public class EditMovieServlet extends HttpServlet {
             try {
                 movieService.updateMovie(movie);
             } catch (SQLException e) {
-                e.printStackTrace();
-                req.setAttribute("errorDetails", e);
-                req.getRequestDispatcher("/error").forward(req, resp);
+                ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
                 return;
             }
             req.setAttribute("result", "Movie updated");// TODO ok, this is to be done properly. I need to properly display errors on the same page

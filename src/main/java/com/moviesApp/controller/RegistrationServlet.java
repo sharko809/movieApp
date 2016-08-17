@@ -1,10 +1,13 @@
 package com.moviesApp.controller;
 
+import com.moviesApp.ExceptionsUtil;
 import com.moviesApp.entities.User;
 import com.moviesApp.security.PasswordManager;
 import com.moviesApp.service.UserService;
 import com.moviesApp.validation.RegistrationValidator;
 import com.moviesApp.validation.Validator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +21,8 @@ import java.util.List;
  * Created by dsharko on 8/1/2016.
  */
 public class RegistrationServlet extends HttpServlet {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -49,9 +54,7 @@ public class RegistrationServlet extends HttpServlet {
             try {
                 userToCheck = userService.getUserByLogin(user.getLogin());
             } catch (SQLException e) {
-                e.printStackTrace();
-                req.setAttribute("errorDetails", e);
-                req.getRequestDispatcher("/error").forward(req, resp);
+                ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
                 return;
             }
             if (userToCheck == null) {
@@ -59,9 +62,7 @@ public class RegistrationServlet extends HttpServlet {
                 try {
                     userService.createUser(user.getName(), user.getLogin(), encodedPassword, user.isAdmin());
                 } catch (SQLException e) {
-                    e.printStackTrace();
-                    req.setAttribute("errorDetails", e);
-                    req.getRequestDispatcher("/error").forward(req, resp);
+                    ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
                     return;
                 }
                 req.setAttribute("result", "User " + user.getName() + " successfully created.");

@@ -1,5 +1,6 @@
 package com.moviesApp.controller;
 
+import com.moviesApp.ExceptionsUtil;
 import com.moviesApp.UrlParametersManager;
 import com.moviesApp.entities.Movie;
 import com.moviesApp.entities.Review;
@@ -43,8 +44,8 @@ public class MovieServlet extends HttpServlet {
                     try {
                         movieID = Long.parseLong(value.get().get(0));
                     } catch (NumberFormatException e) {
-                        req.setAttribute("errorDetails", "Invalid request URL");
-                        req.getRequestDispatcher("/error").forward(req, resp);
+                        ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Error parsing query", e);
+                        return;
                     }
                 }
             }
@@ -63,9 +64,7 @@ public class MovieServlet extends HttpServlet {
                 try {
                     reviews = reviewService.getReviewsByMovieId(movieID);
                 } catch (SQLException e) {
-                    e.printStackTrace();
-                    req.setAttribute("errorDetails", e);
-                    req.getRequestDispatcher("/error").forward(req, resp);
+                    ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
                     return;
                 }
             }
@@ -79,9 +78,7 @@ public class MovieServlet extends HttpServlet {
                 try {
                     user = userService.getUserByID(review.getUserId());
                 } catch (SQLException e) {
-                    e.printStackTrace();
-                    req.setAttribute("errorDetails", e);
-                    req.getRequestDispatcher("/error").forward(req, resp);
+                    ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
                     return;
                 }
                 if (user != null) {
@@ -96,9 +93,7 @@ public class MovieServlet extends HttpServlet {
             try {
                 movie = movieService.getMovieByID(movieID);
             } catch (SQLException e) {
-                e.printStackTrace();
-                req.setAttribute("errorDetails", e);
-                req.getRequestDispatcher("/error").forward(req, resp);
+                ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
                 return;
             }
         }

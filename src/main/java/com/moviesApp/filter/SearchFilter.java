@@ -1,5 +1,6 @@
 package com.moviesApp.filter;
 
+import com.moviesApp.UrlParametersManager;
 import com.moviesApp.entities.User;
 
 import javax.servlet.*;
@@ -7,6 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Created by dsharko on 8/11/2016.
@@ -28,21 +33,43 @@ public class SearchFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        if (request.getMethod().equals("GET")) {
-            User user = (User) request.getSession().getAttribute("user");
-            if (user != null) {
-                if (user.isAdmin()) {
-                    request.getRequestDispatcher("/resources/views/admin.jsp").forward(request, response);
-                } else {
-                    request.getRequestDispatcher("/resources/views/home.jsp").forward(request, response);
+        String query = request.getQueryString();
+        Map<String, List<String>> urlParams;
+
+        if (query != null) {
+            if (!query.isEmpty()) {
+                urlParams = UrlParametersManager.getUrlParams(query);
+                if (urlParams != null) {
+                    Optional<List<String>> value = urlParams.entrySet().stream()
+                            .filter(params -> "searchInput".equals(params.getKey()))
+                            .map(Map.Entry::getValue)
+                            .findFirst();
+
+                    if (value.isPresent()) {
+                        if (!value.get().isEmpty() && value.get().size() == 1) {
+                            if (!value.get().get(0).isEmpty()) {
+                                filterChain.doFilter(request, response);
+                            } else {
+                                request.setAttribute("movies", new ArrayList<>());
+                                request.getRequestDispatcher("/resources/views/searchresult.jsp").forward(request, response);
+                            }
+                        } else {
+                            request.setAttribute("movies", new ArrayList<>());
+                            request.getRequestDispatcher("/resources/views/searchresult.jsp").forward(request, response);
+                        }
+                    } else {
+                        request.setAttribute("movies", new ArrayList<>());
+                        request.getRequestDispatcher("/resources/views/searchresult.jsp").forward(request, response);
+                    }
                 }
             } else {
-                request.getRequestDispatcher("/resources/views/home.jsp").forward(request, response);
+                request.setAttribute("movies", new ArrayList<>());
+                request.getRequestDispatcher("/resources/views/searchresult.jsp").forward(request, response);
             }
         } else {
-            filterChain.doFilter(request, response);
+            request.setAttribute("movies", new ArrayList<>());
+            request.getRequestDispatcher("/resources/views/searchresult.jsp").forward(request, response);
         }
-
 
     }
 

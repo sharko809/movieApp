@@ -1,5 +1,6 @@
 package com.moviesApp.filter;
 
+import com.moviesApp.ExceptionsUtil;
 import com.moviesApp.UrlParametersManager;
 import com.moviesApp.entities.User;
 import com.sun.xml.internal.rngom.digested.DDataPattern;
@@ -53,8 +54,7 @@ public class AccountFilter implements Filter {
                     try {
                         userID = Long.parseLong(value.get().get(0));
                     } catch (NumberFormatException e) {
-                        request.setAttribute("errorDetails", "Invalid request URL");
-                        request.getRequestDispatcher("/error").forward(request, response);
+                        ExceptionsUtil.sendException(LOGGER, request, response, "/error", "Invalid request URL", e);
                     }
                 }
             }

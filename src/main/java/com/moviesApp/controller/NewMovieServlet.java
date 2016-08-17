@@ -1,9 +1,12 @@
 package com.moviesApp.controller;
 
+import com.moviesApp.ExceptionsUtil;
 import com.moviesApp.entities.Movie;
 import com.moviesApp.service.MovieService;
 import com.moviesApp.validation.MovieValidator;
 import com.moviesApp.validation.Validator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +22,8 @@ import java.util.List;
  * Created by dsharko on 8/3/2016.
  */
 public class NewMovieServlet extends HttpServlet {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,7 +47,12 @@ public class NewMovieServlet extends HttpServlet {
         if (releaseDate.isEmpty()) {
             movie.setReleaseDate(new Date(new java.util.Date().getTime()));// TODO handle it in some other way
         } else {
-            movie.setReleaseDate(Date.valueOf(releaseDate));// TODO check this
+            try {
+                movie.setReleaseDate(Date.valueOf(releaseDate));
+            } catch (IllegalArgumentException e) {
+                ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Error parsing date", e);
+                return;
+            }
         }
         movie.setPosterURL(posterUrl);
         movie.setTrailerURL(trailerUrl);
@@ -56,9 +66,7 @@ public class NewMovieServlet extends HttpServlet {
             try {
                 movieService.addMovie(movie.getMovieName(), movie.getDirector(), movie.getReleaseDate(), movie.getPosterURL(), movie.getTrailerURL(), 0D, movie.getDescription());
             } catch (SQLException e) {
-                e.printStackTrace();
-                req.setAttribute("errorDetails", e);
-                req.getRequestDispatcher("/error").forward(req, resp);
+                ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
                 return;
             }
             req.setAttribute("result", "Movie " + title + " added successfully.");

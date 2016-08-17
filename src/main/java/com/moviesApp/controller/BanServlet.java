@@ -1,7 +1,10 @@
 package com.moviesApp.controller;
 
+import com.moviesApp.ExceptionsUtil;
 import com.moviesApp.entities.User;
 import com.moviesApp.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,9 +18,17 @@ import java.sql.SQLException;
  */
 public class BanServlet extends HttpServlet {
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long userID = Long.valueOf(req.getParameter("userID"));
+        Long userID = 0L;
+        try {
+            userID = Long.valueOf(req.getParameter("userID"));
+        } catch (NumberFormatException e) {
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Error parsing user ID", e);
+            return;
+        }
         String fromURL = req.getParameter("redirectFrom");
         User currentUser = (User) req.getSession().getAttribute("user");
 
@@ -28,9 +39,7 @@ public class BanServlet extends HttpServlet {
                 try {
                     user = userService.getUserByID(userID);
                 } catch (SQLException e) {
-                    e.printStackTrace();
-                    req.setAttribute("errorDetails", e);
-                    req.getRequestDispatcher("/error").forward(req, resp);
+                    ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
                     return;
                 }
                 if (userID.longValue() != currentUser.getId().longValue()) {
@@ -43,9 +52,7 @@ public class BanServlet extends HttpServlet {
                         try {
                             userService.updateUser(user);
                         } catch (SQLException e) {
-                            e.printStackTrace();
-                            req.setAttribute("errorDetails", e);
-                            req.getRequestDispatcher("/error").forward(req, resp);
+                            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
                             return;
                         }
                         resp.sendRedirect(fromURL);

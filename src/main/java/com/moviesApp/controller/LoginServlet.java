@@ -1,6 +1,6 @@
 package com.moviesApp.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.moviesApp.ExceptionsUtil;
 import com.moviesApp.entities.User;
 import com.moviesApp.security.PasswordManager;
 import com.moviesApp.service.UserService;
@@ -13,9 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -44,9 +42,7 @@ public class LoginServlet extends HttpServlet {
         try {
             foundUser = userService.getUserByLogin(user.getLogin());
         } catch (SQLException e) {
-            e.printStackTrace();
-            req.setAttribute("errorDetails", e);
-            req.getRequestDispatcher("/error").forward(req, resp);
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
             return;
         }
 
@@ -76,10 +72,10 @@ public class LoginServlet extends HttpServlet {
                         if (req.getParameter("regPage") != null) {
                             if (foundUser.isAdmin()) {
                                 req.getSession().setAttribute("user", foundUser);
-                                req.getRequestDispatcher("/admin").forward(req, resp);
+                                resp.sendRedirect("/admin");
                             } else {
                                 req.getSession().setAttribute("user", foundUser);
-                                req.getRequestDispatcher("/home").forward(req, resp);
+                                resp.sendRedirect("/home");
                             }
                         } else {
                             req.getSession().setAttribute("user", foundUser);

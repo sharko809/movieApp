@@ -1,8 +1,10 @@
 package com.moviesApp.controller;
 
+import com.moviesApp.ExceptionsUtil;
 import com.moviesApp.UrlParametersManager;
 import com.moviesApp.entities.User;
 import com.moviesApp.service.UserService;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +20,8 @@ import java.util.Optional;
  * Created by dsharko on 8/10/2016.
  */
 public class AccountServlet extends HttpServlet {
+
+    private final static Logger LOGGER = org.apache.logging.log4j.LogManager.getLogger();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,8 +41,8 @@ public class AccountServlet extends HttpServlet {
                     try {
                         userId = Long.parseLong(value.get().get(0));
                     } catch (NumberFormatException e) {
-                        req.setAttribute("errorDetails", "Invalid request URL");
-                        req.getRequestDispatcher("/resources/view/error.jsp").forward(req, resp);
+                        ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Invalid request URL", e);
+                        return;
                     }
                 }
             }
@@ -55,9 +59,7 @@ public class AccountServlet extends HttpServlet {
                 try {
                     user = userService.getUserByID(userId);
                 } catch (SQLException e) {
-                    e.printStackTrace();
-                    req.setAttribute("errorDetails", "Invalid request url");
-                    req.getRequestDispatcher("/error").forward(req, resp);
+                    ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Error retrieving user", e);
                     return;
                 }
             }

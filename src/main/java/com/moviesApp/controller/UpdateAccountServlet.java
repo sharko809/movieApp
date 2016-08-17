@@ -1,10 +1,13 @@
 package com.moviesApp.controller;
 
+import com.moviesApp.ExceptionsUtil;
 import com.moviesApp.entities.User;
 import com.moviesApp.security.PasswordManager;
 import com.moviesApp.service.UserService;
 import com.moviesApp.validation.RegistrationValidator;
 import com.moviesApp.validation.Validator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,12 +22,13 @@ import java.util.List;
  */
 public class UpdateAccountServlet extends HttpServlet {
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userName = req.getParameter("userName");
         String userLogin = req.getParameter("userLogin");
         String userPassword = req.getParameter("userPassword");
-        String from = req.getParameter("redirectFrom");
 
         Object results = req.getSession().getAttribute("result");
         if (results != null) {
@@ -61,9 +65,7 @@ public class UpdateAccountServlet extends HttpServlet {
             try {
                 userService.updateUser(user);
             } catch (SQLException e) {
-                e.printStackTrace();
-                req.setAttribute("errorDetails", "Invalid request url");
-                req.getRequestDispatcher("/error").forward(req, resp);
+                ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
                 return;
             }
             req.getSession().setAttribute("user", user);

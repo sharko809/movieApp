@@ -1,7 +1,10 @@
 package com.moviesApp.controller;
 
+import com.moviesApp.ExceptionsUtil;
 import com.moviesApp.entities.User;
 import com.moviesApp.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +21,8 @@ import java.util.Set;
  */
 public class UsersServlet extends HttpServlet {
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserService userService = new UserService();
@@ -25,9 +30,7 @@ public class UsersServlet extends HttpServlet {
         try {
             users = userService.getAllUsers();
         } catch (SQLException e) {
-            e.printStackTrace();
-            req.setAttribute("errorDetails", e);
-            req.getRequestDispatcher("/error").forward(req, resp);
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
             return;
         }
 

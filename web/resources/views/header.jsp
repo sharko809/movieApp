@@ -84,7 +84,7 @@
                 </a>
             </div>
 
-            <form class="pure-u-md-2-8 pure-u-sm-2-8 float-search" method="post" action="/search">
+            <form class="pure-u-md-2-8 pure-u-sm-2-8 float-search" method="get" action="/search">
                 <input id="searchInput" name="searchInput" type="text" class="search-style" placeholder="Search movie">
             </form>
             <c:if test="${user != null}">
