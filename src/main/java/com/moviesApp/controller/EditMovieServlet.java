@@ -2,7 +2,11 @@ package com.moviesApp.controller;
 
 import com.moviesApp.ExceptionsUtil;
 import com.moviesApp.entities.Movie;
+import com.moviesApp.entities.Review;
+import com.moviesApp.entities.User;
 import com.moviesApp.service.MovieService;
+import com.moviesApp.service.ReviewService;
+import com.moviesApp.service.UserService;
 import com.moviesApp.validation.MovieValidator;
 import com.moviesApp.validation.Validator;
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by dsharko on 8/10/2016.
@@ -47,7 +54,37 @@ public class EditMovieServlet extends HttpServlet {
             if (movie == null) {
                 movie = new Movie();
             }
+            ReviewService reviewService = new ReviewService();
+            List<Review> reviews = new ArrayList<>();
+
+            try {
+                reviews = reviewService.getReviewsByMovieId(movieId);
+            } catch (SQLException e) {
+                ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
+                return;
+            }
+
+            Map<Long, String> users = new HashMap<Long, String>();
+            if (reviews.size() >= 1) {
+                for (Review review : reviews) {
+                    User user = null;
+                    try {
+                        UserService userService = new UserService();
+                        user = userService.getUserByID(review.getUserId());
+                    } catch (SQLException e) {
+                        ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
+                        return;
+                    }
+                    if (user != null) {
+                        users.put(review.getUserId(), user.getName());
+                    } else {
+                        LOGGER.error("No user with ID " + review.getUserId() + " found for review ID " + review.getId() + " movie ID " + review.getMovieId());
+                    }
+                }
+            }
             req.setAttribute("movie", movie);
+            req.setAttribute("users", users);
+            req.setAttribute("reviews", reviews);
             req.getRequestDispatcher("/resources/views/editmovie.jsp").forward(req, resp);
         } else {
             req.setAttribute("errorDetails", "No movie found");
@@ -83,15 +120,16 @@ public class EditMovieServlet extends HttpServlet {
         if (movie == null) {
             req.setAttribute("errorDetails", "No movie found");
             req.getRequestDispatcher("/error").forward(req, resp);
+            return;
         }
 
         movie.setMovieName(title);
         movie.setDirector(director);
         if (releaseDate.isEmpty()) {
-            movie.setReleaseDate(new Date(new java.util.Date().getTime()));// TODO handle it in some other way
+            movie.setReleaseDate(movie.getReleaseDate());
         } else {
             try {
-                movie.setReleaseDate(Date.valueOf(releaseDate));// TODO check this
+                movie.setReleaseDate(Date.valueOf(releaseDate));
             } catch (IllegalArgumentException e) {
                 ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Error parsing date", e);
                 return;
@@ -111,9 +149,10 @@ public class EditMovieServlet extends HttpServlet {
                 ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
                 return;
             }
-            req.setAttribute("result", "Movie updated");// TODO ok, this is to be done properly. I need to properly display errors on the same page
+            req.setAttribute("result", "Movie updated");
             req.setAttribute("updMovie", movie);
-            req.getRequestDispatcher("/resources/views/editmovie.jsp").forward(req, resp);
+//            req.getRequestDispatcher("/resources/views/editmovie.jsp").forward(req, resp);
+            resp.sendRedirect("/admin/editmovie?movieID=" + movie.getId());
         } else {
             req.setAttribute("result", errors);
             req.setAttribute("updMovie", movie);

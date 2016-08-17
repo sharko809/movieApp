@@ -81,7 +81,7 @@
                     </div>
                     <div class="pure-u-lg-11-24 pure-u-sm-2-5">
                         <c:choose>
-                            <c:when test="${movie.posterURL != null}">
+                            <c:when test="${movie.posterURL != null && !movie.posterURL.isEmpty()}">
                                 <img style="height: 100px; float: right; margin-right: 10px;" class="pure-img" src="${movie.posterURL}"/>
                             </c:when>
                             <c:otherwise>

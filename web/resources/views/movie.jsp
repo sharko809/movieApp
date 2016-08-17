@@ -33,7 +33,7 @@
         <div id="movie-content" class="pure-u-1 inline-flex" style="margin-top: 15px; margin-bottom: 10px;">
             <div class="pure-u-md-1-3 pure-u-sm-1" style="margin: 5px;">
                 <c:choose>
-                    <c:when test="${movie.posterURL != null}">
+                    <c:when test="${movie.posterURL != null && !movie.posterURL.isEmpty()}">
                         <img class="pure-img" src="${movie.posterURL}"/>
                     </c:when>
                     <c:otherwise>

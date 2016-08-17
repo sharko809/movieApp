@@ -70,6 +70,6 @@
         </div>
     </div>
 </div>
-<script src="/resources/js/enable-input.js" type="text/javascript"></script>
+<script src="/resources/js/account-enable-input.js" type="text/javascript"></script>
 </body>
 </html>

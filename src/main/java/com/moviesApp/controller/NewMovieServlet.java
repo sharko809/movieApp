@@ -45,7 +45,7 @@ public class NewMovieServlet extends HttpServlet {
         movie.setMovieName(title);
         movie.setDirector(director);
         if (releaseDate.isEmpty()) {
-            movie.setReleaseDate(new Date(new java.util.Date().getTime()));// TODO handle it in some other way
+            movie.setReleaseDate(new Date(new java.util.Date().getTime()));
         } else {
             try {
                 movie.setReleaseDate(Date.valueOf(releaseDate));
@@ -70,7 +70,8 @@ public class NewMovieServlet extends HttpServlet {
                 return;
             }
             req.setAttribute("result", "Movie " + title + " added successfully.");
-            req.getRequestDispatcher("/resources/views/addmovie.jsp").forward(req, resp);
+//            req.getRequestDispatcher("/resources/views/addmovie.jsp").forward(req, resp);
+            resp.sendRedirect("/admin/addmovie");
         } else {
             req.setAttribute("result", errors);
             req.setAttribute("movie", movie);

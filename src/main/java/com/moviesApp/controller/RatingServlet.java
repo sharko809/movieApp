@@ -56,8 +56,9 @@ public class RatingServlet extends HttpServlet {
             ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
             return;
         }
-        if (reviews == null) {
+        if (reviews == null || reviews.isEmpty()) {
             LOGGER.error("NO reviews found. So rating can't be updated.");// TODO mb inform user?
+            resp.sendRedirect(from);
             return;
         }
 
