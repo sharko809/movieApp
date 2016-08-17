@@ -33,10 +33,8 @@
                     <div id="login-form" class="pure-u-md-3-8 pure-u-sm-3-8 max-width">
                         <form class="pure-form inline-flex" method="post" action="/login"
                               style="margin: 5px auto 5px auto;">
-                            <input class="pure-input-1-2 input-margin" type="text" name="userLogin" placeholder="E-mail"
-                                   required/><br/>
-                            <input class="pure-input-1-2 input-margin" type="password" name="userPassword"
-                                   placeholder="Password" required/><br/>
+                            <input class="pure-input-1-2 input-margin" type="text" name="userLogin" minlength="3" maxlength="60" placeholder="E-mail" required/><br/>
+                            <input class="pure-input-1-2 input-margin" type="password" name="userPassword" minlength="3" maxlength="15" placeholder="Password" required/><br/>
                             <input type="hidden" id="redirectFrom" name="redirectFrom" value=""/>
                             <input type="image" src="/resources/icons/login-32.ico" alt="Submit"/>
                         </form>

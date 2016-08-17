@@ -1,0 +1,89 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: dsharko
+  Date: 8/17/2016
+  Time: 4:27 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Create new user</title>
+    <link rel="stylesheet" href="/resources/css/pure/pure-min.css">
+    <link rel="stylesheet" href="/resources/css/pure/base-min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/resources/css/pure/grids-responsive-old-ie-min.css">
+    <link rel="stylesheet" href="/resources/css/pure/layouts/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="/resources/css/pure/grids-responsive-min.css">
+    <link rel="stylesheet" href="/resources/css/pure/layouts/side-menu.css">
+    <!--<![endif]-->
+    <link rel="stylesheet" href="/resources/css/mainPage.css">
+    <link rel="stylesheet" href="/resources/css/admin.css">
+    <link rel="stylesheet" href="/resources/css/adminReg.css">
+    <script src="/resources/js/reset-variables.js" type="text/javascript"></script>
+</head>
+<body>
+<jsp:include page="header.jsp"/>
+<div class="padding-top"></div>
+<div id="layout">
+    <a href="#menu" id="menuLink" class="menu-link" style="top: 46px;">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+    <div id="menu" class="active" style="top: 46px;">
+        <div class="pure-menu">
+            <a class="pure-menu-heading" href="/admin">Admin tools</a>
+
+            <ul class="pure-menu-list">
+                <li class="menu-item"><a href="/admin/addmovie" class="pure-menu-link">Add movie</a></li>
+                <li class="menu-item"><a href="/admin/managemovies" class="pure-menu-link">Manage movies</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="pure-g custom-margin">
+    <div class="pure-u-md-1-2 pure-u-sm-1-2 centered" style="text-align: center;">
+        <form class="pure-form pure-form-aligned" method="post" action="/admin/newuser">
+            <fieldset>
+                <div class="pure-control-group">
+                    <label for="newUserName">Nickname: </label>
+                    <input id="newUserName" type="text" name="newUserName" minlength="1" maxlength="20" placeholder="Name to display" required/>
+                </div>
+                <div class="pure-control-group">
+                    <label for="newUserLogin">Your email:</label>
+                    <input id="newUserLogin" type="email" name="newUserLogin" minlength="3" maxlength="60" placeholder="E-mail" required/>
+                </div>
+                <div class="pure-control-group">
+                    <label for="newUserPassword">Enter password: </label>
+                    <input id="newUserPassword" type="password" name="newUserPassword" minlength="3" maxlength="15" placeholder="Password" required/>
+                </div>
+                <div class="pure-controls">
+                    <label for="isAdmin" class="pure-checkbox" style="margin: 15px;">
+                        <input id="isAdmin" name="isAdmin" type="checkbox">Is Admin
+                    </label>
+                    <input class="pure-button" type="submit" value="Register">
+                </div>
+            </fieldset>
+            <c:if test="${regUser.name.length() > 1}">
+                <script type="text/javascript">
+                    setRegistrationInputs('${regUser.name}', '${regUser.login}');
+                </script>
+            </c:if>
+        </form>
+    </div>
+    <div class="pure-u-1">
+        <c:if test="${result.size() >= 1}">
+            <div id="error-info" class="error-info">
+                <c:forEach items="${result}" var="r">
+                    <p>${r}</p>
+                </c:forEach>
+            </div>
+        </c:if>
+    </div>
+</div>
+</body>
+</html>

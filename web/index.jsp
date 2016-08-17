@@ -54,12 +54,11 @@
                     <fieldset>
                         <div class="pure-control-group">
                             <label for="userName">E-mail: </label>
-                            <input id="userName" type="text" name="userLogin" placeholder="E-mail" required/>
+                            <input id="userName" type="text" name="userLogin" minlength="3" maxlength="60" placeholder="E-mail" required/>
                         </div>
                         <div class="pure-control-group">
                             <label for="userPassword">Password: </label>
-                            <input id="userPassword" type="password" name="userPassword" placeholder="Password"
-                                   required/>
+                            <input id="userPassword" type="password" name="userPassword" minlength="3" maxlength="15" placeholder="Password" required/>
                         </div>
                         <div class="pure-controls">
                             <input class="pure-button" type="submit" value="Login"/>
@@ -78,17 +77,15 @@
                     <fieldset>
                         <div class="pure-control-group">
                             <label for="newUserName">Nickname: </label>
-                            <input id="newUserName" type="text" name="newUserName" placeholder="Name to display"
-                                   required/>
+                            <input id="newUserName" type="text" name="newUserName" minlength="1" maxlength="20" placeholder="Name to display" required/>
                         </div>
                         <div class="pure-control-group">
                             <label for="newUserLogin">Your email:</label>
-                            <input id="newUserLogin" type="email" name="newUserLogin" placeholder="E-mail" required/>
+                            <input id="newUserLogin" type="email" name="newUserLogin" minlength="3" maxlength="60" placeholder="E-mail" required/>
                         </div>
                         <div class="pure-control-group">
                             <label for="newUserPassword">Enter password: </label>
-                            <input id="newUserPassword" type="password" name="newUserPassword" placeholder="Password"
-                                   required/>
+                            <input id="newUserPassword" type="password" name="newUserPassword" minlength="3" maxlength="15" placeholder="Password" required/>
                         </div>
                         <div class="pure-controls">
                             <input class="pure-button" type="submit" value="Register">

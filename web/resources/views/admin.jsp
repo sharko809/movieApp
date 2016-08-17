@@ -40,6 +40,7 @@
                 <li class="menu-item"><a href="/admin/addmovie" class="pure-menu-link">Add movie</a></li>
                 <li class="menu-item"><a href="/admin/managemovies" class="pure-menu-link">Manage movies</a></li>
                 <li class="menu-item"><a href="/admin/users" class="pure-menu-link">Users</a></li>
+                <li class="menu-item"><a href="/admin/newuser" class="pure-menu-link">Create user</a></li>
             </ul>
         </div>
     </div>

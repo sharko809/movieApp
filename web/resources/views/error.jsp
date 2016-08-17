@@ -10,12 +10,36 @@
 <html>
 <head>
     <title>Ooops...</title>
+    <link rel="stylesheet" href="/resources/css/pure/pure-min.css">
+    <link rel="stylesheet" href="/resources/css/pure/base-min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/resources/css/pure/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="/resources/css/pure/grids-responsive-min.css">
+    <link rel="stylesheet" href="/resources/css/error.css">
 </head>
 <body>
-<img height="500" width="650" align="middle" src="https://i.ytimg.com/vi/jnqvg43Jug4/maxresdefault.jpg"/>
-<h4>Something went wrong. Try something else...</h4>
-<c:forEach items="${errorDetails}" var="errorField">
-    <span>${errorField}</span><br>
-</c:forEach>
+<div class="pure-g">
+    <div class="pure-u-md-3-4 pure-u-sm-1 centered marged-top">
+        <div class="center-content">
+            <img height="500" width="650" align="middle" src="https://i.ytimg.com/vi/jnqvg43Jug4/maxresdefault.jpg"/>
+        </div>
+        <div class="center-content">
+            <h4>Something went wrong. Try something else...</h4>
+        </div>
+        <div class="center-content">
+            <c:forEach items="${errorDetails}" var="errorField">
+                <span>${errorField}</span><br>
+            </c:forEach>
+        </div>
+        <div class="center-content">
+            <h3>
+                <a href="/home">Go home...</a>
+            </h3>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -65,8 +65,8 @@ public class MovieService {
                 LOGGER.warn("Null or empty movieName during adding new Movie. Movie name: " + movie.getMovieName());
                 return;
             }
-            if (movie.getRating() <= 0 || movie.getRating() > 10) {
-                LOGGER.warn("Rating is not in the allowed [1-10] range. Rating: " + movie.getRating());
+            if (movie.getRating() < 0 || movie.getRating() > 10) {
+                LOGGER.warn("Rating is not in the allowed [0-10] range. Rating: " + movie.getRating());
                 return;
             }
             movieDAO.update(movie);

@@ -250,6 +250,15 @@
     </servlet-mapping>
     
     <servlet>
+        <servlet-name>NewUser</servlet-name>
+        <servlet-class>com.moviesApp.controller.NewUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NewUser</servlet-name>
+        <url-pattern>/admin/newuser</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
         <servlet-name>DeleteReview</servlet-name>
         <servlet-class>com.moviesApp.controller.DeleteReviewServlet</servlet-class>
     </servlet>

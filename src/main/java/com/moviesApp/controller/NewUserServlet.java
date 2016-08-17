@@ -18,24 +18,38 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Created by dsharko on 8/1/2016.
+ * Created by dsharko on 8/17/2016.
  */
-public class RegistrationServlet extends HttpServlet {
+public class NewUserServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/resources/views/adminnewuser.jsp").forward(req, resp);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=UTF-8");
+
         String userName = req.getParameter("newUserName");
         String userLogin = req.getParameter("newUserLogin");
         String password = req.getParameter("newUserPassword");
+        String isAdmin = req.getParameter("isAdmin");
 
         User user = new User();
         user.setName(userName);
         user.setLogin(userLogin);
         user.setPassword(password);
-        user.setAdmin(false);
+        if (isAdmin != null) {
+            if ("on".equals(isAdmin)) {
+                user.setAdmin(true);
+            } else {
+                user.setAdmin(false);
+            }
+        } else {
+            user.setAdmin(false);
+        }
 
         Validator validator = new RegistrationValidator();
         List<String> errors = validator.validate(user);
@@ -57,19 +71,19 @@ public class RegistrationServlet extends HttpServlet {
                     ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
                     return;
                 }
-                req.setAttribute("result", "User " + user.getName() + " successfully created.");
-                req.getRequestDispatcher("/index.jsp").forward(req, resp);
+                resp.sendRedirect("/admin/newuser");
             } else {
                 errors.add("User with such login already exists");
                 req.setAttribute("result", errors);
                 req.setAttribute("regUser", user);
-                req.getRequestDispatcher("/index.jsp").forward(req, resp);
+                req.getRequestDispatcher("/resources/views/adminnewuser.jsp").forward(req, resp);
             }
         } else {
-            req.setAttribute("result", errors);
+            req.setAttribute("result" ,errors);
             req.setAttribute("regUser", user);
-            req.getRequestDispatcher("/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("/resources/views/adminnewuser.jsp").forward(req, resp);
         }
+
 
     }
 }
