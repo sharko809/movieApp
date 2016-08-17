@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/resources/css/pure/grids-responsive-min.css">
     <!--<![endif]-->
     <link rel="stylesheet" type="text/css" href="/resources/css/mainPage.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/account.css">
     <script src="/resources/js/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="/resources/js/redirect-url.js" type="text/javascript"></script>
 </head>
@@ -36,18 +37,18 @@
                     <fieldset>
                         <div class="pure-control-group">
                             <label for="userName">Username: </label>
-                            <input type="text" id="userName" name="userName" value="${thisUser.name}" readonly/>
+                            <input type="text" id="userName" name="userName" minlength="1" maxlength="20" value="${thisUser.name}" readonly/>
                             <button id="editName" type="button" class="pure-button">Edit</button>
                         </div>
                         <div class="pure-control-group">
                             <label for="userLogin">Login: </label>
-                            <input type="email" id="userLogin" name="userLogin" value="${thisUser.login}" readonly/>
+                            <input type="email" id="userLogin" name="userLogin" minlength="3" maxlength="60" value="${thisUser.login}" readonly/>
                             <button id="editLogin" type="button" class="pure-button">Edit</button>
                         </div>
                         <div class="pure-control-group">
                             <label for="userPassword">Password: </label>
                             <input type="password" id="userPassword" name="userPassword"
-                                   title="If you want to change password - type new one here."
+                                   title="If you want to change password - type new one here." minlength="3" maxlength="15"
                                    placeholder="Leave blank to keep old password" readonly/>
                             <button id="editPassword" type="button" class="pure-button">Edit</button>
                         </div>
@@ -62,8 +63,8 @@
         <div class="pure-u-1">
             <c:if test="${result != null}">
                 <c:forEach items="${result}" var="r">
-                    <div id="empty-set">
-                            ${r}<br/>
+                    <div id="error-info" class="error-info">
+                            <p>${r}</p>
                     </div>
                 </c:forEach>
             </c:if>

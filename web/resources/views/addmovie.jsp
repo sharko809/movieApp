@@ -49,16 +49,15 @@
     <div class="pure-u-2-5 centered">
         <form class="pure-form" method="post" action="/admin/addmovie">
             <fieldset class="pure-group">
-                <input id="title" name="title" type="text" class="pure-input-1-2" placeholder="Title" required/>
-                <input id="director" name="director" type="text" class="pure-input-1-2" placeholder="Director"/>
-                <input id="releaseDate" name="releaseDate" type="date" class="pure-input-1-2"
-                       placeholder="Release date"/>
+                <input id="title" name="title" type="text" class="pure-input-1-2" minlength="1" maxlength="30" placeholder="Title" required/>
+                <input id="director" name="director" type="text" class="pure-input-1-2" minlength="1" maxlength="30" placeholder="Director"/>
+                <input id="releaseDate" name="releaseDate" type="date" class="pure-input-1-2" min="1890-01-01" max="2150-01-01" placeholder="Release date"/>
             </fieldset>
 
             <fieldset class="pure-group">
-                <input id="posterUrl" name="posterUrl" type="url" class="pure-input-1-2" placeholder="Poster URL"/>
-                <input id="trailerUrl" name="trailerUrl" type="url" class="pure-input-1-2" placeholder="Trailer URL"/>
-                <textarea id="description" name="description" class="pure-input-1-2" placeholder="Description" required></textarea>
+                <input id="posterUrl" name="posterUrl" type="url" class="pure-input-1-2" minlength="7" maxlength="500" placeholder="Poster URL"/>
+                <input id="trailerUrl" name="trailerUrl" type="url" class="pure-input-1-2" minlength="7" maxlength="500" placeholder="Trailer URL"/>
+                <textarea id="description" name="description" class="pure-input-1-2" minlength="5" maxlength="2000" placeholder="Description" required></textarea>
             </fieldset>
             <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">Add movie</button>
             <c:if test="${movie.movieName.length() > 1}">

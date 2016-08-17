@@ -53,30 +53,30 @@
         <form id="movie-form" class="pure-form" method="post" action="/admin/editmovie">
             <fieldset>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
-                    <input id="title" name="title" type="text" class="pure-input-1-2" placeholder="Title" value="${movie.movieName}" required readonly/>
+                    <input id="title" name="title" type="text" class="pure-input-1-2" minlength="1" maxlength="30" placeholder="Title" value="${movie.movieName}" required readonly/>
                     <button id="editTitle" type="button" class="pure-button">Edit</button>
                 </div>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
-                    <input id="director" name="director" type="text" class="pure-input-1-2" placeholder="Director" value="${movie.director}" readonly/>
+                    <input id="director" name="director" type="text" class="pure-input-1-2" minlength="1" maxlength="30" placeholder="Director" value="${movie.director}" readonly/>
                     <button id="editDirector" type="button" class="pure-button">Edit</button>
                 </div>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
-                    <input id="releaseDate" name="releaseDate" type="date" class="pure-input-1-2" placeholder="Release date" value="${movie.releaseDate}" readonly/>
+                    <input id="releaseDate" name="releaseDate" type="date" class="pure-input-1-2" min="1890-01-01" max="2150-01-01" placeholder="Release date" value="${movie.releaseDate}" readonly/>
                     <button id="editDate" type="button" class="pure-button">Edit</button>
                 </div>
             </fieldset>
 
             <fieldset>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
-                    <input id="posterUrl" name="posterUrl" type="url" class="pure-input-1-2" placeholder="Poster URL" value="${movie.posterURL}" readonly/>
+                    <input id="posterUrl" name="posterUrl" type="url" class="pure-input-1-2" minlength="7" maxlength="500" placeholder="Poster URL" value="${movie.posterURL}" readonly/>
                     <button id="editPoster" type="button" class="pure-button">Edit</button>
                 </div>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
-                    <input id="trailerUrl" name="trailerUrl" type="url" class="pure-input-1-2" placeholder="Trailer URL" value="${movie.trailerURL}" readonly/>
+                    <input id="trailerUrl" name="trailerUrl" type="url" class="pure-input-1-2" minlength="7" maxlength="500" placeholder="Trailer URL" value="${movie.trailerURL}" readonly/>
                     <button id="editTrailer" type="button" class="pure-button">Edit</button>
                 </div>
                 <div class="pure-control-group"  style="margin-bottom: 5px;">
-                    <textarea id="description" name="description" class="pure-input-1-2" placeholder="Description" required readonly>${movie.description}</textarea>
+                    <textarea id="description" name="description" class="pure-input-1-2" minlength="5" maxlength="2000" placeholder="Description" required readonly>${movie.description}</textarea>
                     <button id="editDescription" type="button" class="pure-button">Edit</button>
                 </div>
             </fieldset>
@@ -111,7 +111,7 @@
                             ${review.reviewText}
                     </div>
                     <div class="pure-u-md-3-8 pure-u-sm-3-8" style="text-align: end; margin-right: 20px;">
-                        <form method="post" action="/admin/delreview">
+                        <form method="post" action="/admin/delreview" style="margin: 0px;">
                             <input name="reviewID" type="hidden" value="${review.id}"/>
                             <input name="movieID" type="hidden" value="${movie.id}"/>
                             <button class="pure-button" type="submit">Delete</button>
