@@ -42,54 +42,59 @@ public class EditMovieServlet extends HttpServlet {
             return;
         }
 
+        if (movieId < 1) {
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Wrong movie id", new IllegalArgumentException("Wrong movie id"));
+        }
+
         MovieService movieService = new MovieService();
-        if (movieId >= 1) {
-            Movie movie = null;
-            try {
-                movie = movieService.getMovieByID(movieId);
-            } catch (SQLException e) {
-                ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Error parsing user ID", e);
-                return;
-            }
-            if (movie == null) {
-                movie = new Movie();
-            }
-            ReviewService reviewService = new ReviewService();
-            List<Review> reviews = new ArrayList<>();
+        Movie movie = null;
+        try {
+            movie = movieService.getMovieByID(movieId);
+        } catch (SQLException e) {
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Error parsing user ID", e);
+            return;
+        }
+        if (movie == null) {
+            movie = new Movie();
+        }
+        ReviewService reviewService = new ReviewService();
+        List<Review> reviews = new ArrayList<>();
 
-            try {
-                reviews = reviewService.getReviewsByMovieId(movieId);
-            } catch (SQLException e) {
-                ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
-                return;
-            }
+        try {
+            reviews = reviewService.getReviewsByMovieId(movieId);
+        } catch (SQLException e) {
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
+            return;
+        }
 
-            Map<Long, String> users = new HashMap<Long, String>();
-            if (reviews.size() >= 1) {
-                for (Review review : reviews) {
-                    User user = null;
-                    try {
-                        UserService userService = new UserService();
-                        user = userService.getUserByID(review.getUserId());
-                    } catch (SQLException e) {
-                        ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
-                        return;
-                    }
-                    if (user != null) {
-                        users.put(review.getUserId(), user.getName());
-                    } else {
-                        LOGGER.error("No user with ID " + review.getUserId() + " found for review ID " + review.getId() + " movie ID " + review.getMovieId());
-                    }
+        Map<Long, String> users = new HashMap<Long, String>();
+        if (reviews.size() >= 1) {
+            for (Review review : reviews) {
+                if (review.getUserId() == null) {
+                    ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Null user id", new NullPointerException("Null user id"));
+                } else if (review.getUserId() < 1) {
+                    ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Null user id", new IllegalArgumentException("Wrong user id"));
+                }
+                User user = null;
+                try {
+                    UserService userService = new UserService();
+                    user = userService.getUserByID(review.getUserId());
+                } catch (SQLException e) {
+                    ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
+                    return;
+                }
+                if (user != null) {
+                    users.put(review.getUserId(), user.getName());
+                } else {
+                    LOGGER.error("No user with ID " + review.getUserId() + " found for review ID " + review.getId() + " movie ID " + review.getMovieId());
                 }
             }
-            req.setAttribute("movie", movie);
-            req.setAttribute("users", users);
-            req.setAttribute("reviews", reviews);
-            req.getRequestDispatcher("/resources/views/editmovie.jsp").forward(req, resp);
-        } else {
-            req.setAttribute("errorDetails", "No movie found");
-            req.getRequestDispatcher("/error").forward(req, resp);
         }
+        req.setAttribute("movie", movie);
+        req.setAttribute("users", users);
+        req.setAttribute("reviews", reviews);
+        req.getRequestDispatcher("/resources/views/editmovie.jsp").forward(req, resp);
+
     }
 
     @Override
@@ -100,12 +105,16 @@ public class EditMovieServlet extends HttpServlet {
         String posterUrl = req.getParameter("posterUrl");
         String trailerUrl = req.getParameter("trailerUrl");
         String description = req.getParameter("description");
-        Long movieID = null;
+        Long movieID = 0L;
         try {
             movieID = Long.valueOf(req.getParameter("movieID"));
         } catch (NumberFormatException e) {
             ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Error parsing movie ID", e);
             return;
+        }
+
+        if (movieID < 1) {
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Wrong movie id", new IllegalArgumentException("Wrong movie id"));
         }
 
         MovieService movieService = new MovieService();
@@ -151,12 +160,10 @@ public class EditMovieServlet extends HttpServlet {
             }
             req.setAttribute("result", "Movie updated");
             req.setAttribute("updMovie", movie);
-//            req.getRequestDispatcher("/resources/views/editmovie.jsp").forward(req, resp);
             resp.sendRedirect("/admin/editmovie?movieID=" + movie.getId());
         } else {
             req.setAttribute("result", errors);
             req.setAttribute("updMovie", movie);
-//            req.setAttribute("movie", movie);
             req.getRequestDispatcher("/resources/views/editmovie.jsp").forward(req, resp);
         }
 

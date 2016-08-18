@@ -37,14 +37,18 @@ public class RatingServlet extends HttpServlet {
 
         MovieService movieService = new MovieService();
         Movie movie = null;
-        try {
-            movie = movieService.getMovieByID(movieID);
-        } catch (SQLException e) {
-            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
-            return;
+        if (movieID != null) {
+            if (movieID >= 1) {
+                try {
+                    movie = movieService.getMovieByID(movieID);
+                } catch (SQLException e) {
+                    ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
+                    return;
+                }
+            }
         }
         if (movie == null) {
-            LOGGER.error("NO movie found. So rating can't be updated.");// TODO mb inform user?
+            LOGGER.error("NO movie found. So rating can't be updated.");
             return;
         }
 
@@ -57,7 +61,7 @@ public class RatingServlet extends HttpServlet {
             return;
         }
         if (reviews == null || reviews.isEmpty()) {
-            LOGGER.error("NO reviews found. So rating can't be updated. Rating set to 0.");// TODO mb inform user?
+            LOGGER.warn("NO reviews found. So rating can't be updated. Rating set to 0.");
             movie.setRating(0D);
             resp.sendRedirect(from);
             try {

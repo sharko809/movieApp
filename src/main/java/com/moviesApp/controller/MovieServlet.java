@@ -33,12 +33,10 @@ public class MovieServlet extends HttpServlet {
         Map<String, List<String>> urlParams = UrlParametersManager.getUrlParams(req.getQueryString());
 
         if (urlParams != null) {
-
             Optional<List<String>> value = urlParams.entrySet().stream()
                     .filter(params -> "movieId".equals(params.getKey()))
                     .map(Map.Entry::getValue)
                     .findFirst();
-
             if (value.isPresent()) {
                 if (!value.get().isEmpty() && value.get().size() == 1) {
                     try {
@@ -49,31 +47,35 @@ public class MovieServlet extends HttpServlet {
                     }
                 }
             }
-
         } else {
             req.setAttribute("errorDetails", "Invalid request url");
             req.getRequestDispatcher("/error").forward(req, resp);
+        }
+
+        if (movieID < 1) {
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Wrong movie id", new IllegalArgumentException("Wrong movie id"));
         }
 
         MovieService movieService = new MovieService();
         Movie movie = null;
         ReviewService reviewService = new ReviewService();
         List<Review> reviews = new ArrayList<>();
-        if (movieID != null) {
-            if (movieID >= 1) {
-                try {
-                    reviews = reviewService.getReviewsByMovieId(movieID);
-                } catch (SQLException e) {
-                    ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
-                    return;
-                }
-            }
+        try {
+            reviews = reviewService.getReviewsByMovieId(movieID);
+        } catch (SQLException e) {
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
+            return;
         }
         UserService userService = new UserService();
 
         Map<Long, String> users = new HashMap<Long, String>();
         if (reviews.size() >= 1) {
             for (Review review : reviews) {
+                if (review.getUserId() == null) {
+                    ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Null user id", new NullPointerException("Null user id"));
+                } else if (review.getUserId() < 1) {
+                    ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Null user id", new IllegalArgumentException("Wrong user id"));
+                }
                 User user = null;
                 try {
                     user = userService.getUserByID(review.getUserId());
@@ -89,13 +91,11 @@ public class MovieServlet extends HttpServlet {
             }
         }
 
-        if (movieID != null) {
-            try {
-                movie = movieService.getMovieByID(movieID);
-            } catch (SQLException e) {
-                ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
-                return;
-            }
+        try {
+            movie = movieService.getMovieByID(movieID);
+        } catch (SQLException e) {
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
+            return;
         }
 
         if (movie == null) {

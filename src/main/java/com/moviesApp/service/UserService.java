@@ -17,14 +17,6 @@ public class UserService {
     private static final Logger LOGGER = LogManager.getLogger();
 
     public User getUserByID(Long userID) throws SQLException {
-        if (userID == null) {
-            LOGGER.error("Failed to get user. ID = null");
-            return null;
-        }
-        if (userID <= 0) {
-            LOGGER.error("Failed to get user. User id must be > 0. User id: " + userID);
-            return null;
-        }
         UserDAO userDAO = new UserDAO();
         User user = null;
         try {
@@ -61,14 +53,6 @@ public class UserService {
     }
 
     public void updateUser(User user) throws SQLException {
-        if (user.getId() <= 0) {
-            LOGGER.error("Failed to get user. User id must be > 0. User id: " + user.getId());// TODO necessary check?
-            return;
-        }
-        if (user.getName() == null || user.getName().trim().equals("")) {
-            LOGGER.error("Failed to update user. User name must not be null or empty. User name: " + user.getName());
-            return;
-        }
         UserDAO userDAO = new UserDAO();
         try {
             userDAO.update(user);
@@ -79,10 +63,6 @@ public class UserService {
     }
 
     public boolean deleteUser(Long userID) throws SQLException {
-        if (userID <= 0) {
-            LOGGER.error("Failed to get user. User id must be > 0. User id: " + userID);
-            return false;
-        }
         UserDAO userDAO = new UserDAO();
         try {
             return userDAO.delete(userID);

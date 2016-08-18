@@ -11,6 +11,7 @@ import com.moviesApp.validation.ReviewValidator;
 import com.moviesApp.validation.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.mockito.internal.matchers.Null;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -70,7 +71,7 @@ public class PostReviewServlet extends HttpServlet {
         if (errors.isEmpty()) {
             ReviewService reviewService = new ReviewService();
             try {
-                reviewService.createReview(userId, movieId, postDate, reviewTitle, userRating, reviewText);
+                reviewService.createReview(review.getUserId(), review.getMovieId(), review.getPostDate(), review.getTitle(), review.getRating(), review.getReviewText());
                 updateMovieRating(review.getMovieId(), review.getRating());
             } catch (SQLException e ) {
                 ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
@@ -88,7 +89,7 @@ public class PostReviewServlet extends HttpServlet {
                 reviews = getReviews(movieId);
                 movie = getMovie(movieId);
                 users = getUsers(reviews);
-            } catch (SQLException e) {
+            } catch (SQLException | NullPointerException e) {
                 ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
                 return;
             }
@@ -163,10 +164,17 @@ public class PostReviewServlet extends HttpServlet {
         return movie;
     }
 
-    private Map<Long, String> getUsers(List<Review> reviews) throws SQLException {
+    private Map<Long, String> getUsers(List<Review> reviews) throws SQLException, NullPointerException {
         Map<Long, String> users = new HashMap<>();
         if (reviews.size() >= 1) {
             for (Review review : reviews) {
+                if (review.getUserId() == null) {
+                    LOGGER.error("Null user id");
+                    throw new NullPointerException("Null user id");
+                } else if (review.getUserId() < 1) {
+                    LOGGER.error("Wrong user id");
+                    throw new NullPointerException("Wrong user id");
+                }
                 User user = null;
                 UserService userService = new UserService();
                 user = userService.getUserByID(review.getUserId());
