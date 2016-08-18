@@ -65,7 +65,7 @@ public class AccountFilter implements Filter {
         }
 
         if (Objects.equals(currentUser.getId(), userID)) {
-            filterChain.doFilter(request, response);// TODO can I pass userID from here? I think - yes.
+            filterChain.doFilter(request, response);
         } else {
             LOGGER.error("Attempt to access another users account. User: " +
                     ((User) session.getAttribute("user")).getLogin() + " admin: " + ((User) session.getAttribute("user")).isAdmin());

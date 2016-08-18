@@ -110,7 +110,7 @@ public class PostReviewServlet extends HttpServlet {
 
         if (reviews == null) {
             LOGGER.error("Unable to update rating");
-            return;// TODO this might be totally unnecessary since 'reviews' (I think so) is never null
+            return;
         }
 
         if (!reviews.isEmpty()) {

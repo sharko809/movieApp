@@ -64,7 +64,7 @@
                             <input class="pure-button" type="submit" value="Login"/>
                         </div>
                         <input type="hidden" name="regPage" value="regPage"/>
-                        <c:if test="${logUser.login.length() > 1}">
+                        <c:if test="${!logUser.login.isEmpty()}">
                             <script type="text/javascript">
                                 setLoginInputs('${logUser.login}');
                             </script>
@@ -91,7 +91,7 @@
                             <input class="pure-button" type="submit" value="Register">
                         </div>
                     </fieldset>
-                    <c:if test="${regUser.name.length() > 1}">
+                    <c:if test="${!regUser.name.isEmpty()}">
                         <script type="text/javascript">
                             setRegistrationInputs('${regUser.name}', '${regUser.login}');
                         </script>

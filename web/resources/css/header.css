@@ -47,8 +47,17 @@
 
 @media screen and (max-width: 768px){
     #user-welcome {
-        display: none;
+        /*display: none;*/
+        text-align: center;
     }
+
+    .logout {
+        text-align: center;
+    }
+
+    /*#login-text {*/
+        /*display: none;*/
+    /*}*/
 
     #top-rated {
         display: none;
@@ -60,6 +69,14 @@
 
     #login-form {
         margin-right: 15px;
+    }
+
+}
+
+@media screen and (max-width: 1024px){
+
+    #login-text {
+        display: none;
     }
 
 }

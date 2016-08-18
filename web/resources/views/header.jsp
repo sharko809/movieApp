@@ -43,15 +43,17 @@
                 <c:otherwise>
                     <div id="user-welcome" class="pure-u-md-3-8 pure-u-sm-3-8 max-width">
                         <div class="pure-u-1 inline-flex">
-                            <p class="pure-u-1-2 menu-text">
-                                Logged in as
+                            <p id="" class="pure-u-1-2 menu-text">
+                                <span id="login-text">
+                                    Logged in as
+                                </span>
                                 <a id="loggedInName" class="menu-text" href="/account?id=${user.id}">
                                     <c:if test="${user.isAdmin()}">
                                         <script type="text/javascript">
                                             setAdminColor();
                                         </script>
                                     </c:if>
-                                        ${user.name}.
+                                        ${user.name}
                                 </a>
                             </p>
                             <c:if test="${user.isAdmin()}">

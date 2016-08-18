@@ -52,11 +52,12 @@ VALUES ('Lothar', '123@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9E
   ('Medivh', 'qwe@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 1),
   ('Neltarion', 'asd@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 1, 0);
 
-INSERT INTO MOVIE (moviename, director, releasedate, trailerurl, rating, description)
+INSERT INTO MOVIE (moviename, director, releasedate, trailerurl, rating, description, posterurl)
 VALUES ('Warcraft', 'Duncan Jones', '2016-06-10', 'https://www.youtube.com/embed/RhFMIRuHAL4', 7.4,
-        'As an Orc horde invades the planet Azeroth using a magic portal, a few human heroes and dissenting Orcs must attempt to stop the true evil behind this war.'),
-  ('Tempo', 'Random Dude', '2015-03-12', 'https://www.youtube.com/embed/RhFMIRuHAL4', 6.6, 'Nothing to say here'),
-  ('Dragon', 'Another Random Dude', '2014-09-22', 'https://www.youtube.com/embed/RhFMIRuHAL4', 5.4, 'Nice movie');
+        'As an Orc horde invades the planet Azeroth using a magic portal, a few human heroes and dissenting Orcs must attempt to stop the true evil behind this war.',
+        'https://upload.wikimedia.org/wikipedia/ru/2/21/Warcraft_poster.jpg'),
+  ('Tempo', 'Random Dude', '2015-03-12', 'https://www.youtube.com/embed/RhFMIRuHAL4', 6.6, 'Nothing to say here', ''),
+  ('Dragon', 'Another Random Dude', '2014-09-22', 'https://www.youtube.com/embed/RhFMIRuHAL4', 5.4, 'Nice movie', '');
 
 INSERT INTO REVIEW (userID, movieID, postdate, reviewtitle, rating, reviewtext)
 VALUES (1, 1, '2016-06-11', 'Best shit ever', 10, 'Still best shit I have ever seen'),

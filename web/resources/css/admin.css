@@ -17,8 +17,18 @@
 
 @media screen and (max-width: 768px){
 
+    .img-class {
+        zoom: 0.3;
+    }
+
     .custom-margin {
         margin-left: 0;
     }
 
+}
+
+@media screen and (min-width: 769px){
+    .img-class {
+        zoom: 0.6;
+    }
 }

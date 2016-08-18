@@ -12,10 +12,10 @@ import java.io.IOException;
  */
 public class ExceptionsUtil {
 
-    public static void sendException(Logger LOGGER, HttpServletRequest req, HttpServletResponse resp, String forwardTo, String message, Exception e)
+    public static void sendException(Logger logger, HttpServletRequest req, HttpServletResponse resp, String forwardTo, String message, Exception e)
             throws ServletException, IOException {
         e.printStackTrace();
-        LOGGER.error(message + " " + e);
+        logger.error(message + " " + e);
         req.setAttribute("errorDetails", message + " " + e);
         req.getRequestDispatcher(forwardTo).forward(req, resp);
     }

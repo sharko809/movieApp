@@ -23,49 +23,59 @@
     <!--<![endif]-->
     <link rel="stylesheet" href="/resources/css/admin.css">
     <link rel="stylesheet" href="/resources/css/mainPage.css">
+    <script src="/resources/js/angular.min.js" type="text/javascript"></script>
+    <script src="/resources/js/bind-image.js" type="text/javascript"></script>
     <script src="/resources/js/reset-variables.js" type="text/javascript"></script>
 </head>
 <body>
 <jsp:include page="header.jsp"/>
 <div class="padding-top"></div>
-<div id="layout">
-    <a href="#menu" id="menuLink" class="menu-link" style="top: 46px;">
-        <!-- Hamburger icon -->
-        <span></span>
-    </a>
-    <div id="menu" class="active" style="top: 46px;">
-        <div class="pure-menu">
-            <a class="pure-menu-heading" href="/admin">Admin tools</a>
+<jsp:include page="adminmenu.jsp"/>
+<div class="pure-g custom-margin" ng-app="app">
+    <div class="pure-u-4-5 centered inline-flex" ng-controller="imgCtrl">
+        <div class="pure-u-md-1-2 pure-u-sm-1-2" style="margin-top: 20px;">
+            <form class="pure-form" method="post" action="/admin/addmovie">
+                <fieldset class="pure-group">
+                    <input id="title" name="title" type="text" class="pure-input-1-2" minlength="1" maxlength="30"
+                           placeholder="Title" required style="width: 100%;"/>
+                    <input id="director" name="director" type="text" class="pure-input-1-2" minlength="1" maxlength="30"
+                           placeholder="Director" style="width: 100%;"/>
+                    <input id="releaseDate" name="releaseDate" type="date" class="pure-input-1-2" min="1890-01-01"
+                           max="2150-01-01" placeholder="Release date" style="width: 100%;"/>
+                </fieldset>
 
-            <ul class="pure-menu-list">
-                <li class="menu-item"><a href="/admin/addmovie" class="pure-menu-link">Add movie</a></li>
-                <li class="menu-item"><a href="/admin/managemovies" class="pure-menu-link">Manage movies</a></li>
-                <li class="menu-item"><a href="/admin/users" class="pure-menu-link">Users</a></li>
-            </ul>
+                <fieldset class="pure-group">
+                    <input ng-model="imgurl" id="posterUrl" name="posterUrl" type="url" class="pure-input-1-2"
+                           minlength="7" maxlength="500" placeholder="Poster URL" style="width: 100%;"/>
+                    <input id="trailerUrl" name="trailerUrl" type="url" class="pure-input-1-2" minlength="7"
+                           maxlength="500" placeholder="Trailer URL" style="width: 100%;"/>
+                    <textarea id="description" name="description" class="pure-input-1-2" minlength="5" maxlength="2000"
+                              placeholder="Description" required style="width: 100%;"></textarea>
+                </fieldset>
+                <button type="submit" class="pure-button pure-input-1-2 pure-button-primary" style="width: 100%;">Add
+                    movie
+                </button>
+                <c:if test="${!movie.movieName.isEmpty()}">
+                    <script type="text/javascript">
+                        setMovieInputs('${movie.movieName}', '${movie.director}',
+                                       '${movie.releaseDate}', '${movie.posterURL}',
+                                       '${movie.trailerURL}', '${movie.description}');
+                    </script>
+                </c:if>
+            </form>
         </div>
-    </div>
-</div>
-<div class="pure-g custom-margin">
-    <div class="pure-u-2-5 centered">
-        <form class="pure-form" method="post" action="/admin/addmovie">
-            <fieldset class="pure-group">
-                <input id="title" name="title" type="text" class="pure-input-1-2" minlength="1" maxlength="30" placeholder="Title" required/>
-                <input id="director" name="director" type="text" class="pure-input-1-2" minlength="1" maxlength="30" placeholder="Director"/>
-                <input id="releaseDate" name="releaseDate" type="date" class="pure-input-1-2" min="1890-01-01" max="2150-01-01" placeholder="Release date"/>
-            </fieldset>
-
-            <fieldset class="pure-group">
-                <input id="posterUrl" name="posterUrl" type="url" class="pure-input-1-2" minlength="7" maxlength="500" placeholder="Poster URL"/>
-                <input id="trailerUrl" name="trailerUrl" type="url" class="pure-input-1-2" minlength="7" maxlength="500" placeholder="Trailer URL"/>
-                <textarea id="description" name="description" class="pure-input-1-2" minlength="5" maxlength="2000" placeholder="Description" required></textarea>
-            </fieldset>
-            <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">Add movie</button>
-            <c:if test="${movie.movieName.length() > 1}">
-                <script type="text/javascript">
-                    setMovieInputs('${movie.movieName}', '${movie.director}', '${movie.releaseDate}', '${movie.posterURL}', '${movie.trailerURL}', '${movie.description}');
-                </script>
-            </c:if>
-        </form>
+        <%--<div class="pure-u-md-1-2 pure-u-sm-1-2" style="margin-top: 20px; text-align: center;">--%>
+            <div ng-if="checkUrl() === 't'" class="pure-u-md-1-2 pure-u-sm-1-2" style="margin: 20px 0px 10px 10px; text-align: center;">
+                <img class="img-class"
+                     <%--style="height: inherit; width: inherit;" --%>
+                     ng-src="{{imgurl}}">
+            </div>
+            <div ng-if="checkUrl() === 'a'" class="pure-u-md-1-2 pure-u-sm-1-2" style="margin: 20px 0px 10px 10px; text-align: center;">
+                <img class="img-class"
+                     <%--style="height: inherit; width: inherit;" --%>
+                     ng-src="/resources/images/no-poster-available.png">
+            </div>
+        <%--</div>--%>
     </div>
     <div class="pure-u-1 centered">
         <c:forEach items="${result}" var="r">

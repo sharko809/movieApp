@@ -29,24 +29,7 @@
 <body>
 <jsp:include page="header.jsp"/>
 <div class="padding-top"></div>
-<div id="layout">
-    <a href="#menu" id="menuLink" class="menu-link" style="top: 46px;">
-        <!-- Hamburger icon -->
-        <span></span>
-    </a>
-    <div id="menu" class="active" style="top: 46px;">
-        <div class="pure-menu">
-            <a class="pure-menu-heading" href="/admin">Admin tools</a>
-
-            <ul class="pure-menu-list">
-                <li class="menu-item"><a href="/admin/addmovie" class="pure-menu-link">Add movie</a></li>
-                <li class="menu-item"><a href="/admin/managemovies" class="pure-menu-link">Manage movies</a></li>
-                <li class="menu-item"><a href="/admin/users" class="pure-menu-link">Users</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-
+<jsp:include page="adminmenu.jsp"/>
 <div class="pure-g custom-margin">
     <div class="pure-u-md-3-4 pure-u-sm-1 centered">
         <c:forEach items="${movies}" var="movie">
