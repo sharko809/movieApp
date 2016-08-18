@@ -31,52 +31,60 @@
 <body>
 <jsp:include page="header.jsp"/>
 <div class="padding-top"></div>
-
 <jsp:include page="adminmenu.jsp"/>
 <div class="pure-g custom-margin">
     <div class="pure-u-4-5 centered">
         <form id="movie-form" class="pure-form" method="post" action="/admin/editmovie">
             <fieldset>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
-                    <input id="title" name="title" type="text" class="pure-input-1-2" minlength="1" maxlength="30" placeholder="Title" value="${movie.movieName}" required readonly/>
+                    <input id="title" name="title" type="text" class="pure-input-1-2" minlength="1" maxlength="30"
+                           placeholder="Title" value="${movie.movieName}" required readonly/>
                     <button id="editTitle" type="button" class="pure-button">Edit</button>
                 </div>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
-                    <input id="director" name="director" type="text" class="pure-input-1-2" minlength="1" maxlength="30" placeholder="Director" value="${movie.director}" readonly/>
+                    <input id="director" name="director" type="text" class="pure-input-1-2" minlength="1" maxlength="30"
+                           placeholder="Director" value="${movie.director}" readonly/>
                     <button id="editDirector" type="button" class="pure-button">Edit</button>
                 </div>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
-                    <input id="releaseDate" name="releaseDate" type="date" class="pure-input-1-2" min="1890-01-01" max="2150-01-01" placeholder="Release date" value="${movie.releaseDate}" readonly/>
+                    <input id="releaseDate" name="releaseDate" type="date" class="pure-input-1-2" min="1890-01-01"
+                           max="2150-01-01" placeholder="Release date" value="${movie.releaseDate}" readonly/>
                     <button id="editDate" type="button" class="pure-button">Edit</button>
                 </div>
             </fieldset>
-
             <fieldset>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
-                    <input id="posterUrl" name="posterUrl" type="url" class="pure-input-1-2" minlength="7" maxlength="500" placeholder="Poster URL" value="${movie.posterURL}" readonly/>
+                    <input id="posterUrl" name="posterUrl" type="url" class="pure-input-1-2" minlength="7"
+                           maxlength="500" placeholder="Poster URL" value="${movie.posterURL}" readonly/>
                     <button id="editPoster" type="button" class="pure-button">Edit</button>
                 </div>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
-                    <input id="trailerUrl" name="trailerUrl" type="url" class="pure-input-1-2" minlength="7" maxlength="500" placeholder="Trailer URL" value="${movie.trailerURL}" readonly/>
+                    <input id="trailerUrl" name="trailerUrl" type="url" class="pure-input-1-2" minlength="7"
+                           maxlength="500" placeholder="Trailer URL" value="${movie.trailerURL}" readonly/>
                     <button id="editTrailer" type="button" class="pure-button">Edit</button>
                 </div>
-                <div class="pure-control-group"  style="margin-bottom: 5px;">
-                    <textarea id="description" name="description" class="pure-input-1-2" minlength="5" maxlength="2000" placeholder="Description" required readonly>${movie.description}</textarea>
+                <div class="pure-control-group" style="margin-bottom: 5px;">
+                    <textarea id="description" name="description" class="pure-input-1-2" minlength="5" maxlength="2000"
+                              placeholder="Description" required readonly>${movie.description}</textarea>
                     <button id="editDescription" type="button" class="pure-button">Edit</button>
                 </div>
             </fieldset>
-            <c:if test="${!updMovie.movieName.isEmpty()}">
+            <c:if test="${updMovie != null}">
                 <script type="text/javascript">
-                    setMovieInputs(${updMovie.movieName}, ${updMovie.director}, ${updMovie.releaseDate}, ${updMovie.posterURL}, ${updMovie.trailerURL}, ${updMovie.description});
+                    setMovieInputs('${updMovie.movieName}', '${updMovie.director}', '${updMovie.releaseDate}', '${updMovie.posterURL}', '${updMovie.trailerURL}', '${updMovie.description}');
                 </script>
             </c:if>
             <input type="hidden" name="movieID" value="${movie.id}"/>
             <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">Update movie</button>
         </form>
         <div class="pure-u-1">
-            <c:forEach items="${result}" var="r">
-                ${r}<br/>
-            </c:forEach>
+            <c:if test="${result != null}">
+                <div id="error-info" class="err">
+                    <c:forEach items="${result}" var="r">
+                        <p>${r}</p>
+                    </c:forEach>
+                </div>
+            </c:if>
         </div>
         <c:forEach items="${reviews}" var="review">
             <div class="review pure-u-md-1 max-width" style="margin-bottom: 5px;">

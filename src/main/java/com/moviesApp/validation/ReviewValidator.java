@@ -6,6 +6,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by dsharko on 8/5/2016.
@@ -13,6 +15,18 @@ import java.util.List;
 public class ReviewValidator implements Validator {
 
     private static final Logger LOGGER = LogManager.getLogger();
+
+    private static final String TITLE_PATTERN = "[a-zA-zа-яА-я0-9]+([ '-][a-zA-Zа-яА-Я0-9]+)*";
+    private static final String TEXT_PATTERN = "[a-zA-zа-яА-я0-9@()!.,+&=?:\\\\-\\\\\"']+([ '-][a-zA-Zа-яА-Я0-9@()!.,+&=?:\\\\\"'\\\\-]+)*";
+    private Pattern titlePattern;
+    private Pattern textPattern;
+    private Matcher matcher;
+
+
+    public ReviewValidator() {
+        titlePattern = Pattern.compile(TITLE_PATTERN);
+        textPattern = Pattern.compile(TEXT_PATTERN);
+    }
 
     @Override
     public List<String> validate(Object object) {
@@ -42,15 +56,20 @@ public class ReviewValidator implements Validator {
             errors.add("Invalid movie reference. Try once more.");
         }
 
-        if (review.getPostDate() == null) {// TODO which fields may be null?
-            errors.add("Date must not be empty.");// TODO think of it
+        if (review.getPostDate() != null) {
+            // TODO validate date?
+        } else {
+            errors.add("Date must not be empty.");
         }
 
-
-        if (review.getTitle() != null) {
-            if (!(review.getTitle().isEmpty())) {// TODO may be add regex
-                if (review.getTitle().length() < 3) {
+        String title = review.getTitle();
+        matcher = titlePattern.matcher(title);
+        if (title != null) {
+            if (!(title.isEmpty())) {
+                if (title.length() < 3) {
                     errors.add("Review title should have at least 3 characters");
+                } else if (!matcher.matches()) {
+                    errors.add("Invalid characters in title");
                 }
             } else {
                 errors.add("Please, specify yor review title");
@@ -67,11 +86,14 @@ public class ReviewValidator implements Validator {
             errors.add("Only rating in [1-10] range is allowed");
         }
 
-
-        if (review.getReviewText() != null) {
-            if (review.getReviewText() != null || !(review.getReviewText().isEmpty())) {
-                if (review.getReviewText().length() < 5) {
-                    errors.add("Review should have at least 5 characters"); // TODO think of it
+        String text = review.getReviewText();
+        matcher = textPattern.matcher(text);
+        if (text != null) {
+            if (text != null || !(review.getReviewText().isEmpty())) {
+                if (text.length() < 5) {
+                    errors.add("Review should have at least 5 characters");
+                } else if (!matcher.matches()) {
+                    errors.add("Invalid characters in review");
                 }
             } else {
                 errors.add("Review should not be empty");

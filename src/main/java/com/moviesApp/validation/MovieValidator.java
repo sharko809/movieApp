@@ -22,23 +22,28 @@ public class MovieValidator implements Validator {
 //            "\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\x{00a1}-\\x{ffff}0-9]+-?)*[a-z\\x{00a1}-\\x{ffff}0-9]+)(?:" +
 //            "\\.(?:[a-z\\x{00a1}-\\x{ffff}0-9]+-?)*[a-z\\x{00a1}-\\x{ffff}0-9]+)*(?:\\.(?:[a-z\\x{00a1}-\\x{ffff}]{2,})))(?::\\d{2,5})?(?:/[^\\s]*)?$_iuS\n";
 //    private static final String URL_PATTERN = "/^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$/";
-    private Pattern pattern;
+    private static final String URL_PATTERN = "^(https?:\\\\/\\\\/)?([\\\\da-z\\\\.-]+)\\\\.([a-z\\\\.]{2,6})([\\\\/\\\\w \\\\.-]*)*\\\\/?$";
+    private static final String TITLE_PATTERN = "[a-zA-zа-яА-я0-9]+([ '-][a-zA-Zа-яА-Я0-9]+)*";
+    private static final String DIRECTOR_PATTERN = "[a-zA-zа-яА-я]+([ '-][a-zA-Zа-яА-Я]+)*";
+    private static final String DESCRIPTION_PATTERN = "[a-zA-zа-яА-я0-9@()!.,+&=?:\\\\-\\\\\"']+([ '-][a-zA-Zа-яА-Я0-9@()!.,+&=?:\\\\\"'\\\\-]+)*";
+    private static final String DATE_FORMAT = "";
+    private Pattern titlePattern;
+    private Pattern directorPattern;
+    private Pattern descriptionPattern;
+    private Pattern urlPattern;
     private Matcher matcher;
 
 
     public MovieValidator() {
-//        pattern = Pattern.compile(URL_PATTERN);// TODO validate URL
+        titlePattern = Pattern.compile(TITLE_PATTERN);
+        directorPattern = Pattern.compile(DIRECTOR_PATTERN);
+        descriptionPattern = Pattern.compile(DESCRIPTION_PATTERN);
+        urlPattern = Pattern.compile(URL_PATTERN);// TODO validate URL
     }
 
     @Override
     public List<String> validate(Object object) {
         List<String> errors = new ArrayList<>();
-
-//        if (object == null) {
-//            errors.add("Can't validate null objects");
-//            LOGGER.error("Attempt to validate null object in movie validator");
-//            return errors;
-//        }
 
         if (!(object instanceof Movie)) {
             errors.add("Attempt to validate non-Movie object in movie validator");
@@ -47,20 +52,25 @@ public class MovieValidator implements Validator {
         }
 
         Movie movie = (Movie) object;
-        // TODO regex for valid characters
         String title = movie.getMovieName();
+        matcher = titlePattern.matcher(title);
         if (title != null) {
             if (title.length() < 1 || title.isEmpty()) {
                 errors.add("Movie title should not be empty and must contain at least 1 symbol");
+            } else if (!matcher.matches()) {
+                errors.add("Invalid movie title");
             }
         } else {
             errors.add("Title should not be empty");
         }
 
         String director = movie.getDirector();
+        matcher = directorPattern.matcher(director);
         if (director != null) {
             if (director.length() < 2 || director.isEmpty()) {
                 errors.add("Director field should not be empty and must contain at least 2 symbol");
+            } else if (!matcher.matches()) {
+                errors.add("Invalid director name");
             }
         } else {
             errors.add("Director field should not be empty");
@@ -68,28 +78,49 @@ public class MovieValidator implements Validator {
 
         Date releaseDate = movie.getReleaseDate();
         // TODO dunno if it worth validating
+        if (releaseDate != null) {
+
+        } else {
+            errors.add("Date must not be empty");
+        }
 
         String trailerURL = movie.getTrailerURL();
         String posterURL = movie.getPosterURL();
-        org.apache.commons.validator.routines.UrlValidator urlValidator = new org.apache.commons.validator.routines.UrlValidator();
-
-//        if (!urlValidator.isValid(trailerURL)) {
-//            errors.add("Invalid poster URL");// TODO fails on regular URL's
-//        }
-//        if (!urlValidator.isValid(posterURL)) {
-//            errors.add("Invalid trailer URL");
-//        }
+        matcher = urlPattern.matcher(trailerURL);
+        if (trailerURL != null) {
+            if (!trailerURL.isEmpty()) {
+                if (!matcher.matches()) {
+//                    errors.add("Invalid trailer URL");
+                }
+            }
+        }
+        matcher = urlPattern.matcher(posterURL);
+        if (posterURL != null) {
+            if (!posterURL.isEmpty()) {
+                if (!matcher.matches()) {
+//                    errors.add("Invalid poster URL");
+                }
+            }
+        }
 
         Double rating = movie.getRating();
         if (rating != null) {
-            if (rating < 1) {
+            if (rating < 0) {
                 errors.add("Negative ratings are not allowed");
             }
         } else {
             errors.add("NULL ratings are not allowed");
         }
 
-        // TODO dunno if description worth validating
+        String description = movie.getDescription();
+        matcher = descriptionPattern.matcher(description);
+        if (description != null) {
+            if (!description.isEmpty()) {
+                if (!matcher.matches()) {
+                    errors.add("Valid symbols for description are latin, cyrillic, numbers and @()!?&+-_.,:;\"\'=");
+                }
+            }
+        }
 
         return errors;
     }

@@ -16,7 +16,10 @@ import java.util.regex.Pattern;
 public class RegistrationValidator implements Validator {
 
     private static final Logger LOGGER = LogManager.getLogger();
+    private static final String USERNAME_PATTERN = "[a-zA-zа-яА-я0-9]+([ '-][a-zA-Zа-яА-Я0-9]+)*";
     private final int LOGIN_LENGTH;
+    private Pattern pattern;
+    private Matcher matcher;
 
     public RegistrationValidator() {
         try {
@@ -25,6 +28,7 @@ public class RegistrationValidator implements Validator {
             LOGGER.fatal("Can't parse property value. " + e);
             throw new RuntimeException("Can't parse property value. " + e);
         }
+        pattern = Pattern.compile(USERNAME_PATTERN);
     }
 
     @Override
@@ -41,10 +45,13 @@ public class RegistrationValidator implements Validator {
         Validator loginValidator = new LoginValidator();
         errors.addAll(loginValidator.validate(user));
 
-        String login = user.getName();
-        if (login != null) {
-            if (login.trim().equals("") || login.length() < LOGIN_LENGTH) {
+        String userName = user.getName();
+        matcher = pattern.matcher(userName);
+        if (userName != null) {
+            if (userName.trim().equals("") || userName.length() < LOGIN_LENGTH) {
                 errors.add("Login must not be empty and must have at least " + LOGIN_LENGTH + " characters");
+            } else if (!matcher.matches()) {
+                errors.add("Username is not valid");
             }
         } else {
             errors.add("Login must not be empty");

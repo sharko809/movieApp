@@ -51,11 +51,8 @@ public class EditMovieServlet extends HttpServlet {
         try {
             movie = movieService.getMovieByID(movieId);
         } catch (SQLException e) {
-            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Error parsing user ID", e);
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
             return;
-        }
-        if (movie == null) {
-            movie = new Movie();
         }
         ReviewService reviewService = new ReviewService();
         List<Review> reviews = new ArrayList<>();
@@ -73,7 +70,7 @@ public class EditMovieServlet extends HttpServlet {
                 if (review.getUserId() == null) {
                     ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Null user id", new NullPointerException("Null user id"));
                 } else if (review.getUserId() < 1) {
-                    ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Null user id", new IllegalArgumentException("Wrong user id"));
+                    ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Wrong user id", new IllegalArgumentException("Wrong user id"));
                 }
                 User user = null;
                 try {
@@ -151,6 +148,16 @@ public class EditMovieServlet extends HttpServlet {
         Validator validator = new MovieValidator();
         List<String> errors = validator.validate(movie);
 
+        List<Review> reviews = new ArrayList<>();
+        Map<Long, String> users = new HashMap<>();
+        try {
+            reviews = getReviews(movieID);
+            users = getUsers(reviews);
+        } catch (SQLException | NullPointerException e) {
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
+            return;
+        }
+
         if (errors.isEmpty()) {
             try {
                 movieService.updateMovie(movie);
@@ -160,13 +167,52 @@ public class EditMovieServlet extends HttpServlet {
             }
             req.setAttribute("result", "Movie updated");
             req.setAttribute("updMovie", movie);
+            req.setAttribute("movie", movie);
+            req.setAttribute("reviews" ,reviews);
+            req.setAttribute("users", users);
             resp.sendRedirect("/admin/editmovie?movieID=" + movie.getId());
         } else {
             req.setAttribute("result", errors);
             req.setAttribute("updMovie", movie);
+            req.setAttribute("movie", movie);
+            req.setAttribute("reviews" ,reviews);
+            req.setAttribute("users", users);
             req.getRequestDispatcher("/resources/views/editmovie.jsp").forward(req, resp);
         }
+    }
 
+    private List<Review> getReviews(Long movieID) throws SQLException {
+        List<Review> reviews = new ArrayList<>();
+        ReviewService reviewService = new ReviewService();
+        if (movieID != null) {
+            if (movieID >= 1) {
+                reviews = reviewService.getReviewsByMovieId(movieID);
+            }
+        }
+        return reviews;
+    }
 
+    private Map<Long, String> getUsers(List<Review> reviews) throws SQLException, NullPointerException {
+        Map<Long, String> users = new HashMap<>();
+        if (reviews.size() >= 1) {
+            for (Review review : reviews) {
+                if (review.getUserId() == null) {
+                    LOGGER.error("Null user id");
+                    throw new NullPointerException("Null user id");
+                } else if (review.getUserId() < 1) {
+                    LOGGER.error("Wrong user id");
+                    throw new NullPointerException("Wrong user id");
+                }
+                User user = null;
+                UserService userService = new UserService();
+                user = userService.getUserByID(review.getUserId());
+                if (user != null) {
+                    users.put(review.getUserId(), user.getName());
+                } else {
+                    LOGGER.error("No user with ID " + review.getUserId() + " found for review ID " + review.getId() + " movie ID " + review.getMovieId());
+                }
+            }
+        }
+        return users;
     }
 }

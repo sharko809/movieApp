@@ -23,6 +23,7 @@
     <!--<![endif]-->
     <link rel="stylesheet" href="/resources/css/admin.css">
     <link rel="stylesheet" href="/resources/css/mainPage.css">
+    <link rel="stylesheet" href="/resources/css/movie.css">
     <script src="/resources/js/angular.min.js" type="text/javascript"></script>
     <script src="/resources/js/bind-image.js" type="text/javascript"></script>
     <script src="/resources/js/reset-variables.js" type="text/javascript"></script>
@@ -43,7 +44,6 @@
                     <input id="releaseDate" name="releaseDate" type="date" class="pure-input-1-2" min="1890-01-01"
                            max="2150-01-01" placeholder="Release date" style="width: 100%;"/>
                 </fieldset>
-
                 <fieldset class="pure-group">
                     <input ng-model="imgurl" id="posterUrl" name="posterUrl" type="url" class="pure-input-1-2"
                            minlength="7" maxlength="500" placeholder="Poster URL" style="width: 100%;"/>
@@ -58,29 +58,29 @@
                 <c:if test="${!movie.movieName.isEmpty()}">
                     <script type="text/javascript">
                         setMovieInputs('${movie.movieName}', '${movie.director}',
-                                       '${movie.releaseDate}', '${movie.posterURL}',
-                                       '${movie.trailerURL}', '${movie.description}');
+                                '${movie.releaseDate}', '${movie.posterURL}',
+                                '${movie.trailerURL}', '${movie.description}');
                     </script>
                 </c:if>
             </form>
         </div>
-        <%--<div class="pure-u-md-1-2 pure-u-sm-1-2" style="margin-top: 20px; text-align: center;">--%>
-            <div ng-if="checkUrl() === 't'" class="pure-u-md-1-2 pure-u-sm-1-2" style="margin: 20px 0px 10px 10px; text-align: center;">
-                <img class="img-class"
-                     <%--style="height: inherit; width: inherit;" --%>
-                     ng-src="{{imgurl}}">
-            </div>
-            <div ng-if="checkUrl() === 'a'" class="pure-u-md-1-2 pure-u-sm-1-2" style="margin: 20px 0px 10px 10px; text-align: center;">
-                <img class="img-class"
-                     <%--style="height: inherit; width: inherit;" --%>
-                     ng-src="/resources/images/no-poster-available.png">
-            </div>
-        <%--</div>--%>
+        <div ng-if="checkUrl() === 't'" class="pure-u-md-1-2 pure-u-sm-1-2"
+             style="margin: 20px 0px 10px 10px; text-align: center;">
+            <img class="img-class" ng-src="{{imgurl}}">
+        </div>
+        <div ng-if="checkUrl() === 'a'" class="pure-u-md-1-2 pure-u-sm-1-2"
+             style="margin: 20px 0px 10px 10px; text-align: center;">
+            <img class="img-class" ng-src="/resources/images/no-poster-available.png">
+        </div>
     </div>
     <div class="pure-u-1 centered">
-        <c:forEach items="${result}" var="r">
-            ${r}<br/>
-        </c:forEach>
+        <c:if test="${result != null}">
+            <div id="error-info" class="error-info">
+                <c:forEach items="${result}" var="r">
+                    ${r}<br/>
+                </c:forEach>
+            </div>
+        </c:if>
     </div>
 </div>
 <script src="/resources/js/pure/ui.js" type="text/javascript"></script>
