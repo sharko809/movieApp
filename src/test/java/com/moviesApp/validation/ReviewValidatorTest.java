@@ -1,17 +1,15 @@
 package com.moviesApp.validation;
 
 import com.moviesApp.entities.Review;
-import com.moviesApp.filter.SearchFilter;
 import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by dsharko on 8/11/2016.
