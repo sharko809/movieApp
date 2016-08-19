@@ -109,13 +109,11 @@ public class EditMovieServlet extends HttpServlet {
             ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Error parsing movie ID", e);
             return;
         }
-
         if (movieID < 1) {
             ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Wrong movie id", new IllegalArgumentException("Wrong movie id"));
         }
 
         MovieService movieService = new MovieService();
-
         Movie movie = null;
         try {
             movie = movieService.getMovieByID(movieID);
@@ -128,7 +126,6 @@ public class EditMovieServlet extends HttpServlet {
             req.getRequestDispatcher("/error").forward(req, resp);
             return;
         }
-
         movie.setMovieName(title);
         movie.setDirector(director);
         if (releaseDate.isEmpty()) {

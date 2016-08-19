@@ -49,8 +49,6 @@ public class AdminRoleAccessFilter implements Filter {
                 request.getRequestDispatcher("/error").forward(request, response);
             }
         }
-
-
     }
 
     @Override

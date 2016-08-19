@@ -11,7 +11,6 @@ import com.moviesApp.validation.ReviewValidator;
 import com.moviesApp.validation.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.mockito.internal.matchers.Null;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -59,14 +58,6 @@ public class PostReviewServlet extends HttpServlet {
 
         Validator validator = new ReviewValidator();
         List<String> errors = validator.validate(review);
-
-        String from = "/home";
-        String redirect = req.getParameter("redirectFrom");
-        if (redirect != null) {
-            if (!redirect.isEmpty()) {
-                from = redirect;
-            }
-        }
 
         if (errors.isEmpty()) {
             ReviewService reviewService = new ReviewService();
@@ -138,8 +129,6 @@ public class PostReviewServlet extends HttpServlet {
             }
             movieService.updateMovie(movieToUpdate);
         }
-
-
     }
 
     private List<Review> getReviews(Long movieID) throws SQLException {

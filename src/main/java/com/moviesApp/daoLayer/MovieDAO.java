@@ -29,7 +29,7 @@ public class MovieDAO {
         PreparedStatement statement = connection.prepareStatement(SQL_ADD_MOVIE, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, movieName);
         statement.setString(2, director);
-        statement.setDate  (3, releaseDate);
+        statement.setDate(3, releaseDate);
         statement.setString(4, posterURL);
         statement.setString(5, trailerUrl);
         statement.setDouble(6, rating);
@@ -75,12 +75,12 @@ public class MovieDAO {
 
         statement.setString(1, movie.getMovieName());
         statement.setString(2, movie.getDirector());
-        statement.setDate  (3, movie.getReleaseDate());
+        statement.setDate(3, movie.getReleaseDate());
         statement.setString(4, movie.getPosterURL());
         statement.setString(5, movie.getTrailerURL());
         statement.setDouble(6, movie.getRating());
         statement.setString(7, movie.getDescription());
-        statement.setLong  (8, movie.getId());
+        statement.setLong(8, movie.getId());
         statement.executeUpdate();
 
         statement.close();

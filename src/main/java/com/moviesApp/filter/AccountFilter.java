@@ -3,7 +3,6 @@ package com.moviesApp.filter;
 import com.moviesApp.ExceptionsUtil;
 import com.moviesApp.UrlParametersManager;
 import com.moviesApp.entities.User;
-import com.sun.xml.internal.rngom.digested.DDataPattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -48,9 +47,8 @@ public class AccountFilter implements Filter {
                     .filter(params -> "id".equals(params.getKey()))
                     .map(Map.Entry::getValue)
                     .findFirst();
-
             if (value.isPresent()) {
-                if (!value.get().isEmpty() && value.get().size() == 1){
+                if (!value.get().isEmpty() && value.get().size() == 1) {
                     try {
                         userID = Long.parseLong(value.get().get(0));
                     } catch (NumberFormatException e) {
@@ -72,8 +70,6 @@ public class AccountFilter implements Filter {
             request.setAttribute("errorDetails", "You do not have permission to access this page");
             request.getRequestDispatcher("/error").forward(request, response);
         }
-
-
     }
 
     @Override

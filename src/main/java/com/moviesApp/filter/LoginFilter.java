@@ -28,7 +28,6 @@ public class LoginFilter implements Filter {
 
         if ("POST".equals(request.getMethod())) {
             filterChain.doFilter(request, response);
-//            request.getRequestDispatcher("/index.jsp").forward(request, response);
         } else {
             response.sendRedirect("/");
         }

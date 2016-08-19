@@ -27,9 +27,6 @@ public class SearchServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
-
         Map<String, List<String>> urlParams = UrlParametersManager.getUrlParams(req.getQueryString());
         Optional<List<String>> value = urlParams.entrySet().stream()
                             .filter(params -> "searchInput".equals(params.getKey()))

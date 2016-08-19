@@ -46,8 +46,8 @@ public class RegistrationValidator implements Validator {
         errors.addAll(loginValidator.validate(user));
 
         String userName = user.getName();
-        matcher = pattern.matcher(userName);
         if (userName != null) {
+            matcher = pattern.matcher(userName);
             if (userName.trim().equals("") || userName.length() < LOGIN_LENGTH) {
                 errors.add("Login must not be empty and must have at least " + LOGIN_LENGTH + " characters");
             } else if (!matcher.matches()) {

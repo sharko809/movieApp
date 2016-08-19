@@ -1,12 +1,10 @@
 package com.moviesApp.filter;
 
 import com.moviesApp.UrlParametersManager;
-import com.moviesApp.entities.User;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +42,6 @@ public class SearchFilter implements Filter {
                             .filter(params -> "searchInput".equals(params.getKey()))
                             .map(Map.Entry::getValue)
                             .findFirst();
-
                     if (value.isPresent()) {
                         if (!value.get().isEmpty() && value.get().size() == 1) {
                             if (!value.get().get(0).isEmpty()) {

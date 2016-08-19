@@ -70,7 +70,6 @@ public class NewMovieServlet extends HttpServlet {
                 return;
             }
             req.setAttribute("result", "Movie " + title + " added successfully.");
-//            req.getRequestDispatcher("/resources/views/addmovie.jsp").forward(req, resp);
             resp.sendRedirect("/admin/addmovie");
         } else {
             req.setAttribute("result", errors);

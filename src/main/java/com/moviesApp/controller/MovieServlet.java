@@ -66,8 +66,8 @@ public class MovieServlet extends HttpServlet {
             ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
             return;
         }
-        UserService userService = new UserService();
 
+        UserService userService = new UserService();
         Map<Long, String> users = new HashMap<Long, String>();
         if (reviews.size() >= 1) {
             for (Review review : reviews) {

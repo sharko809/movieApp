@@ -17,6 +17,9 @@ public class UserService {
     private static final Logger LOGGER = LogManager.getLogger();
 
     public User getUserByID(Long userID) throws SQLException {
+        if (userID == null) {
+            return null;
+        }
         UserDAO userDAO = new UserDAO();
         User user = null;
         try {

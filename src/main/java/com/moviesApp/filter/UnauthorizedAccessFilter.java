@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Enumeration;
 
 /**
  * Created by dsharko on 8/1/2016.
@@ -46,15 +45,6 @@ public class UnauthorizedAccessFilter implements Filter {
                 filterChain.doFilter(request, response);
             }
         }
-
-
-//        if (session.getAttribute("user") == null) {
-//            LOGGER.warn("Attempt to get unauthorized access to content");
-//            request.setAttribute("errorDetails", "Not authorized user");
-//            request.getRequestDispatcher("/error").forward(request, response);
-//        } else {
-//            filterChain.doFilter(request, response);
-//        }
 
     }
 

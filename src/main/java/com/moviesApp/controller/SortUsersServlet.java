@@ -46,10 +46,10 @@ public class SortUsersServlet extends HttpServlet {
                 users.sort((User u1, User u2) -> u1.getId().compareTo(u2.getId()));
                 break;
             case "login":
-                users.sort((User u1, User u2) -> u1.getLogin().compareTo(u2.getLogin()));
+                users.sort((User u1, User u2) -> u1.getLogin().toLowerCase().compareTo(u2.getLogin().toLowerCase()));
                 break;
             case "userName":
-                users.sort((User u1, User u2) -> u1.getName().compareTo(u2.getName()));
+                users.sort((User u1, User u2) -> u1.getName().toLowerCase().compareTo(u2.getName().toLowerCase()));
                 break;
             case "admin":
                 users.sort((User u1, User u2) -> u1.isAdmin().compareTo(u2.isAdmin()));

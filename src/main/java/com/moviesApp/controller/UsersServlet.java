@@ -33,10 +33,7 @@ public class UsersServlet extends HttpServlet {
             ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
             return;
         }
-
         // TODO add pagination!!!
-
-
         Object sortedAttribute = req.getSession().getAttribute("sortedUsers");
         req.getSession().removeAttribute("sortedUsers");
 

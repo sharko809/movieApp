@@ -4,6 +4,9 @@ import com.moviesApp.entities.Review;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -18,10 +21,10 @@ public class ReviewValidator implements Validator {
 
     private static final String TITLE_PATTERN = "[a-zA-zа-яА-я0-9]+([ '-][a-zA-Zа-яА-Я0-9]+)*";
     private static final String TEXT_PATTERN = "[a-zA-zа-яА-я0-9@()!.,+&=?:\\\\-\\\\\"']+([ '-][a-zA-Zа-яА-Я0-9@()!.,+&=?:\\\\\"'\\\\-]+)*";
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
     private Pattern titlePattern;
     private Pattern textPattern;
     private Matcher matcher;
-
 
     public ReviewValidator() {
         titlePattern = Pattern.compile(TITLE_PATTERN);
@@ -56,15 +59,18 @@ public class ReviewValidator implements Validator {
             errors.add("Invalid movie reference. Try once more.");
         }
 
-        if (review.getPostDate() != null) {
-            // TODO validate date?
+        Date postDate = review.getPostDate();
+        if (postDate != null) {
+            if (!validDate(postDate.toString())) {
+                errors.add("Invalid date");
+            }
         } else {
             errors.add("Date must not be empty.");
         }
 
         String title = review.getTitle();
-        matcher = titlePattern.matcher(title);
         if (title != null) {
+            matcher = titlePattern.matcher(title);
             if (!(title.isEmpty())) {
                 if (title.length() < 3) {
                     errors.add("Review title should have at least 3 characters");
@@ -87,9 +93,9 @@ public class ReviewValidator implements Validator {
         }
 
         String text = review.getReviewText();
-        matcher = textPattern.matcher(text);
         if (text != null) {
-            if (text != null || !(review.getReviewText().isEmpty())) {
+            matcher = textPattern.matcher(text);
+            if (!(review.getReviewText().isEmpty())) {
                 if (text.length() < 5) {
                     errors.add("Review should have at least 5 characters");
                 } else if (!matcher.matches()) {
@@ -102,8 +108,18 @@ public class ReviewValidator implements Validator {
             errors.add("Review should not be empty");
         }
 
-
         return errors;
+    }
+
+    private boolean validDate(String date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
+        simpleDateFormat.setLenient(false);
+        try {
+            simpleDateFormat.parse(date.trim());
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
     }
 
 }

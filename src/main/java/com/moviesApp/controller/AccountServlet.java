@@ -30,12 +30,10 @@ public class AccountServlet extends HttpServlet {
         Map<String, List<String>> urlParams = UrlParametersManager.getUrlParams(req.getQueryString());
 
         if (urlParams != null) {
-
             Optional<List<String>> value = urlParams.entrySet().stream()
                     .filter(params -> "id".equals(params.getKey()))
                     .map(Map.Entry::getValue)
                     .findFirst();
-
             if (value.isPresent()) {
                 if (!value.get().isEmpty() && value.get().size() == 1) {
                     try {
@@ -46,7 +44,6 @@ public class AccountServlet extends HttpServlet {
                     }
                 }
             }
-
         } else {
             req.setAttribute("errorDetails", "Invalid request url");
             req.getRequestDispatcher("/error").forward(req, resp);

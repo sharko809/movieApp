@@ -43,12 +43,15 @@ public class MovieValidatorTest {
     public void validate() throws Exception {
         Validator validator = new MovieValidator();
         List<String> result = validator.validate(movie);
-        assertThat(result, is(new ArrayList<>()));
+        List<String> expectedNullDate = new ArrayList<>();
+        expectedNullDate.add("Date must not be empty");
+        assertThat(result, is(expectedNullDate));
 
         List<String> resultNullParams = validator.validate(movieNull);
         List<String> expectedNullParams = new ArrayList<>();
         expectedNullParams.add("Title should not be empty");
         expectedNullParams.add("Director field should not be empty");
+        expectedNullParams.add("Date must not be empty");
         expectedNullParams.add("NULL ratings are not allowed");
         assertThat(resultNullParams, is(expectedNullParams));
 
