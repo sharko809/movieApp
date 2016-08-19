@@ -78,6 +78,42 @@
                 </div>
             </c:otherwise>
         </c:choose>
+        <div class="pure-g">
+            <div class="pure-u-3-4 centered">
+                <div class="pure-g">
+                    <div class="pure-u centered inline-flex">
+                        <div class="page-number">
+                            <c:if test="${currentPage != 1}">
+                                <p>
+                                    <a class="page-link" href="/home?page=${currentPage - 1}">Prev</a>
+                                </p>
+                            </c:if>
+                        </div>
+                        <c:forEach begin="1" end="${numberOfPages}" var="i">
+                            <div class="page-number">
+                                <c:choose>
+                                    <c:when test="${currentPage eq i}">
+                                        <p class="page-current">${i}</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>
+                                            <a class="page-link" href="/home?page=${i}">${i}</a>
+                                        </p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </c:forEach>
+                        <div class="page-number">
+                            <c:if test="${currentPage lt numberOfpages}">
+                                <p>
+                                    <a class="page-link" href="/home?page=${currentPage + 1}">Next</a>
+                                </p>
+                            </c:if>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>

@@ -23,17 +23,38 @@ public class HomePageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String pageParam = req.getParameter("page");
+        int page = 1;
+        int recordsPerPage = 5;
+        if (pageParam != null) {
+            try {
+                page = Integer.parseInt(pageParam);
+                if (page <= 0) {
+                    resp.sendRedirect("home?page=1");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                resp.sendRedirect("home?page=1");
+                return;
+            }
+        }
+
         MovieService movieService = new MovieService();
-        List<Movie> movies = null;
+        MovieService.PagedMovies pagedMovies;
         try {
-            movies = movieService.getAllMovies();
+            pagedMovies = movieService.getAllMoviesLimit((page-1)*recordsPerPage, recordsPerPage);
         } catch (SQLException e) {
             ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
             return;
         }
-        req.setAttribute("movies", movies);
-        req.getRequestDispatcher("/resources/views/home.jsp").forward(req, resp);
+        List<Movie> movies = pagedMovies.getMovies();
+        int numberOfRecords = pagedMovies.getNumberOfRecords();
+        int numberOfPages = (int) Math.ceil(numberOfRecords * 1.0 / recordsPerPage);
 
+        req.setAttribute("movies", movies);
+        req.setAttribute("numberOfPages", numberOfPages);
+        req.setAttribute("currentPage", page);
+        req.getRequestDispatcher("/resources/views/home.jsp").forward(req, resp);
     }
 
     @Override

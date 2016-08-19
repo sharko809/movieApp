@@ -26,13 +26,11 @@
 .movie-info {
     display: inline-block;
     float: left;
-    /*max-width: 55%;*/
 }
 
 .movie-trailer {
     display: inline-block;
     float: right;
-    /*max-width: 45%;*/
 }
 
 .padding-top {
@@ -44,24 +42,6 @@
     height: 46px;
     background: #333333;
 }
-
-/*.header-inner {*/
-    /*!*width: 20%;*!*/
-    /*padding: 10px 0px 10px 0px;*/
-/*}*/
-
-/*.float-right {*/
-    /*float: right;*/
-    /*padding-right: 10px;*/
-/*}*/
-
-/*.z-index {*/
-    /*z-index: 20;*/
-/*}*/
-
-/*.fixed {*/
-    /*position: fixed;*/
-/*}*/
 
 .remove-link-style {
     color:#333;
@@ -94,22 +74,36 @@
 
 .body-style {
     background-color: beige;
-    /*background-color: #e3e2dd;*/
     font-family: Verdana, Arial, sans-serif;
     color: #333;
     font-size: 16px;
 }
 
-/*.input[type="text"], textarea {*/
-    /*background-color: #efefd6 !important;*/
-/*}*/
+.page-number {
+    margin: 5px;
+}
+
+.page-link {
+    text-decoration: none;
+    color: #333;
+}
+
+.page-link:hover {
+    color: hotpink;
+    text-decoration: underline;
+}
+
+.page-current {
+    text-decoration: underline;
+    color: darkviolet;
+}
+
 #empty-set {
     border: 1px;
     border-style: double;
     border-color: darkgray;
     border-radius: 4px;
     text-align: center;
-    /*margin: 10px auto 10px auto;*/
     margin: auto;
     background-color: #ccf1ff;
     width: 40%;
