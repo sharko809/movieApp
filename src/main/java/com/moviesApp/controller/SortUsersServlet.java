@@ -40,7 +40,7 @@ public class SortUsersServlet extends HttpServlet {
         
         String fromULR = req.getParameter("redirectFrom");
         String sortBy = req.getParameter("sortBy");
-
+        // TODO check every sorting. something's wrong
         switch (sortBy) {
             case "id":
                 users.sort((User u1, User u2) -> u1.getId().compareTo(u2.getId()));
@@ -54,7 +54,7 @@ public class SortUsersServlet extends HttpServlet {
             case "admin":
                 users.sort((User u1, User u2) -> u1.isAdmin().compareTo(u2.isAdmin()));
 //                users.sort((o1, o2) -> {
-//                    boolean b1 = o1.isAdmin();// TODO this does nothing. Think of it
+//                    boolean b1 = o1.isAdmin();
 //                    boolean b2 = o2.isAdmin();
 //                    return (b1 ^ b2) ? (b1 ? 1 : -1) : 0;
 //                });
@@ -62,7 +62,7 @@ public class SortUsersServlet extends HttpServlet {
             case "banned":
                 users.sort((User u1, User u2) -> u1.isBanned().compareTo(u2.isBanned()));
 //                users.sort((o1, o2) -> {
-//                    boolean b1 = o1.isBanned();// TODO this does nothing. Think of it
+//                    boolean b1 = o1.isBanned();
 //                    boolean b2 = o2.isBanned();
 //                    return (b1 ^ b2) ? (b1 ? 1 : -1) : 0;
 //                });

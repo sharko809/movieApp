@@ -10,21 +10,21 @@
 <html>
 <head>
     <title>Add new movie</title>
-    <link rel="stylesheet" href="/resources/css/pure/pure-min.css">
-    <link rel="stylesheet" href="/resources/css/pure/base-min.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/pure-min.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/base-min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href="/resources/css/pure/grids-responsive-old-ie-min.css">
-    <link rel="stylesheet" href="/resources/css/pure/layouts/side-menu-old-ie.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/grids-responsive-old-ie-min.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/layouts/side-menu-old-ie.css">
     <![endif]-->
     <!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="/resources/css/pure/grids-responsive-min.css">
-    <link rel="stylesheet" href="/resources/css/pure/layouts/side-menu.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/grids-responsive-min.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/layouts/side-menu.css">
     <!--<![endif]-->
     <link rel="stylesheet" href="/resources/css/admin.css">
     <link rel="stylesheet" href="/resources/css/mainPage.css">
     <link rel="stylesheet" href="/resources/css/movie.css">
-    <script src="/resources/js/angular.min.js" type="text/javascript"></script>
+    <script src="/resources/js/vendor/angular.min.js" type="text/javascript"></script>
     <script src="/resources/js/bind-image.js" type="text/javascript"></script>
     <script src="/resources/js/reset-variables.js" type="text/javascript"></script>
 </head>
@@ -83,6 +83,6 @@
         </c:if>
     </div>
 </div>
-<script src="/resources/js/pure/ui.js" type="text/javascript"></script>
+<script src="/resources/js/vendor/pure/ui.js" type="text/javascript"></script>
 </body>
 </html>

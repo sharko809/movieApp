@@ -3,7 +3,7 @@
     <Properties>
         <Property name="LOG_DIR">logs</Property>
         <Property name="ARCHIVE">${LOG_DIR}/archive</Property>
-        <Property name="PATTERN">%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Property>
+        <Property name="PATTERN">[%-5level] %d{yyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36} - %msg%n</Property>
     </Properties>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">

@@ -10,16 +10,16 @@
 <html>
 <head>
     <title>Header</title>
-    <link rel="stylesheet" href="/resources/css/pure/pure-min.css">
-    <link rel="stylesheet" href="/resources/css/pure/base-min.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/pure-min.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/base-min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href="/resources/css/pure/grids-responsive-old-ie-min.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/grids-responsive-old-ie-min.css">
     <![endif]-->
     <!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="/resources/css/pure/grids-responsive-min.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/grids-responsive-min.css">
     <link rel="stylesheet" type="text/css" href="/resources/css/header.css">
-    <script src="/resources/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="/resources/js/vendor/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="/resources/js/redirect-url.js" type="text/javascript"></script>
     <script src="/resources/js/header.js" type="text/javascript"></script>
 </head>
@@ -27,7 +27,6 @@
 <header class="pure-g header-menu fixed z-index">
     <div class="pure-u-md-4-5 pure-u-sm-1 centered inline-flex">
         <div class="pure-u-1 inline-flex">
-
             <c:choose>
                 <c:when test="${user == null}">
                     <div id="login-form" class="pure-u-md-3-8 pure-u-sm-3-8 max-width">
@@ -83,7 +82,6 @@
                     </p>
                 </a>
             </div>
-
             <form class="pure-u-md-2-8 pure-u-sm-2-8 float-search" method="get" action="/search">
                 <input id="searchInput" name="searchInput" type="text" class="search-style" maxlength="30" placeholder="Search movie">
             </form>

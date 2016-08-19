@@ -10,18 +10,18 @@
 <html>
 <head>
     <title>${movie.movieName}</title>
-    <link rel="stylesheet" href="/resources/css/pure/pure-min.css">
-    <link rel="stylesheet" href="/resources/css/pure/base-min.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/pure-min.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/base-min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href="/resources/css/pure/grids-responsive-old-ie-min.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/grids-responsive-old-ie-min.css">
     <![endif]-->
     <!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="/resources/css/pure/grids-responsive-min.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/grids-responsive-min.css">
     <!--<![endif]-->
     <link rel="stylesheet" type="text/css" href="/resources/css/mainPage.css">
     <link rel="stylesheet" type="text/css" href="/resources/css/movie.css">
-    <script src="/resources/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="/resources/js/vendor/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="/resources/js/redirect-url.js"></script>
     <script src="/resources/js/reset-variables.js"></script>
 </head>
@@ -71,7 +71,6 @@
 
             </div>
         </div>
-
         <div class="pure-u-1" style="margin: 5px;">
             <div class="review-section">
                 <c:if test="${reviewError.size() >= 1}">
@@ -157,9 +156,7 @@
                 </c:forEach>
             </div>
         </div>
-
     </div>
 </div>
-
 </body>
 </html>

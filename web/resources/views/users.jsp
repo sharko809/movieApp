@@ -10,20 +10,20 @@
 <html>
 <head>
     <title>Users</title>
-    <link rel="stylesheet" href="/resources/css/pure/pure-min.css">
-    <link rel="stylesheet" href="/resources/css/pure/base-min.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/pure-min.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/base-min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href="/resources/css/pure/grids-responsive-old-ie-min.css">
-    <link rel="stylesheet" href="/resources/css/pure/layouts/side-menu-old-ie.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/grids-responsive-old-ie-min.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/layouts/side-menu-old-ie.css">
     <![endif]-->
     <!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="/resources/css/pure/grids-responsive-min.css">
-    <link rel="stylesheet" href="/resources/css/pure/layouts/side-menu.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/grids-responsive-min.css">
+    <link rel="stylesheet" href="/resources/css/vendor/pure/layouts/side-menu.css">
     <!--<![endif]-->
     <link rel="stylesheet" href="/resources/css/mainPage.css">
     <link rel="stylesheet" href="/resources/css/admin.css">
-    <script src="/resources/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="/resources/js/vendor/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="/resources/js/admin-redirect-url.js" type="text/javascript"></script>
 </head>
 <body>

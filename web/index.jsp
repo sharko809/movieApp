@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="resources/css/mainPage.css">
     <link rel="stylesheet" type="text/css" href="resources/css/authPage.css">
     <link rel="stylesheet" type="text/css" href="resources/css/authHeader.css">
-    <script src="resources/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="resources/js/vendor/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="resources/js/reset-variables.js" type="text/javascript"></script>
 </head>
 <body class="body-style">
@@ -44,7 +44,6 @@
     </div>
 </header>
 <div class="padding-top"></div>
-
 <div class="pure-g">
     <div class="pure-u-md-3-4 pure-u-sm-1 centered">
         <div id="auth-block" class="pure-u-1 inline-flex">
@@ -124,6 +123,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

@@ -9,18 +9,6 @@
 <html>
 <head>
     <title>Admin menu</title>
-    <%--<link rel="stylesheet" href="/resources/css/pure/pure-min.css">--%>
-    <%--<link rel="stylesheet" href="/resources/css/pure/base-min.css">--%>
-    <%--<meta name="viewport" content="width=device-width, initial-scale=1">--%>
-    <%--<!--[if lte IE 8]>--%>
-    <%--<link rel="stylesheet" href="/resources/css/pure/grids-responsive-old-ie-min.css">--%>
-    <%--<link rel="stylesheet" href="/resources/css/pure/layouts/side-menu-old-ie.css">--%>
-    <%--<![endif]-->--%>
-    <%--<!--[if gt IE 8]><!-->--%>
-    <%--<link rel="stylesheet" href="/resources/css/pure/grids-responsive-min.css">--%>
-    <%--<link rel="stylesheet" href="/resources/css/pure/layouts/side-menu.css">--%>
-    <%--<!--<![endif]-->--%>
-    <%--<link rel="stylesheet" href="/resources/css/admin.css">--%>
 </head>
 <body>
 <div id="layout">
@@ -31,7 +19,6 @@
     <div id="menu" class="active" style="top: 46px;">
         <div class="pure-menu">
             <a class="pure-menu-heading" href="/admin">Admin tools</a>
-
             <ul class="pure-menu-list">
                 <li class="menu-item"><a href="/admin/addmovie" class="pure-menu-link">Add movie</a></li>
                 <li class="menu-item"><a href="/admin/managemovies" class="pure-menu-link">Manage movies</a></li>
@@ -41,6 +28,6 @@
         </div>
     </div>
 </div>
-<script src="/resources/js/pure/ui.js" type="text/javascript"></script>
+<script src="/resources/js/vendor/pure/ui.js" type="text/javascript"></script>
 </body>
 </html>
