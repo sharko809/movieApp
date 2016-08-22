@@ -2,6 +2,7 @@ package com.moviesApp.controller;
 
 import com.moviesApp.ExceptionsUtil;
 import com.moviesApp.entities.Movie;
+import com.moviesApp.entities.PagedEntity;
 import com.moviesApp.service.MovieService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,7 +41,7 @@ public class AdminMoviesServlet extends HttpServlet {
         }
 
         MovieService movieService = new MovieService();
-        MovieService.PagedMovies pagedMovies;
+        PagedEntity pagedMovies;
         try {
             pagedMovies = movieService.getAllMoviesLimit((page-1)*recordsPerPage, recordsPerPage);
         } catch (SQLException e) {
@@ -48,8 +49,12 @@ public class AdminMoviesServlet extends HttpServlet {
             return;
         }
 
-        List<Movie> movies = pagedMovies.getMovies();
-        int numberOfRecords = pagedMovies.getNumberOfRecords();
+        List<Movie> movies = null;
+        int numberOfRecords = 1;
+        if (pagedMovies != null) {
+            movies = (List<Movie>) pagedMovies.getEntity();
+            numberOfRecords = pagedMovies.getNumberOfRecords();
+        }
         int numberOfPages = (int) Math.ceil(numberOfRecords * 1.0 / recordsPerPage);
 
         req.setAttribute("movies", movies);

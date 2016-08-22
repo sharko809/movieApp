@@ -1,6 +1,7 @@
 package com.moviesApp.service;
 
 import com.moviesApp.daoLayer.UserDAO;
+import com.moviesApp.entities.PagedEntity;
 import com.moviesApp.entities.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -85,6 +86,23 @@ public class UserService {
             throw new SQLException(e);
         }
         return users;
+    }
+
+    public PagedEntity getAllUsersLimit(Integer offset, Integer numberOfRows) throws SQLException {
+        UserDAO userDAO = new UserDAO();
+        PagedEntity pagedUsers = new PagedEntity();
+        List<User> users;
+        Integer numberOfRecords;
+        try {
+            users = userDAO.getAllLimit(offset, numberOfRows);
+            numberOfRecords = userDAO.getNumberOfRecords();
+        } catch (SQLException e) {
+            LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
+        }
+        pagedUsers.setEntity(users);
+        pagedUsers.setNumberOfRecords(numberOfRecords);
+        return pagedUsers;
     }
 
 }

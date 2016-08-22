@@ -50,7 +50,26 @@ CREATE TABLE REVIEW (
 INSERT INTO USER (username, login, password, isadmin, isbanned)
 VALUES ('Lothar', '123@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
   ('Medivh', 'qwe@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 1),
-  ('Neltarion', 'asd@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 1, 0);
+  ('Neltarion', 'asd@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 1, 0),
+  ('Lothar1', '1231@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar2', '1232@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar3', '1233@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar4', '1234@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar5', '1235@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar6', '1236@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar7', '1237@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar8', '1238@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar9', '1239@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar10', '12310@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar11', '12311@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar12', '12312@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar13', '12313@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar14', '12314@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar15', '12315@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar16', '12316@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar17', '12317@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar18', '12318@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0),
+  ('Lothar19', '12319@gmail.com', 'MTI5MTIz$/Pyqs8aQ8eaq5PLxzH+VTB97f+w9xd5+G9EBMwThdOA=', 0, 0);
 
 INSERT INTO MOVIE (moviename, director, releasedate, trailerurl, rating, description, posterurl)
 VALUES ('Warcraft', 'Duncan Jones', '2016-06-10', 'https://www.youtube.com/embed/RhFMIRuHAL4', 7.4,

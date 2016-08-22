@@ -43,7 +43,9 @@ public class TopRatedServlet extends HttpServlet {
         }
 
         movies.sort((Movie m1, Movie m2) -> m2.getRating().compareTo(m1.getRating()));
-        movies = movies.subList(0,10);
+        if (movies.size() >= 10) {
+            movies = movies.subList(0,10);
+        }
 
         req.setAttribute("movies", movies);
         req.getRequestDispatcher("/resources/views/toprated.jsp").forward(req, resp);

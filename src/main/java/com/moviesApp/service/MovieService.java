@@ -2,6 +2,7 @@ package com.moviesApp.service;
 
 import com.moviesApp.daoLayer.MovieDAO;
 import com.moviesApp.entities.Movie;
+import com.moviesApp.entities.PagedEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -75,9 +76,9 @@ public class MovieService {
         return movies;
     }
 
-    public PagedMovies getAllMoviesLimit(Integer offset, Integer noOfRecords) throws SQLException {
+    public PagedEntity getAllMoviesLimit(Integer offset, Integer noOfRecords) throws SQLException {
         MovieDAO movieDAO = new MovieDAO();
-        PagedMovies pagedMovies = new PagedMovies();
+        PagedEntity pagedMovies = new PagedEntity();
         List<Movie> movies;
         Integer numberOfRecords;
         try {
@@ -87,31 +88,31 @@ public class MovieService {
             LOGGER.error("SQLException: " + e);
             throw new SQLException(e);
         }
-        pagedMovies.setMovies(movies);
+        pagedMovies.setEntity(movies);
         pagedMovies.setNumberOfRecords(numberOfRecords);
         return pagedMovies;
     }
 
-    public class PagedMovies {
-
-        private List<Movie> movies;
-        private Integer numberOfRecords;
-
-        public List<Movie> getMovies() {
-            return movies;
-        }
-
-        public void setMovies(List<Movie> movies) {
-            this.movies = movies;
-        }
-
-        public Integer getNumberOfRecords() {
-            return numberOfRecords;
-        }
-
-        public void setNumberOfRecords(Integer numberOfRecords) {
-            this.numberOfRecords = numberOfRecords;
-        }
-    }
+//    public class PagedMovies {
+//
+//        private List<Movie> movies;
+//        private Integer numberOfRecords;
+//
+//        public List<Movie> getMovies() {
+//            return movies;
+//        }
+//
+//        public void setMovies(List<Movie> movies) {
+//            this.movies = movies;
+//        }
+//
+//        public Integer getNumberOfRecords() {
+//            return numberOfRecords;
+//        }
+//
+//        public void setNumberOfRecords(Integer numberOfRecords) {
+//            this.numberOfRecords = numberOfRecords;
+//        }
+//    }
 
 }

@@ -11,12 +11,15 @@ import java.util.List;
  */
 public class UserDAO {
 
+    private static final String COUNT_FOUND_ROWS = "SELECT FOUND_ROWS()";
     private static final String SQL_CREATE_USER = "INSERT INTO USER (username, login, password, isadmin) VALUES (?, ?, ?, ?)";
     private static final String SQL_GET_USER = "SELECT * FROM USER WHERE ID = ?";
     private static final String SQL_DELETE_USER = "DELETE FROM USER WHERE ID = ?";
     private static final String SQL_GET_ALL_USERS = "SELECT * FROM USER";
     private static final String SQL_UPDATE_USER = "UPDATE USER SET username = ?, login = ?, password = ?, isadmin = ?, isbanned = ? WHERE ID = ?";
     private static final String SQL_GET_USER_BY_NAME = "SELECT * FROM USER WHERE login = ?";
+    private static final String SQL_GET_ALL_USERS_WITH_LIMIT = "SELECT SQL_CALC_FOUND_ROWS * FROM USER LIMIT ?, ?";
+    private Integer numberOfRecords;
 
     public Long create(String userName, String login, String password, Boolean isAdmin) throws SQLException {
         Connection connection = ConnectionManager.getInstance().getConnection();
@@ -128,6 +131,38 @@ public class UserDAO {
         statement.close();
         connection.close();
         return users;
+    }
+
+    public List<User> getAllLimit(Integer offset, Integer noOfRows) throws SQLException {
+        Connection connection = ConnectionManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(SQL_GET_ALL_USERS_WITH_LIMIT);
+        statement.setInt(1, offset);
+        statement.setInt(2, noOfRows);
+        ResultSet resultSet = statement.executeQuery();
+        List<User> users = new ArrayList<>();
+        while (resultSet.next()) {
+            User user = new User();
+            user.setId(resultSet.getLong("ID"));
+            user.setName(resultSet.getString("username"));
+            user.setLogin(resultSet.getString("login"));
+            user.setPassword(resultSet.getString("password"));
+            user.setAdmin(resultSet.getBoolean("isadmin"));
+            user.setBanned(resultSet.getBoolean("isbanned"));
+            users.add(user);
+        }
+        resultSet.close();
+        resultSet = statement.executeQuery(COUNT_FOUND_ROWS);
+        if (resultSet.next()) {
+            this.numberOfRecords = resultSet.getInt(1);
+        }
+        resultSet.close();
+        statement.close();
+        connection.close();
+        return users;
+    }
+
+    public Integer getNumberOfRecords() {
+        return this.numberOfRecords;
     }
 
 }
