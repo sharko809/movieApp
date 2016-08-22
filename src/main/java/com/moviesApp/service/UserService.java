@@ -105,4 +105,21 @@ public class UserService {
         return pagedUsers;
     }
 
+    public PagedEntity getUsersSorted(Integer offset, Integer numberOfRows, String sortBy) throws SQLException {
+        UserDAO userDAO = new UserDAO();
+        PagedEntity pagedUsers = new PagedEntity();
+        List<User> users;
+        Integer numberOfRecords;
+        try {
+            users = userDAO.getUsersSorted(offset, numberOfRows, sortBy);
+            numberOfRecords = userDAO.getNumberOfRecords();
+        } catch (SQLException e) {
+            LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
+        }
+        pagedUsers.setEntity(users);
+        pagedUsers.setNumberOfRecords(numberOfRecords);
+        return pagedUsers;
+    }
+
 }

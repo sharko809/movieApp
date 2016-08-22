@@ -86,11 +86,20 @@
                 </div>
             </c:if>
         </div>
+
         <c:forEach items="${reviews}" var="review">
             <div class="review pure-u-md-1 max-width" style="margin-bottom: 5px;">
                 <div class="pure-u-md-1 inline-flex max-width" style="margin: 5px;">
                     <div class="pure-u-md-6-8 pure-u-sm-6-12 max-width">
-                        <strong>${review.title}</strong> by ${users.get(review.userId)}
+                        <strong>${review.title}</strong> by
+                        <c:choose>
+                            <c:when test="${users.get(review.userId).isBanned()}">
+                                <strong style="color: red;">${users.get(review.userId).name}</strong>
+                            </c:when>
+                            <c:otherwise>
+                                ${users.get(review.userId).name}
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <div class="pure-u-md-1-8 pure-u-sm-4-12" style="text-align: center;">
                         Posted: ${review.postDate}
@@ -103,8 +112,14 @@
                     <div class="pure-u-md-5-8 pure-u-sm-5-8 max-width" style="padding-top: 14px;">
                             ${review.reviewText}
                     </div>
-                    <div class="pure-u-md-3-8 pure-u-sm-3-8" style="text-align: end; margin-right: 20px;">
-                        <form method="post" action="/admin/delreview" style="margin: 0px;">
+                    <div class="pure-u-md-3-8 pure-u-sm-3-8 inline-flex" style="text-align: end; margin-right: 20px;">
+                        <form method="post" action="/admin/ban" style="margin: 2px;">
+                            <input name="userID" type="hidden" value="${users.get(review.userId).id}"/>
+                            <input name="fromMovie" type="hidden" value="fromMovie"/>
+                            <input name="movieID" type="hidden" value="${movie.id}"/>
+                            <button class="pure-button" type="submit">Ban</button>
+                        </form>
+                        <form method="post" action="/admin/delreview" style="margin: 2px;">
                             <input name="reviewID" type="hidden" value="${review.id}"/>
                             <input name="movieID" type="hidden" value="${movie.id}"/>
                             <button class="pure-button" type="submit">Delete</button>

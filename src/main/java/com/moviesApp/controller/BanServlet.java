@@ -55,6 +55,21 @@ public class BanServlet extends HttpServlet {
                             ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
                             return;
                         }
+                        String fromMoviePage = req.getParameter("fromMovie");
+                        if (fromMoviePage != null) {
+                            String movieIdParam = req.getParameter("movieID");
+                            if (movieIdParam != null) {
+                                Long movieID;
+                                try {
+                                    movieID = Long.valueOf(movieIdParam);
+                                } catch (NumberFormatException e) {
+                                    ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Error parsing movieID", e);
+                                    return;
+                                }
+                                resp.sendRedirect("editmovie?movieID=" + movieID);
+                                return;
+                            }
+                        }
                         resp.sendRedirect(fromURL);
                     } else {
                         req.setAttribute("errorDetails", "User not found");

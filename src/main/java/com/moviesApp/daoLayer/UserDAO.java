@@ -19,6 +19,7 @@ public class UserDAO {
     private static final String SQL_UPDATE_USER = "UPDATE USER SET username = ?, login = ?, password = ?, isadmin = ?, isbanned = ? WHERE ID = ?";
     private static final String SQL_GET_USER_BY_NAME = "SELECT * FROM USER WHERE login = ?";
     private static final String SQL_GET_ALL_USERS_WITH_LIMIT = "SELECT SQL_CALC_FOUND_ROWS * FROM USER LIMIT ?, ?";
+    private static final String SQL_GET_USERS_SORTED_BY = "SELECT SQL_CALC_FOUND_ROWS * FROM USER ORDER BY @ LIMIT ?, ?";
     private Integer numberOfRecords;
 
     public Long create(String userName, String login, String password, Boolean isAdmin) throws SQLException {
@@ -161,8 +162,41 @@ public class UserDAO {
         return users;
     }
 
+    public List<User> getUsersSorted(Integer offset, Integer noOfRows, String orderBy) throws SQLException{
+        List<User> users = new ArrayList<>();
+        String query = makeSortQuery(SQL_GET_USERS_SORTED_BY, orderBy);
+        try (Connection connection = ConnectionManager.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, offset);
+            statement.setInt(2, noOfRows);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getLong("ID"));
+                user.setName(resultSet.getString("username"));
+                user.setLogin(resultSet.getString("login"));
+                user.setPassword(resultSet.getString("password"));
+                user.setAdmin(resultSet.getBoolean("isadmin"));
+                user.setBanned(resultSet.getBoolean("isbanned"));
+                users.add(user);
+            }
+            resultSet.close();
+            resultSet = statement.executeQuery(COUNT_FOUND_ROWS);
+            if (resultSet.next()) {
+                this.numberOfRecords = resultSet.getInt(1);
+            }
+            resultSet.close();
+        }
+        return users;
+    }
+
     public Integer getNumberOfRecords() {
         return this.numberOfRecords;
+    }
+
+    private String makeSortQuery(String query, String orderBy) {
+        String[] order = query.split("@");
+        return order[0] + orderBy + order[1];
     }
 
 }

@@ -7,6 +7,9 @@ import java.util.List;
  */
 public class PagedEntity {
 
+    private List<?> entity;
+    private Integer numberOfRecords;
+
     public List<?> getEntity() {
         return entity;
     }
@@ -22,10 +25,6 @@ public class PagedEntity {
     public void setNumberOfRecords(Integer numberOfRecords) {
         this.numberOfRecords = numberOfRecords;
     }
-
-    private List<?> entity;
-    private Integer numberOfRecords;
-
 
 
 }

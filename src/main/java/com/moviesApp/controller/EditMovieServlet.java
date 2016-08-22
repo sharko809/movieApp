@@ -64,7 +64,7 @@ public class EditMovieServlet extends HttpServlet {
             return;
         }
 
-        Map<Long, String> users = new HashMap<Long, String>();
+        Map<Long, User> users = new HashMap<Long, User>();
         if (reviews.size() >= 1) {
             for (Review review : reviews) {
                 if (review.getUserId() == null) {
@@ -81,12 +81,13 @@ public class EditMovieServlet extends HttpServlet {
                     return;
                 }
                 if (user != null) {
-                    users.put(review.getUserId(), user.getName());
+                    users.put(review.getUserId(), user);
                 } else {
                     LOGGER.error("No user with ID " + review.getUserId() + " found for review ID " + review.getId() + " movie ID " + review.getMovieId());
                 }
             }
         }
+
         req.setAttribute("movie", movie);
         req.setAttribute("users", users);
         req.setAttribute("reviews", reviews);

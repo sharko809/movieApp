@@ -26,7 +26,7 @@ public class AdminMoviesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String pageParam = req.getParameter("page");
         int page = 1;
-        int recordsPerPage = 15;
+        int recordsPerPage = 10;
         if (pageParam != null) {
             try {
                 page = Integer.parseInt(pageParam);
@@ -62,4 +62,5 @@ public class AdminMoviesServlet extends HttpServlet {
         req.setAttribute("currentPage", page);
         req.getRequestDispatcher("/resources/views/adminmovies.jsp").forward(req, resp);
     }
+
 }

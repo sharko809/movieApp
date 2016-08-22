@@ -139,7 +139,7 @@
         <servlet-name>MovieServlet</servlet-name>
         <url-pattern>/movies</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>PostReview</servlet-name>
         <servlet-class>com.moviesApp.controller.PostReviewServlet</servlet-class>
@@ -148,7 +148,7 @@
         <servlet-name>PostReview</servlet-name>
         <url-pattern>/postreview</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>TopRated</servlet-name>
         <servlet-class>com.moviesApp.controller.TopRatedServlet</servlet-class>
@@ -157,7 +157,7 @@
         <servlet-name>TopRated</servlet-name>
         <url-pattern>/toprated</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>Search</servlet-name>
         <servlet-class>com.moviesApp.controller.SearchServlet</servlet-class>
@@ -185,7 +185,7 @@
         <servlet-name>RatingServlet</servlet-name>
         <url-pattern>/admin/updrating</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>EditMovie</servlet-name>
         <servlet-class>com.moviesApp.controller.EditMovieServlet</servlet-class>
@@ -194,7 +194,7 @@
         <servlet-name>EditMovie</servlet-name>
         <url-pattern>/admin/editmovie</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>Users</servlet-name>
         <servlet-class>com.moviesApp.controller.UsersServlet</servlet-class>
@@ -203,7 +203,7 @@
         <servlet-name>Users</servlet-name>
         <url-pattern>/admin/users</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>Adminize</servlet-name>
         <servlet-class>com.moviesApp.controller.AdminizeServlet</servlet-class>
@@ -248,7 +248,7 @@
         <servlet-name>UpdateAccount</servlet-name>
         <url-pattern>/updaccount</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>NewUser</servlet-name>
         <servlet-class>com.moviesApp.controller.NewUserServlet</servlet-class>
@@ -257,7 +257,7 @@
         <servlet-name>NewUser</servlet-name>
         <url-pattern>/admin/newuser</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>DeleteReview</servlet-name>
         <servlet-class>com.moviesApp.controller.DeleteReviewServlet</servlet-class>
@@ -266,7 +266,16 @@
         <servlet-name>DeleteReview</servlet-name>
         <url-pattern>/admin/delreview</url-pattern>
     </servlet-mapping>
-    
+
+    <servlet>
+        <servlet-name>UserSortServlet</servlet-name>
+        <servlet-class>com.moviesApp.controller.UserSortServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserSortServlet</servlet-name>
+        <url-pattern>/admin/usersort</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.moviesApp.controller.ErrorServlet</servlet-class>
@@ -275,22 +284,22 @@
         <servlet-name>ErrorServlet</servlet-name>
         <url-pattern>/error</url-pattern>
     </servlet-mapping>
-    
+
     <error-page>
         <error-code>404</error-code>
         <location>/error</location>
     </error-page>
     <!--<error-page>-->
-        <!--<error-code>403</error-code>-->
-        <!--<location>/error</location>-->
+    <!--<error-code>403</error-code>-->
+    <!--<location>/error</location>-->
     <!--</error-page>-->
     <!--<error-page>-->
-        <!--<error-code>405</error-code>-->
-        <!--<location>/error</location>-->
+    <!--<error-code>405</error-code>-->
+    <!--<location>/error</location>-->
     <!--</error-page>-->
     <!--<error-page>-->
-        <!--<exception-type>javax.servlet.ServletException</exception-type>-->
-        <!--<location>/error</location>-->
+    <!--<exception-type>javax.servlet.ServletException</exception-type>-->
+    <!--<location>/error</location>-->
     <!--</error-page>-->
 
     <session-config>

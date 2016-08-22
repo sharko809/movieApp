@@ -30,6 +30,13 @@
 <div class="padding-top"></div>
 <div class="pure-g">
     <div class="pure-u-md-3-4 pure-u-sm-1 centered">
+        <c:if test="${user ne null}">
+            <c:if test="${user.isAdmin()}">
+                <div class="pure-g">
+                    <button type="button" class="pure-button" style="margin: 5px 0px 0px 5px;" onclick="window.location = 'admin/editmovie?movieID=${movie.id}'">Edit movie</button>
+                </div>
+            </c:if>
+        </c:if>
         <div id="movie-content" class="pure-u-1 inline-flex" style="margin-top: 15px; margin-bottom: 10px;">
             <div class="pure-u-md-1-3 pure-u-sm-1" style="margin: 5px;">
                 <c:choose>

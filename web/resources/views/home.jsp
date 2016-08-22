@@ -50,7 +50,7 @@
                                     <h4 class="inline">Rating: </h4>
                                     <c:choose>
                                         <c:when test="${movie.rating <= 0.0}">
-                                            <span>Not enough votes yet</span>
+                                            <span>Not enough votes</span>
                                         </c:when>
                                         <c:otherwise>
                                             <span>${movie.rating}</span>

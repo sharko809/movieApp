@@ -9,9 +9,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by dsharko on 7/28/2016.
@@ -92,27 +90,5 @@ public class MovieService {
         pagedMovies.setNumberOfRecords(numberOfRecords);
         return pagedMovies;
     }
-
-//    public class PagedMovies {
-//
-//        private List<Movie> movies;
-//        private Integer numberOfRecords;
-//
-//        public List<Movie> getMovies() {
-//            return movies;
-//        }
-//
-//        public void setMovies(List<Movie> movies) {
-//            this.movies = movies;
-//        }
-//
-//        public Integer getNumberOfRecords() {
-//            return numberOfRecords;
-//        }
-//
-//        public void setNumberOfRecords(Integer numberOfRecords) {
-//            this.numberOfRecords = numberOfRecords;
-//        }
-//    }
 
 }

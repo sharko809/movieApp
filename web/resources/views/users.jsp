@@ -33,6 +33,26 @@
 <div class="pure-g custom-margin">
     <div class="pure-u-3-4  centered">
         <div class="pure-u-1">
+            <div class="pure-u-1">
+                <div class="inline-flex">
+                    <form style="margin: 15px 0 5px 0;" method="post" action="/admin/usersort">
+                        <label for="sortByID">ID</label>
+                        <input id="sortByID" type="radio" name="sortBy" value="id">
+                        <label for="sortByLogin">Login</label>
+                        <input id="sortByLogin" type="radio" name="sortBy" value="login">
+                        <label for="sortByName">Name</label>
+                        <input id="sortByName" type="radio" name="sortBy" value="username">
+                        <label for="sortByAdmin">Admin</label>
+                        <input id="sortByAdmin" type="radio" name="sortBy" value="isadmin">
+                        <label for="sortByBanned">Banned</label>
+                        <input id="sortByBanned" type="radio" name="sortBy" value="isbanned">
+                        <input type="hidden" name="redirectFrom" value="">
+                        <input type="hidden" name="page" value="${currentPage}">
+                        <button class="pure-button" style="padding-bottom: 5px; vertical-align: baseline;" type="submit">Sort
+                        </button>
+                    </form>
+                </div>
+            </div>
             <table class="pure-table pure-table-bordered" style="width: 100%; margin: 10px auto 10px auto;">
                 <thead>
                 <tr>
@@ -148,7 +168,8 @@
                                             <c:choose>
                                                 <c:when test="${user.isAdmin()}">
                                                     <td>
-                                                        <form method="post" action="/admin/adminize" style="margin: 0px;">
+                                                        <form method="post" action="/admin/adminize"
+                                                              style="margin: 0px;">
                                                             <input type="hidden" name="userID" value="${user.id}"/>
                                                             <input type="hidden" name="redirectFrom" value=""/>
                                                             <button class="pure-button max-width"
@@ -160,7 +181,8 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <td>
-                                                        <form method="post" action="/admin/adminize" style="margin: 0px;">
+                                                        <form method="post" action="/admin/adminize"
+                                                              style="margin: 0px;">
                                                             <input type="hidden" name="userID" value="${user.id}"/>
                                                             <input type="hidden" name="redirectFrom" value=""/>
                                                             <button class="pure-button max-width" title="Set admin"
