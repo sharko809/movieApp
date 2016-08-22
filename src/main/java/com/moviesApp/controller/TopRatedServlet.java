@@ -38,7 +38,7 @@ public class TopRatedServlet extends HttpServlet {
 
         if (movies == null) {
             req.setAttribute("movies", movies);
-            req.getRequestDispatcher("/resources/views/home.jsp").forward(req, resp);
+            req.getRequestDispatcher("/resources/views/toprated.jsp").forward(req, resp);
             return;
         }
 
@@ -46,6 +46,6 @@ public class TopRatedServlet extends HttpServlet {
         movies = movies.subList(0,10);
 
         req.setAttribute("movies", movies);
-        req.getRequestDispatcher("/resources/views/home.jsp").forward(req, resp);
+        req.getRequestDispatcher("/resources/views/toprated.jsp").forward(req, resp);
     }
 }

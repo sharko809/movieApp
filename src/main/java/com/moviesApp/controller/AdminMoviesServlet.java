@@ -30,11 +30,11 @@ public class AdminMoviesServlet extends HttpServlet {
             try {
                 page = Integer.parseInt(pageParam);
                 if (page <= 0) {
-                    resp.sendRedirect("admin/managemovies?page=1");
+                    resp.sendRedirect("managemovies?page=1");
                     return;
                 }
             } catch (NumberFormatException e) {
-                resp.sendRedirect("admin/managemovies?page=1");
+                resp.sendRedirect("managemovies?page=1");
                 return;
             }
         }

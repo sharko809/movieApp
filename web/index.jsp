@@ -20,29 +20,7 @@
     <script src="resources/js/reset-variables.js" type="text/javascript"></script>
 </head>
 <body class="body-style">
-<header class="pure-g header-menu fixed z-index">
-    <div class="pure-u-md-4-5 pure-u-sm-7-8 centered inline-flex">
-        <div class="pure-u-1 inline-flex">
-            <div id="top-rated" class="pure-u-md-1-8 pure-u-sm-1-8 max-width" style="text-align: center;">
-                <a class="menu-text" href="/toprated">
-                    <p>
-                        Top rated
-                    </p>
-                </a>
-            </div>
-            <div id="movie-list" class="pure-u-md-1-8 pure-u-sm-1-8 max-width" style="text-align: center;">
-                <a class="menu-text" href="/home">
-                    <p>
-                        Movie list
-                    </p>
-                </a>
-            </div>
-            <form class="pure-u-md-2-8 pure-u-sm-2-8 float-search" method="post" action="/search">
-                <input id="searchInput" name="searchInput" type="text" class="search-style" placeholder="Search movie">
-            </form>
-        </div>
-    </div>
-</header>
+<jsp:include page="/resources/views/header.jsp"/>
 <div class="padding-top"></div>
 <div class="pure-g">
     <div class="pure-u-md-3-4 pure-u-sm-1 centered">
