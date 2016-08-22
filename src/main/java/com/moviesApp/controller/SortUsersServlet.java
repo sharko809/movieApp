@@ -40,7 +40,7 @@ public class SortUsersServlet extends HttpServlet {
         
         String fromULR = req.getParameter("redirectFrom");
         String sortBy = req.getParameter("sortBy");
-        // TODO check every sorting. something's wrong
+        // TODO works only one way
         switch (sortBy) {
             case "id":
                 users.sort((User u1, User u2) -> u1.getId().compareTo(u2.getId()));
@@ -52,20 +52,10 @@ public class SortUsersServlet extends HttpServlet {
                 users.sort((User u1, User u2) -> u1.getName().toLowerCase().compareTo(u2.getName().toLowerCase()));
                 break;
             case "admin":
-                users.sort((User u1, User u2) -> u1.isAdmin().compareTo(u2.isAdmin()));
-//                users.sort((o1, o2) -> {
-//                    boolean b1 = o1.isAdmin();
-//                    boolean b2 = o2.isAdmin();
-//                    return (b1 ^ b2) ? (b1 ? 1 : -1) : 0;
-//                });
+                users.sort((User u1, User u2) -> u2.isAdmin().compareTo(u1.isAdmin()));
                 break;
             case "banned":
-                users.sort((User u1, User u2) -> u1.isBanned().compareTo(u2.isBanned()));
-//                users.sort((o1, o2) -> {
-//                    boolean b1 = o1.isBanned();
-//                    boolean b2 = o2.isBanned();
-//                    return (b1 ^ b2) ? (b1 ? 1 : -1) : 0;
-//                });
+                users.sort((User u1, User u2) -> u2.isBanned().compareTo(u1.isBanned()));
                 break;
             default:
                 break;

@@ -23,16 +23,38 @@ public class AdminMoviesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        MovieService movieService = new MovieService();// TODO PAGINATION
-        List<Movie> movies = null;
+        String pageParam = req.getParameter("page");
+        int page = 1;
+        int recordsPerPage = 15;
+        if (pageParam != null) {
+            try {
+                page = Integer.parseInt(pageParam);
+                if (page <= 0) {
+                    resp.sendRedirect("admin/managemovies?page=1");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                resp.sendRedirect("admin/managemovies?page=1");
+                return;
+            }
+        }
+
+        MovieService movieService = new MovieService();
+        MovieService.PagedMovies pagedMovies;
         try {
-            movies = movieService.getAllMovies();
+            pagedMovies = movieService.getAllMoviesLimit((page-1)*recordsPerPage, recordsPerPage);
         } catch (SQLException e) {
-            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Error parsing user ID", e);
+            ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
             return;
         }
+
+        List<Movie> movies = pagedMovies.getMovies();
+        int numberOfRecords = pagedMovies.getNumberOfRecords();
+        int numberOfPages = (int) Math.ceil(numberOfRecords * 1.0 / recordsPerPage);
+
         req.setAttribute("movies", movies);
+        req.setAttribute("numberOfPages", numberOfPages);
+        req.setAttribute("currentPage", page);
         req.getRequestDispatcher("/resources/views/adminmovies.jsp").forward(req, resp);
     }
-
 }

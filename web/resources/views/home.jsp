@@ -104,7 +104,7 @@
                             </div>
                         </c:forEach>
                         <div class="page-number">
-                            <c:if test="${currentPage lt numberOfpages}">
+                            <c:if test="${currentPage ne numberOfPages}">
                                 <p>
                                     <a class="page-link" href="/home?page=${currentPage + 1}">Next</a>
                                 </p>

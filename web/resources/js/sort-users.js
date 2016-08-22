@@ -19,18 +19,18 @@ document.getElementById('id').addEventListener('click', function () {
 var formSortName = document.getElementById('sortName');
 
 document.getElementById('userName').addEventListener('click', function () {
-    formSortID.submit();
+    formSortName.submit();
 });
 
 
 var formSortAdmin = document.getElementById('sortAdmin');
 
 document.getElementById('admin').addEventListener('click', function () {
-    formSortID.submit();
+    formSortAdmin.submit();
 });
 
 var formSortBanned = document.getElementById('sortBanned');
 
 document.getElementById('banned').addEventListener('click', function () {
-    formSortID.submit();
+    formSortBanned.submit();
 });
