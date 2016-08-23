@@ -47,9 +47,6 @@ public class UsersServlet extends HttpServlet {
         String sortBy = (String) req.getSession().getAttribute("sortBy");
 
         if (sortBy != null) {
-            if ("id".equals(sortBy)) {
-                req.getSession().removeAttribute("sortBy");
-            }
             try {
                 pagedUsers = userService.getUsersSorted((page-1)*recordsPegPage, recordsPegPage, sortBy);
             } catch (SQLException e) {

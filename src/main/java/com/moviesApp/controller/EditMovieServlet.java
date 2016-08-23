@@ -147,7 +147,7 @@ public class EditMovieServlet extends HttpServlet {
         List<String> errors = validator.validate(movie);
 
         List<Review> reviews = new ArrayList<>();
-        Map<Long, String> users = new HashMap<>();
+        Map<Long, User> users = new HashMap<>();
         try {
             reviews = getReviews(movieID);
             users = getUsers(reviews);
@@ -166,7 +166,7 @@ public class EditMovieServlet extends HttpServlet {
             req.setAttribute("result", "Movie updated");
             req.setAttribute("updMovie", movie);
             req.setAttribute("movie", movie);
-            req.setAttribute("reviews" ,reviews);
+            req.setAttribute("reviews", reviews);
             req.setAttribute("users", users);
             resp.sendRedirect("/admin/editmovie?movieID=" + movie.getId());
         } else {
@@ -190,8 +190,8 @@ public class EditMovieServlet extends HttpServlet {
         return reviews;
     }
 
-    private Map<Long, String> getUsers(List<Review> reviews) throws SQLException, NullPointerException {
-        Map<Long, String> users = new HashMap<>();
+    private Map<Long, User> getUsers(List<Review> reviews) throws SQLException, NullPointerException {
+        Map<Long, User> users = new HashMap<>();
         if (reviews.size() >= 1) {
             for (Review review : reviews) {
                 if (review.getUserId() == null) {
@@ -205,7 +205,7 @@ public class EditMovieServlet extends HttpServlet {
                 UserService userService = new UserService();
                 user = userService.getUserByID(review.getUserId());
                 if (user != null) {
-                    users.put(review.getUserId(), user.getName());
+                    users.put(review.getUserId(), user);
                 } else {
                     LOGGER.error("No user with ID " + review.getUserId() + " found for review ID " + review.getId() + " movie ID " + review.getMovieId());
                 }

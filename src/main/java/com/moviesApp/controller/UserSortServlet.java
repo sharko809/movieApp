@@ -1,10 +1,5 @@
 package com.moviesApp.controller;
 
-import com.moviesApp.ExceptionsUtil;
-import com.moviesApp.daoLayer.UserDAO;
-import com.moviesApp.entities.PagedEntity;
-import com.moviesApp.entities.User;
-import com.moviesApp.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,7 +28,6 @@ public class UserSortServlet extends HttpServlet {
         fields.add("isbanned");
         FIELDS = fields;
     }
-
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

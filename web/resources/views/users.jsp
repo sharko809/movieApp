@@ -36,16 +36,21 @@
             <div class="pure-u-1">
                 <div class="inline-flex">
                     <form style="margin: 15px 0 5px 0;" method="post" action="/admin/usersort">
-                        <label for="sortByID">ID</label>
-                        <input id="sortByID" type="radio" name="sortBy" value="id">
-                        <label for="sortByLogin">Login</label>
-                        <input id="sortByLogin" type="radio" name="sortBy" value="login">
-                        <label for="sortByName">Name</label>
-                        <input id="sortByName" type="radio" name="sortBy" value="username">
-                        <label for="sortByAdmin">Admin</label>
-                        <input id="sortByAdmin" type="radio" name="sortBy" value="isadmin">
-                        <label for="sortByBanned">Banned</label>
-                        <input id="sortByBanned" type="radio" name="sortBy" value="isbanned">
+                        <label for="id">ID</label>
+                        <input id="id" type="radio" name="sortBy" value="id"
+                        ${sortBy eq 'id' ? 'checked' : ''}>
+                        <label for="login">Login</label>
+                        <input id="login" type="radio" name="sortBy" value="login"
+                        ${sortBy eq 'login' ? 'checked' : ''}>
+                        <label for="username">Name</label>
+                        <input id="username" type="radio" name="sortBy" value="username"
+                        ${sortBy eq 'username' ? 'checked' : ''}>
+                        <label for="isadmin">Admin</label>
+                        <input id="isadmin" type="radio" name="sortBy" value="isadmin"
+                        ${sortBy eq 'isadmin' ? 'checked' : ''}>
+                        <label for="isbanned">Banned</label>
+                        <input id="isbanned" type="radio" name="sortBy" value="isbanned"
+                        ${sortBy eq 'isbanned' ? 'checked' : ''}>
                         <input type="hidden" name="redirectFrom" value="">
                         <input type="hidden" name="page" value="${currentPage}">
                         <button class="pure-button" style="padding-bottom: 5px; vertical-align: baseline;"
