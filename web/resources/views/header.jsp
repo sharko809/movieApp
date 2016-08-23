@@ -25,9 +25,9 @@
                     <div id="user-welcome" class="pure-u-md-3-8 pure-u-sm-3-8 max-width">
                         <div class="pure-u-1 inline-flex">
                             <p id="" class="pure-u-1-2 menu-text">
-                                <span id="login-text">
-                                    Logged in as
-                                </span>
+                                <%--<span id="login-text">--%>
+                                    <%--Logged in as--%>
+                                <%--</span>--%>
                                 <a id="loggedInName" class="menu-text" href="/account?id=${user.id}">
                                     <c:if test="${user.isAdmin()}">
                                         <script type="text/javascript">
@@ -37,21 +37,30 @@
                                         ${user.name}
                                 </a>
                             </p>
-                            <%--<div id="menu-sm">--%>
-                                <%--<div class="pure-menu-item pure-menu-has-children">--%>
-                                    <%--<a href="#items-sm" id="menuLink1" class="pure-menu-link">More</a>--%>
-                                    <%--<ul id="items-sm" class="pure-menu-children">--%>
-                                        <%--<li class="pure-menu-item"><a href="/toprated" class="pure-menu-link">Top</a>--%>
-                                        <%--</li>--%>
-                                        <%--<li class="pure-menu-item"><a href="/home" class="pure-menu-link">Movies</a>--%>
-                                        <%--</li>--%>
-                                        <%--<c:if test="${user.isAdmin()}">--%>
-                                            <%--<li class="pure-menu-item"><a href="/admin" class="pure-menu-link">Admin--%>
-                                                <%--panel</a></li>--%>
-                                        <%--</c:if>--%>
-                                    <%--</ul>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
+                            <div id="menu-sm" class="pure-u-1-2 menu-text">
+                                <div class="dropdown">
+                                    <span>More</span>
+                                    <div class="dropdown-content">
+                                        <a class="menu-text" style="text-align: center;" href="/toprated">
+                                            <p>
+                                                Top rated
+                                            </p>
+                                        </a>
+                                        <a class="menu-text" style="text-align: center;" href="/home">
+                                            <p>
+                                                Movie list
+                                            </p>
+                                        </a>
+                                        <c:if test="${user.isAdmin()}">
+                                            <a class="menu-text" style="text-align: center;" href="/admin">
+                                                <p>
+                                                    Admin panel
+                                                </p>
+                                            </a>
+                                        </c:if>
+                                    </div>
+                                </div>
+                            </div>
                             <c:if test="${user.isAdmin()}">
                                 <a id="admin-link" class="pure-u-1-2 menu-text" href="/admin"
                                    style="text-align: center;">
