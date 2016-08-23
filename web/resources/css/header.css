@@ -45,9 +45,12 @@
     margin-right: 3px;
 }
 
+#menu-sm {
+    display: none;
+}
+
 @media screen and (max-width: 768px){
     #user-welcome {
-        /*display: none;*/
         text-align: center;
     }
 
@@ -55,17 +58,15 @@
         text-align: center;
     }
 
-    /*#login-text {*/
+
+
+    /*#top-rated {*/
         /*display: none;*/
     /*}*/
 
-    #top-rated {
-        display: none;
-    }
-
-    #movie-list {
-        display: none;
-    }
+    /*#movie-list {*/
+        /*display: none;*/
+    /*}*/
 
     #login-form {
         margin-right: 15px;
@@ -79,4 +80,19 @@
         display: none;
     }
 
+    #top-rated {
+        display: none;
+    }
+
+    #movie-list {
+        display: none;
+    }
+
+    #admin-link {
+        display: none;
+    }
+
+    #menu-sm {
+        display: block;
+    }
 }

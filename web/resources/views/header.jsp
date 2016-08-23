@@ -4,6 +4,7 @@
     <script src="/resources/js/vendor/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="/resources/js/redirect-url.js" type="text/javascript"></script>
     <script src="/resources/js/header.js" type="text/javascript"></script>
+    <script src="http://purecss.io/js/menus.js" type="text/javascript"></script>
     <div class="pure-u-md-4-5 pure-u-sm-1 centered inline-flex">
         <div class="pure-u-1 inline-flex">
             <c:choose>
@@ -36,8 +37,24 @@
                                         ${user.name}
                                 </a>
                             </p>
+                            <%--<div id="menu-sm">--%>
+                                <%--<div class="pure-menu-item pure-menu-has-children">--%>
+                                    <%--<a href="#items-sm" id="menuLink1" class="pure-menu-link">More</a>--%>
+                                    <%--<ul id="items-sm" class="pure-menu-children">--%>
+                                        <%--<li class="pure-menu-item"><a href="/toprated" class="pure-menu-link">Top</a>--%>
+                                        <%--</li>--%>
+                                        <%--<li class="pure-menu-item"><a href="/home" class="pure-menu-link">Movies</a>--%>
+                                        <%--</li>--%>
+                                        <%--<c:if test="${user.isAdmin()}">--%>
+                                            <%--<li class="pure-menu-item"><a href="/admin" class="pure-menu-link">Admin--%>
+                                                <%--panel</a></li>--%>
+                                        <%--</c:if>--%>
+                                    <%--</ul>--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
                             <c:if test="${user.isAdmin()}">
-                                <a class="pure-u-1-2 menu-text" href="/admin" style="text-align: center;">
+                                <a id="admin-link" class="pure-u-1-2 menu-text" href="/admin"
+                                   style="text-align: center;">
                                     <p>
                                         Admin panel
                                     </p>
