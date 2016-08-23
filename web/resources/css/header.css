@@ -81,11 +81,13 @@
     #login-form {
         margin-right: 15px;
     }
-}
 
-@media screen and (max-width: 1024px){
-    #login-text {
+    #admin-link {
         display: none;
+    }
+
+    #menu-sm {
+        display: block;
     }
 
     #top-rated {
@@ -95,12 +97,10 @@
     #movie-list {
         display: none;
     }
+}
 
-    #admin-link {
+@media screen and (max-width: 1024px){
+    #login-text {
         display: none;
-    }
-
-    #menu-sm {
-        display: block;
     }
 }
