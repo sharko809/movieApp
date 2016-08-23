@@ -55,6 +55,7 @@ public class NewMovieServlet extends HttpServlet {
         }
         movie.setPosterURL(posterUrl);
         movie.setTrailerURL(trailerUrl);
+        movie.setRating(0D);
         movie.setDescription(description);
 
         Validator validator = new MovieValidator();

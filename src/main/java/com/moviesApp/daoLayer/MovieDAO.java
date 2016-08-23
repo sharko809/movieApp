@@ -29,170 +29,142 @@ public class MovieDAO {
     private Integer numberOfRecords;
 
     public Long create(String movieName, String director, Date releaseDate, String posterURL, String trailerUrl, Double rating, String description) throws SQLException {
-        Connection connection = ConnectionManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(SQL_ADD_MOVIE, Statement.RETURN_GENERATED_KEYS);
-        statement.setString(1, movieName);
-        statement.setString(2, director);
-        statement.setDate(3, releaseDate);
-        statement.setString(4, posterURL);
-        statement.setString(5, trailerUrl);
-        statement.setDouble(6, rating);
-        statement.setString(7, description);
-        statement.executeUpdate();
-        ResultSet resultSet = statement.getGeneratedKeys();
         Long movieID = 0L;
-        if (resultSet.next()) {
-            movieID = resultSet.getLong(1);
+        try (Connection connection = ConnectionManager.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_ADD_MOVIE, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, movieName);
+            statement.setString(2, director);
+            statement.setDate(3, releaseDate);
+            statement.setString(4, posterURL);
+            statement.setString(5, trailerUrl);
+            statement.setDouble(6, rating);
+            statement.setString(7, description);
+            statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+            if (resultSet.next()) {
+                movieID = resultSet.getLong(1);
+            }
+            resultSet.close();
         }
-        resultSet.close();
-        statement.close();
-        connection.close();
         return movieID;
     }
 
     public Movie get(Long movieId) throws SQLException {
-        Connection connection = ConnectionManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(SQL_GET_MOVIE_BY_ID);
-        statement.setLong(1, movieId);
-        ResultSet resultSet = statement.executeQuery();
         Movie movie = new Movie();
-        if (resultSet.next()) {
-            movie.setId(resultSet.getLong("ID"));
-            movie.setMovieName(resultSet.getString("moviename"));
-            movie.setDirector(resultSet.getString("director"));
-            movie.setReleaseDate(resultSet.getDate("releasedate"));
-            movie.setPosterURL(resultSet.getString("posterurl"));
-            movie.setTrailerURL(resultSet.getString("trailerurl"));
-            movie.setRating(resultSet.getDouble("rating"));
-            movie.setDescription(resultSet.getString("description"));
+        try (Connection connection = ConnectionManager.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_GET_MOVIE_BY_ID)) {
+            statement.setLong(1, movieId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                movie = parseMovieResultSet(resultSet);
+            }
+            resultSet.close();
         }
-        resultSet.close();
-        statement.close();
-        connection.close();
-
         return movie;
     }
 
     public void update(Movie movie) throws SQLException {
-        Connection connection = ConnectionManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_MOVIE);
-
-        statement.setString(1, movie.getMovieName());
-        statement.setString(2, movie.getDirector());
-        statement.setDate(3, movie.getReleaseDate());
-        statement.setString(4, movie.getPosterURL());
-        statement.setString(5, movie.getTrailerURL());
-        statement.setDouble(6, movie.getRating());
-        statement.setString(7, movie.getDescription());
-        statement.setLong(8, movie.getId());
-        statement.executeUpdate();
-
-        statement.close();
-        connection.close();
+        try (Connection connection = ConnectionManager.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_MOVIE)) {
+            statement.setString(1, movie.getMovieName());
+            statement.setString(2, movie.getDirector());
+            statement.setDate(3, movie.getReleaseDate());
+            statement.setString(4, movie.getPosterURL());
+            statement.setString(5, movie.getTrailerURL());
+            statement.setDouble(6, movie.getRating());
+            statement.setString(7, movie.getDescription());
+            statement.setLong(8, movie.getId());
+            statement.executeUpdate();
+        }
     }
 
     public boolean delete(Long movieID) throws SQLException {
-        Connection connection = ConnectionManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(SQL_DELETE_MOVIE);
-        statement.setLong(1, movieID);
-        int afterUpdate = statement.executeUpdate();
-        if (afterUpdate >= 1) {
-            statement.close();
-            connection.close();
-            return true;
+        try (Connection connection = ConnectionManager.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_MOVIE)) {
+            statement.setLong(1, movieID);
+            int afterUpdate = statement.executeUpdate();
+            if (afterUpdate >= 1) {
+                return true;
+            }
         }
-        statement.close();
-        connection.close();
         return false;
     }
 
     public List<Movie> getAll() throws SQLException {
-        Connection connection = ConnectionManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(SQL_GET_ALL_MOVIES);
-        ResultSet resultSet = statement.executeQuery();
-        List<Movie> movies = new ArrayList<Movie>();
-        while (resultSet.next()) {
-            Movie movie = new Movie();
-            movie.setId(resultSet.getLong("ID"));
-            movie.setMovieName(resultSet.getString("moviename"));
-            movie.setDirector(resultSet.getString("director"));
-            movie.setReleaseDate(resultSet.getDate("releasedate"));
-            movie.setPosterURL(resultSet.getString("posterurl"));
-            movie.setTrailerURL(resultSet.getString("trailerurl"));
-            movie.setRating(resultSet.getDouble("rating"));
-            movie.setDescription(resultSet.getString("description"));
-            movies.add(movie);
+        List<Movie> movies = new ArrayList<>();
+        try (Connection connection = ConnectionManager.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_GET_ALL_MOVIES)) {
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Movie movie;
+                movie = parseMovieResultSet(resultSet);
+                movies.add(movie);
+            }
+            resultSet.close();
         }
-        resultSet.close();
-        statement.close();
-        connection.close();
-
         return movies;
     }
 
     public List<Movie> getAllLimit(Integer offset, Integer noOfRows) throws SQLException {
-        Connection connection = ConnectionManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(SQL_GET_ALL_MOVIES_WITH_LIMIT);
-        statement.setInt(1, offset);
-        statement.setInt(2, noOfRows);
-        ResultSet resultSet = statement.executeQuery();
         List<Movie> movies = new ArrayList<>();
-        while (resultSet.next()) {
-            Movie movie = new Movie();
-            movie.setId(resultSet.getLong("ID"));
-            movie.setMovieName(resultSet.getString("moviename"));
-            movie.setDirector(resultSet.getString("director"));
-            movie.setReleaseDate(resultSet.getDate("releasedate"));
-            movie.setPosterURL(resultSet.getString("posterurl"));
-            movie.setTrailerURL(resultSet.getString("trailerurl"));
-            movie.setRating(resultSet.getDouble("rating"));
-            movie.setDescription(resultSet.getString("description"));
-            movies.add(movie);
+        try (Connection connection = ConnectionManager.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_GET_ALL_MOVIES_WITH_LIMIT)) {
+            statement.setInt(1, offset);
+            statement.setInt(2, noOfRows);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Movie movie;
+                movie = parseMovieResultSet(resultSet);
+                movies.add(movie);
+            }
+            resultSet.close();
+            resultSet = statement.executeQuery(COUNT_FOUND_ROWS);
+            if (resultSet.next()) {
+                this.numberOfRecords = resultSet.getInt(1);
+            }
+            resultSet.close();
         }
-        resultSet.close();
-        resultSet = statement.executeQuery(COUNT_FOUND_ROWS);
-        if (resultSet.next()) {
-            this.numberOfRecords = resultSet.getInt(1);
-        }
-        resultSet.close();
-        statement.close();
-        connection.close();
         return movies;
     }
 
     public List<Movie> getMoviesLike(String movieName, Integer offset, Integer noOfRows) throws SQLException {
-        Connection connection = ConnectionManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(SQL_SEARCH_MOVIE_BY_TITLE);
-        statement.setString(1, movieName + "%");
-        statement.setInt(2, offset);
-        statement.setInt(3, noOfRows);
-        ResultSet resultSet = statement.executeQuery();
         List<Movie> movies = new ArrayList<>();
-        while (resultSet.next()) {
-            Movie movie = new Movie();
-            movie.setId(resultSet.getLong("ID"));
-            movie.setMovieName(resultSet.getString("moviename"));
-            movie.setDirector(resultSet.getString("director"));
-            movie.setReleaseDate(resultSet.getDate("releasedate"));
-            movie.setPosterURL(resultSet.getString("posterurl"));
-            movie.setTrailerURL(resultSet.getString("trailerurl"));
-            movie.setRating(resultSet.getDouble("rating"));
-            movie.setDescription(resultSet.getString("description"));
-            movies.add(movie);
+        try (Connection connection = ConnectionManager.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_SEARCH_MOVIE_BY_TITLE)) {
+            statement.setString(1, movieName + "%");
+            statement.setInt(2, offset);
+            statement.setInt(3, noOfRows);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Movie movie;
+                movie = parseMovieResultSet(resultSet);
+                movies.add(movie);
+            }
+            resultSet.close();
+            resultSet = statement.executeQuery(COUNT_FOUND_ROWS);
+            if (resultSet.next()) {
+                this.numberOfRecords = resultSet.getInt(1);
+            }
+            resultSet.close();
         }
-        resultSet.close();
-        resultSet = statement.executeQuery(COUNT_FOUND_ROWS);
-        if (resultSet.next()) {
-            this.numberOfRecords = resultSet.getInt(1);
-        }
-        resultSet.close();
-        statement.close();
-        connection.close();
         return movies;
     }
 
     public Integer getNumberOfRecords() {
         return this.numberOfRecords;
+    }
+
+    private static Movie parseMovieResultSet(ResultSet resultSet) throws SQLException {
+        Movie movie = new Movie();
+        movie.setId(resultSet.getLong("ID"));
+        movie.setMovieName(resultSet.getString("moviename"));
+        movie.setDirector(resultSet.getString("director"));
+        movie.setReleaseDate(resultSet.getDate("releasedate"));
+        movie.setPosterURL(resultSet.getString("posterurl"));
+        movie.setTrailerURL(resultSet.getString("trailerurl"));
+        movie.setRating(resultSet.getDouble("rating"));
+        movie.setDescription(resultSet.getString("description"));
+        return movie;
     }
 
 }
