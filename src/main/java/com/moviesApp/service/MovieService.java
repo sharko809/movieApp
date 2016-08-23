@@ -74,13 +74,30 @@ public class MovieService {
         return movies;
     }
 
-    public PagedEntity getAllMoviesLimit(Integer offset, Integer noOfRecords) throws SQLException {
+    public PagedEntity getAllMoviesLimit(Integer offset, Integer noOfRows) throws SQLException {
         MovieDAO movieDAO = new MovieDAO();
         PagedEntity pagedMovies = new PagedEntity();
         List<Movie> movies;
         Integer numberOfRecords;
         try {
-            movies = movieDAO.getAllLimit(offset, noOfRecords);
+            movies = movieDAO.getAllLimit(offset, noOfRows);
+            numberOfRecords = movieDAO.getNumberOfRecords();
+        } catch (SQLException e) {
+            LOGGER.error("SQLException: " + e);
+            throw new SQLException(e);
+        }
+        pagedMovies.setEntity(movies);
+        pagedMovies.setNumberOfRecords(numberOfRecords);
+        return pagedMovies;
+    }
+
+    public PagedEntity searchMovies(String movieName, Integer offset, Integer noOfRows) throws SQLException {
+        MovieDAO movieDAO = new MovieDAO();
+        PagedEntity pagedMovies = new PagedEntity();
+        List<Movie> movies;
+        Integer numberOfRecords;
+        try {
+            movies = movieDAO.getMoviesLike(movieName, offset, noOfRows);
             numberOfRecords = movieDAO.getNumberOfRecords();
         } catch (SQLException e) {
             LOGGER.error("SQLException: " + e);
