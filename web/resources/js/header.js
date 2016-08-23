@@ -3,5 +3,8 @@
  */
 
 function setAdminColor() {
-    document.getElementById('loggedInName').style.color = '#FFCCCC';
+    var loggedInName = document.getElementById('loggedInName');
+    if (loggedInName != null) {
+        loggedInName.style.color = '#FFCCCC';
+    }
 }

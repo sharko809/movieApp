@@ -5,6 +5,9 @@
 
 (function() {
     $(document).ready(function () {
-        document.getElementById("redirectFrom").value = document.location.href;
+        var redirectLink = document.getElementById("redirectFrom");
+        if (redirectLink != null) {
+            redirectLink.value = document.location.href;
+        }
     });
 })();

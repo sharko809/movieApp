@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: dsharko
@@ -7,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Users</title>
@@ -48,7 +48,8 @@
                         <input id="sortByBanned" type="radio" name="sortBy" value="isbanned">
                         <input type="hidden" name="redirectFrom" value="">
                         <input type="hidden" name="page" value="${currentPage}">
-                        <button class="pure-button" style="padding-bottom: 5px; vertical-align: baseline;" type="submit">Sort
+                        <button class="pure-button" style="padding-bottom: 5px; vertical-align: baseline;"
+                                type="submit">Sort
                         </button>
                     </form>
                 </div>
@@ -56,21 +57,11 @@
             <table class="pure-table pure-table-bordered" style="width: 100%; margin: 10px auto 10px auto;">
                 <thead>
                 <tr>
-                    <th>
-                        <span>ID</span>
-                    </th>
-                    <th>
-                        <span>Login</span>
-                    </th>
-                    <th>
-                        <span>Username</span>
-                    </th>
-                    <th>
-                        <span>Admin</span>
-                    </th>
-                    <th>
-                        <span>Banned</span>
-                    </th>
+                    <th>ID</th>
+                    <th>Login</th>
+                    <th>Username</th>
+                    <th>Admin</th>
+                    <th>Banned</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -210,42 +201,46 @@
                 </tbody>
             </table>
         </div>
-        <div class="pure-g">
-            <div class="pure-u-3-4 centered">
+        <c:if test="${users ne null}">
+            <c:if test="${users.size() ge 1 and numberOfPages gt 1}">
                 <div class="pure-g">
-                    <div class="pure-u centered inline-flex">
-                        <div class="page-number">
-                            <c:if test="${currentPage ne 1}">
-                                <p>
-                                    <a class="page-link" href="/admin/users?page=${currentPage - 1}">Prev</a>
-                                </p>
-                            </c:if>
-                        </div>
-                        <c:forEach begin="1" end="${numberOfPages}" var="i">
-                            <div class="page-number">
-                                <c:choose>
-                                    <c:when test="${currentPage eq i}">
-                                        <p class="page-current">${i}</p>
-                                    </c:when>
-                                    <c:otherwise>
+                    <div class="pure-u-3-4 centered">
+                        <div class="pure-g">
+                            <div class="pure-u centered inline-flex">
+                                <div class="page-number">
+                                    <c:if test="${currentPage ne 1}">
                                         <p>
-                                            <a class="page-link" href="/admin/users?page=${i}">${i}</a>
+                                            <a class="page-link" href="/admin/users?page=${currentPage - 1}">Prev</a>
                                         </p>
-                                    </c:otherwise>
-                                </c:choose>
+                                    </c:if>
+                                </div>
+                                <c:forEach begin="1" end="${numberOfPages}" var="i">
+                                    <div class="page-number">
+                                        <c:choose>
+                                            <c:when test="${currentPage eq i}">
+                                                <p class="page-current">${i}</p>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <p>
+                                                    <a class="page-link" href="/admin/users?page=${i}">${i}</a>
+                                                </p>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                </c:forEach>
+                                <div class="page-number">
+                                    <c:if test="${currentPage ne numberOfPages}">
+                                        <p>
+                                            <a class="page-link" href="/admin/users?page=${currentPage + 1}">Next</a>
+                                        </p>
+                                    </c:if>
+                                </div>
                             </div>
-                        </c:forEach>
-                        <div class="page-number">
-                            <c:if test="${currentPage ne numberOfPages}">
-                                <p>
-                                    <a class="page-link" href="/admin/users?page=${currentPage + 1}">Next</a>
-                                </p>
-                            </c:if>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </c:if>
+        </c:if>
     </div>
 </div>
 </body>

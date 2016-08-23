@@ -34,7 +34,8 @@
     <div class="pure-u-md-3-4 pure-u-sm-1 centered">
         <c:forEach items="${movies}" var="movie">
             <div class="pure-u-1" style="height: 100px; margin: 10px;">
-                <div class="movie-container inline-flex" style="background-color: #cad2d3; border-radius: 5px; height: inherit;">
+                <div class="movie-container inline-flex"
+                     style="background-color: #cad2d3; border-radius: 5px; height: inherit;">
                     <div class="pure-u-lg-11-24 pure-u-sm-2-5" style="margin: 15px;">
                         <div>
                             <h4 class="inline">Title: </h4>
@@ -65,16 +66,18 @@
                     <div class="pure-u-lg-11-24 pure-u-sm-2-5">
                         <c:choose>
                             <c:when test="${movie.posterURL ne null && !movie.posterURL.isEmpty()}">
-                                <img style="height: 100px; float: right; margin-right: 10px;" class="pure-img" src="${movie.posterURL}"/>
+                                <img style="height: 100px; float: right; margin-right: 10px;" class="pure-img"
+                                     src="${movie.posterURL}"/>
                             </c:when>
                             <c:otherwise>
-                                <img style="height: 100px; float: right; margin-right: 10px;" class="pure-img" src="/resources/images/no-poster-available.png"/>
+                                <img style="height: 100px; float: right; margin-right: 10px;" class="pure-img"
+                                     src="/resources/images/no-poster-available.png"/>
                             </c:otherwise>
                         </c:choose>
                     </div>
                     <div class="pure-u-lg-2-24 pure-u-sm-1-5">
                         <form method="post" action="/admin/updrating">
-                            <input type="hidden" id="redirectFrom" name="redirectFrom" value="" />
+                            <input type="hidden" id="redirectFrom" name="redirectFrom" value=""/>
                             <input type="hidden" name="movieID" value="${movie.id}"/>
                             <button type="submit" class="pure-button" title="Recalculates movie rating">Rating</button>
                         </form>
@@ -86,42 +89,46 @@
                 </div>
             </div>
         </c:forEach>
-        <div class="pure-g">
-            <div class="pure-u-3-4 centered">
+        <c:if test="${movies ne null}">
+            <c:if test="${movies.size() ge 1 and numberOfPages gt 1}">
                 <div class="pure-g">
-                    <div class="pure-u centered inline-flex">
-                        <div class="page-number">
-                            <c:if test="${currentPage ne 1}">
-                                <p>
-                                    <a class="page-link" href="/admin/managemovies?page=${currentPage - 1}">Prev</a>
-                                </p>
-                            </c:if>
-                        </div>
-                        <c:forEach begin="1" end="${numberOfPages}" var="i">
-                            <div class="page-number">
-                                <c:choose>
-                                    <c:when test="${currentPage eq i}">
-                                        <p class="page-current">${i}</p>
-                                    </c:when>
-                                    <c:otherwise>
+                    <div class="pure-u-3-4 centered">
+                        <div class="pure-g">
+                            <div class="pure-u centered inline-flex">
+                                <div class="page-number">
+                                    <c:if test="${currentPage ne 1}">
                                         <p>
-                                            <a class="page-link" href="/admin/managemovies?page=${i}">${i}</a>
+                                            <a class="page-link" href="/admin/managemovies?page=${currentPage - 1}">Prev</a>
                                         </p>
-                                    </c:otherwise>
-                                </c:choose>
+                                    </c:if>
+                                </div>
+                                <c:forEach begin="1" end="${numberOfPages}" var="i">
+                                    <div class="page-number">
+                                        <c:choose>
+                                            <c:when test="${currentPage eq i}">
+                                                <p class="page-current">${i}</p>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <p>
+                                                    <a class="page-link" href="/admin/managemovies?page=${i}">${i}</a>
+                                                </p>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                </c:forEach>
+                                <div class="page-number">
+                                    <c:if test="${currentPage ne numberOfPages}">
+                                        <p>
+                                            <a class="page-link" href="/admin/managemovies?page=${currentPage + 1}">Next</a>
+                                        </p>
+                                    </c:if>
+                                </div>
                             </div>
-                        </c:forEach>
-                        <div class="page-number">
-                            <c:if test="${currentPage ne numberOfPages}">
-                                <p>
-                                    <a class="page-link" href="/admin/managemovies?page=${currentPage + 1}">Next</a>
-                                </p>
-                            </c:if>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </c:if>
+        </c:if>
     </div>
 </div>
 </body>
