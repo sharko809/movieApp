@@ -1,17 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: dsharko
-  Date: 8/9/2016
-  Time: 3:09 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Admin menu</title>
-</head>
-<body>
-<div id="layout">
+<nav id="layout">
     <a href="#menu" id="menuLink" class="menu-link" style="top: 46px;">
         <!-- Hamburger icon -->
         <span></span>
@@ -27,7 +15,5 @@
             </ul>
         </div>
     </div>
-</div>
+</nav>
 <script src="/resources/js/vendor/pure/ui.js" type="text/javascript"></script>
-</body>
-</html>

@@ -27,7 +27,6 @@
 <body class="body-style">
 <jsp:include page="header.jsp"/>
 <div class="padding-top"></div>
-
 <div class="pure-g">
     <div class="pure-u-md-3-4 pure-u-sm-1 centered">
         <div class="pure-u-1">
