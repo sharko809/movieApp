@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/resources/css/vendor/pure/grids-responsive-min.css">
     <!--<![endif]-->
     <link rel="stylesheet" type="text/css" href="/resources/css/mainPage.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/pages.css">
 </head>
 <body class="body-style">
 <jsp:include page="header.jsp"/>
@@ -82,7 +83,7 @@
             <c:if test="${movies.size() ge 1 and numberOfPages gt 1}">
                 <div class="pure-g">
                     <div class="pure-u-3-4 centered">
-                        <div class="pure-g">
+                        <div id="pages" class="pure-g">
                             <div class="pure-u centered inline-flex">
                                 <div class="page-number">
                                     <c:if test="${currentPage ne 1}">
@@ -114,11 +115,23 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="pages-sm" class="pure-g">
+                            <div class="pure-u-1 inline-flex">
+                                <div class="pure-u-1-4 centered">
+                                    <select style="margin-bottom: 10px;" class="page-select" onchange="javascript:goToPage(this, '/home?page=')">
+                                        <c:forEach begin="1" end="${numberOfPages}" var="i">
+                                            <option ${currentPage eq i ? 'selected' : ''}>${i}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </c:if>
         </c:if>
     </div>
 </div>
+<script src="/resources/js/pages-sm.js"></script>
 </body>
 </html>

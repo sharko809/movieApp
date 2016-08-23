@@ -28,6 +28,19 @@ public class MovieDAO {
     private static final String SQL_SEARCH_MOVIE_BY_TITLE = "SELECT SQL_CALC_FOUND_ROWS * FROM MOVIE WHERE moviename LIKE ? LIMIT ?, ?";
     private Integer numberOfRecords;
 
+    private static Movie parseMovieResultSet(ResultSet resultSet) throws SQLException {
+        Movie movie = new Movie();
+        movie.setId(resultSet.getLong("ID"));
+        movie.setMovieName(resultSet.getString("moviename"));
+        movie.setDirector(resultSet.getString("director"));
+        movie.setReleaseDate(resultSet.getDate("releasedate"));
+        movie.setPosterURL(resultSet.getString("posterurl"));
+        movie.setTrailerURL(resultSet.getString("trailerurl"));
+        movie.setRating(resultSet.getDouble("rating"));
+        movie.setDescription(resultSet.getString("description"));
+        return movie;
+    }
+
     public Long create(String movieName, String director, Date releaseDate, String posterURL, String trailerUrl, Double rating, String description) throws SQLException {
         Long movieID = 0L;
         try (Connection connection = ConnectionManager.getInstance().getConnection();
@@ -152,19 +165,6 @@ public class MovieDAO {
 
     public Integer getNumberOfRecords() {
         return this.numberOfRecords;
-    }
-
-    private static Movie parseMovieResultSet(ResultSet resultSet) throws SQLException {
-        Movie movie = new Movie();
-        movie.setId(resultSet.getLong("ID"));
-        movie.setMovieName(resultSet.getString("moviename"));
-        movie.setDirector(resultSet.getString("director"));
-        movie.setReleaseDate(resultSet.getDate("releasedate"));
-        movie.setPosterURL(resultSet.getString("posterurl"));
-        movie.setTrailerURL(resultSet.getString("trailerurl"));
-        movie.setRating(resultSet.getDouble("rating"));
-        movie.setDescription(resultSet.getString("description"));
-        return movie;
     }
 
 }

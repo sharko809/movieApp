@@ -43,7 +43,7 @@ public class AdminMoviesServlet extends HttpServlet {
         MovieService movieService = new MovieService();
         PagedEntity pagedMovies;
         try {
-            pagedMovies = movieService.getAllMoviesLimit((page-1)*recordsPerPage, recordsPerPage);
+            pagedMovies = movieService.getAllMoviesLimit((page - 1) * recordsPerPage, recordsPerPage);
         } catch (SQLException e) {
             ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
             return;

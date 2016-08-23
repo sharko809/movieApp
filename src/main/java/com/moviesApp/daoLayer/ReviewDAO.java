@@ -24,6 +24,18 @@ public class ReviewDAO {
             "reviewtext = ? WHERE ID = ?";
     private static final String SQL_GET_REVIEWS_BY_MOVIE_ID = "SELECT * FROM REVIEW WHERE movieid = ?";
 
+    private static Review parseReviewResultSet(ResultSet resultSet) throws SQLException {
+        Review review = new Review();
+        review.setId(resultSet.getLong("id"));
+        review.setUserId(resultSet.getLong("userid"));
+        review.setMovieId(resultSet.getLong("movieid"));
+        review.setPostDate(resultSet.getDate("postdate"));
+        review.setTitle(resultSet.getString("reviewtitle"));
+        review.setRating(resultSet.getInt("rating"));
+        review.setReviewText(resultSet.getString("reviewtext"));
+        return review;
+    }
+
     public Long create(Long userID, Long movieID, Date postDate, String reviewTitle, Integer rating, String reviewText) throws SQLException {
         Long reviewID = 0L;
         try (Connection connection = ConnectionManager.getInstance().getConnection();
@@ -98,18 +110,6 @@ public class ReviewDAO {
             }
         }
         return false;
-    }
-
-    private static Review parseReviewResultSet(ResultSet resultSet) throws SQLException {
-        Review review = new Review();
-        review.setId(resultSet.getLong("id"));
-        review.setUserId(resultSet.getLong("userid"));
-        review.setMovieId(resultSet.getLong("movieid"));
-        review.setPostDate(resultSet.getDate("postdate"));
-        review.setTitle(resultSet.getString("reviewtitle"));
-        review.setRating(resultSet.getInt("rating"));
-        review.setReviewText(resultSet.getString("reviewtext"));
-        return review;
     }
 
 }

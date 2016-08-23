@@ -79,7 +79,7 @@ public class NewUserServlet extends HttpServlet {
                 req.getRequestDispatcher("/resources/views/adminnewuser.jsp").forward(req, resp);
             }
         } else {
-            req.setAttribute("result" ,errors);
+            req.setAttribute("result", errors);
             req.setAttribute("regUser", user);
             req.getRequestDispatcher("/resources/views/adminnewuser.jsp").forward(req, resp);
         }

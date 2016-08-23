@@ -12,11 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Created by dsharko on 8/8/2016.
@@ -44,7 +40,7 @@ public class TopRatedServlet extends HttpServlet {
 
         movies.sort((Movie m1, Movie m2) -> m2.getRating().compareTo(m1.getRating()));
         if (movies.size() >= 10) {
-            movies = movies.subList(0,10);
+            movies = movies.subList(0, 10);
         }
 
         req.setAttribute("movies", movies);

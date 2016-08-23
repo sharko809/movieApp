@@ -48,14 +48,14 @@ public class UsersServlet extends HttpServlet {
 
         if (sortBy != null) {
             try {
-                pagedUsers = userService.getUsersSorted((page-1)*recordsPegPage, recordsPegPage, sortBy);
+                pagedUsers = userService.getUsersSorted((page - 1) * recordsPegPage, recordsPegPage, sortBy);
             } catch (SQLException e) {
                 ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
                 return;
             }
         } else {
             try {
-                pagedUsers = userService.getAllUsersLimit((page-1)*recordsPegPage, recordsPegPage);
+                pagedUsers = userService.getAllUsersLimit((page - 1) * recordsPegPage, recordsPegPage);
             } catch (SQLException e) {
                 ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
                 return;

@@ -64,7 +64,7 @@ public class PostReviewServlet extends HttpServlet {
             try {
                 reviewService.createReview(review.getUserId(), review.getMovieId(), review.getPostDate(), review.getTitle(), review.getRating(), review.getReviewText());
                 updateMovieRating(review.getMovieId(), review.getRating());
-            } catch (SQLException e ) {
+            } catch (SQLException e) {
                 ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
                 return;
             } catch (NumberFormatException e) {

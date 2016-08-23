@@ -45,7 +45,7 @@
                            max="2150-01-01" placeholder="Release date" style="width: 100%;"/>
                 </fieldset>
                 <fieldset class="pure-group">
-                    <input ng-model="imgurl" id="posterUrl" name="posterUrl" type="url" class="pure-input-1-2"
+                    <input id="posterUrl" ng-model="imgurl" name="posterUrl" type="url" class="pure-input-1-2"
                            minlength="7" maxlength="500" placeholder="Poster URL" style="width: 100%;"/>
                     <input id="trailerUrl" name="trailerUrl" type="url" class="pure-input-1-2" minlength="7"
                            maxlength="500" placeholder="Trailer URL" style="width: 100%;"/>

@@ -173,7 +173,7 @@ public class EditMovieServlet extends HttpServlet {
             req.setAttribute("result", errors);
             req.setAttribute("updMovie", movie);
             req.setAttribute("movie", movie);
-            req.setAttribute("reviews" ,reviews);
+            req.setAttribute("reviews", reviews);
             req.setAttribute("users", users);
             req.getRequestDispatcher("/resources/views/editmovie.jsp").forward(req, resp);
         }

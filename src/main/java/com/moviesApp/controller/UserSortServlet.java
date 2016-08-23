@@ -20,13 +20,12 @@ public class UserSortServlet extends HttpServlet {
     private final List<String> FIELDS;
 
     public UserSortServlet() {
-        List<String> fields = new ArrayList<>();
-        fields.add("id");
-        fields.add("login");
-        fields.add("username");
-        fields.add("isadmin");
-        fields.add("isbanned");
-        FIELDS = fields;
+        FIELDS = new ArrayList<>();
+        FIELDS.add("id");
+        FIELDS.add("login");
+        FIELDS.add("username");
+        FIELDS.add("isadmin");
+        FIELDS.add("isbanned");
     }
 
     @Override
