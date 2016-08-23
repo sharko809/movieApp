@@ -57,47 +57,26 @@
                 <thead>
                 <tr>
                     <th>
-                        <form style="margin: auto;" id="sortID" method="post" action="/admin/sortusers">
-                            <input type="hidden" name="sortBy" value="id"/>
-                            <input type="hidden" name="redirectFrom" value=""/>
-                            <span id="id">ID</span>
-                        </form>
+                        <span>ID</span>
                     </th>
                     <th>
-                        <form style="margin: auto;" id="sortLogin" method="post" action="/admin/sortusers">
-                            <input type="hidden" name="sortBy" value="login"/>
-                            <input type="hidden" name="redirectFrom" value=""/>
-                            <span id="login">Login</span>
-                        </form>
+                        <span>Login</span>
                     </th>
                     <th>
-                        <form style="margin: auto;" id="sortName" method="post" action="/admin/sortusers">
-                            <input type="hidden" name="sortBy" value="userName"/>
-                            <input type="hidden" name="redirectFrom" value=""/>
-                            <span id="userName">Username</span>
-                        </form>
+                        <span>Username</span>
                     </th>
                     <th>
-                        <form style="margin: auto;" id="sortAdmin" method="post" action="/admin/sortusers">
-                            <input type="hidden" name="sortBy" value="admin"/>
-                            <input type="hidden" name="redirectFrom" value=""/>
-                            <span id="admin">Admin</span>
-                        </form>
+                        <span>Admin</span>
                     </th>
                     <th>
-                        <form style="margin: auto;" id="sortBanned" method="post" action="/admin/sortusers">
-                            <input type="hidden" name="sortBy" value="banned"/>
-                            <input type="hidden" name="redirectFrom" value=""/>
-                            <span id="banned">Banned</span>
-                        </form>
+                        <span>Banned</span>
                     </th>
                 </tr>
                 </thead>
-
                 <tbody>
                 <c:choose>
-                    <c:when test="${sortedUsers != null}">
-                        <c:if test="${sortedUsers.size() >= 1}">
+                    <c:when test="${sortedUsers ne null}">
+                        <c:if test="${sortedUsers.size() ge 1}">
                             <c:forEach items="${sortedUsers}" var="user">
                                 <tr>
                                     <td>${user.id}</td>
@@ -158,8 +137,8 @@
                     </c:when>
                     <c:otherwise>
                         <c:choose>
-                            <c:when test="${users != null}">
-                                <c:if test="${users.size() >= 1}">
+                            <c:when test="${users ne null}">
+                                <c:if test="${users.size() ge 1}">
                                     <c:forEach items="${users}" var="user">
                                         <tr>
                                             <td>${user.id}</td>
@@ -236,7 +215,7 @@
                 <div class="pure-g">
                     <div class="pure-u centered inline-flex">
                         <div class="page-number">
-                            <c:if test="${currentPage != 1}">
+                            <c:if test="${currentPage ne 1}">
                                 <p>
                                     <a class="page-link" href="/admin/users?page=${currentPage - 1}">Prev</a>
                                 </p>
@@ -269,6 +248,5 @@
         </div>
     </div>
 </div>
-<script src="/resources/js/sort-users.js" type="text/javascript"></script>
 </body>
 </html>

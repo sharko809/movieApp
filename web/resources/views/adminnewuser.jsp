@@ -61,7 +61,7 @@
         </form>
     </div>
     <div class="pure-u-1">
-        <c:if test="${result.size() >= 1}">
+        <c:if test="${result.size() ge 1}">
             <div id="error-info" class="error-info">
                 <c:forEach items="${result}" var="r">
                     <p>${r}</p>

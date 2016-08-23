@@ -31,7 +31,7 @@
 <div class="pure-g">
     <div class="pure-u-md-3-4 pure-u-sm-1 centered">
         <div class="pure-u-1">
-            <c:if test="${user != null}">
+            <c:if test="${user ne null}">
                 <form class="pure-form pure-form-aligned" style="text-align: center; padding-right: 90px;" method="post"
                       action="/updaccount">
                     <fieldset>
@@ -61,7 +61,7 @@
             </c:if>
         </div>
         <div class="pure-u-1">
-            <c:if test="${result != null}">
+            <c:if test="${result ne null}">
                 <c:forEach items="${result}" var="r">
                     <div id="error-info" class="error-info">
                             <p>${r}</p>

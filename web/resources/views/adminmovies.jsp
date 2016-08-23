@@ -53,7 +53,7 @@
                         <div>
                             <h4 class="inline">Rating: </h4>
                             <c:choose>
-                                <c:when test="${movie.rating <= 0.0}">
+                                <c:when test="${movie.rating le 0.0}">
                                     <span>Not enough votes</span>
                                 </c:when>
                                 <c:otherwise>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="pure-u-lg-11-24 pure-u-sm-2-5">
                         <c:choose>
-                            <c:when test="${movie.posterURL != null && !movie.posterURL.isEmpty()}">
+                            <c:when test="${movie.posterURL ne null && !movie.posterURL.isEmpty()}">
                                 <img style="height: 100px; float: right; margin-right: 10px;" class="pure-img" src="${movie.posterURL}"/>
                             </c:when>
                             <c:otherwise>
@@ -91,7 +91,7 @@
                 <div class="pure-g">
                     <div class="pure-u centered inline-flex">
                         <div class="page-number">
-                            <c:if test="${currentPage != 1}">
+                            <c:if test="${currentPage ne 1}">
                                 <p>
                                     <a class="page-link" href="/admin/managemovies?page=${currentPage - 1}">Prev</a>
                                 </p>

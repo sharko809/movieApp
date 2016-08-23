@@ -40,7 +40,7 @@
         <div id="movie-content" class="pure-u-1 inline-flex" style="margin-top: 15px; margin-bottom: 10px;">
             <div class="pure-u-md-1-3 pure-u-sm-1" style="margin: 5px;">
                 <c:choose>
-                    <c:when test="${movie.posterURL != null && !movie.posterURL.isEmpty()}">
+                    <c:when test="${movie.posterURL ne null && !movie.posterURL.isEmpty()}">
                         <img class="pure-img" src="${movie.posterURL}"/>
                     </c:when>
                     <c:otherwise>
@@ -80,7 +80,7 @@
         </div>
         <div class="pure-u-1" style="margin: 5px;">
             <div class="review-section">
-                <c:if test="${reviewError.size() >= 1}">
+                <c:if test="${reviewError.size() ge 1}">
                     <div id="error-info">
                         <c:forEach items="${reviewError}" var="error">
                             <p class="error-paragraph">${error}</p>
@@ -88,7 +88,7 @@
                     </div>
                 </c:if>
                 <c:choose>
-                    <c:when test="${user == null}">
+                    <c:when test="${user eq null}">
                         <div class="pure-u-md-1 pure-u-sm-1">
                             <div style="margin-bottom: 5px; text-align: center">
                                 Please, sign in to write reviews.
@@ -133,7 +133,7 @@
                                     <button id="submitReview" class="pure-button" type="submit">Post review</button>
                                 </div>
                             </div>
-                            <c:if test="${review != null}">
+                            <c:if test="${review ne null}">
                                 <script type="text/javascript">
                                     setReviewInputs('${review.title}','${review.rating}','${review.reviewText}');
                                 </script>

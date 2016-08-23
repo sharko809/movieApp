@@ -69,7 +69,7 @@
                     <button id="editDescription" type="button" class="pure-button">Edit</button>
                 </div>
             </fieldset>
-            <c:if test="${updMovie != null}">
+            <c:if test="${updMovie ne null}">
                 <script type="text/javascript">
                     setMovieInputs('${updMovie.movieName}', '${updMovie.director}', '${updMovie.releaseDate}', '${updMovie.posterURL}', '${updMovie.trailerURL}', '${updMovie.description}');
                 </script>
@@ -78,7 +78,7 @@
             <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">Update movie</button>
         </form>
         <div class="pure-u-1">
-            <c:if test="${result != null}">
+            <c:if test="${result ne null}">
                 <div id="error-info" class="err">
                     <c:forEach items="${result}" var="r">
                         <p>${r}</p>

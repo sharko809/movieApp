@@ -74,7 +74,7 @@
         </div>
     </div>
     <div class="pure-u-1 centered">
-        <c:if test="${result != null}">
+        <c:if test="${result ne null}">
             <div id="error-info" class="error-info">
                 <c:forEach items="${result}" var="r">
                     ${r}<br/>

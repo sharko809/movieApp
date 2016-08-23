@@ -33,7 +33,7 @@
             </div>
         </div>
         <c:choose>
-            <c:when test="${movies.size() >= 1}">
+            <c:when test="${movies.size() ge 1}">
                 <c:forEach items="${movies}" var="movie">
                     <div class="pure-u-1">
                         <div class="movie-container">
@@ -55,7 +55,7 @@
                                 <div>
                                     <h4 class="inline">Rating: </h4>
                                     <c:choose>
-                                        <c:when test="${movie.rating <= 0.0}">
+                                        <c:when test="${movie.rating le 0.0}">
                                             <span>Not enough votes</span>
                                         </c:when>
                                         <c:otherwise>

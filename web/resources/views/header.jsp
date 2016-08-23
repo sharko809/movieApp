@@ -28,7 +28,7 @@
     <div class="pure-u-md-4-5 pure-u-sm-1 centered inline-flex">
         <div class="pure-u-1 inline-flex">
             <c:choose>
-                <c:when test="${user == null}">
+                <c:when test="${user eq null}">
                     <div id="login-form" class="pure-u-md-3-8 pure-u-sm-3-8 max-width">
                         <form class="pure-form inline-flex" method="post" action="/login"
                               style="margin: 5px auto 5px auto;">
@@ -85,7 +85,7 @@
             <form class="pure-u-md-2-8 pure-u-sm-2-8 float-search" method="get" action="/search">
                 <input id="searchInput" name="searchInput" type="text" class="search-style" maxlength="30" placeholder="Search movie">
             </form>
-            <c:if test="${user != null}">
+            <c:if test="${user ne null}">
                 <div class="pure-u-md-1-8 pure-u-sm-1-8 logout">
                     <form method="post" action="/logout">
                         <input title="Logout" type="image" src="/resources/icons/logout-32.ico" alt="Submit"/>
