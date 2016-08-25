@@ -85,32 +85,44 @@
                     <div class="pure-u-3-4 centered">
                         <div id="pages" class="pure-g">
                             <div class="pure-u centered inline-flex">
-                                <div class="page-number">
+                                <div class="page-number inline-flex">
                                     <c:if test="${currentPage ne 1}">
+                                        <c:if test="${numberOfPages gt 10}">
+                                            <p>
+                                                <a class="page-link" href="/home?page=1" style="margin-right: 5px;">First</a>
+                                            </p>
+                                        </c:if>
                                         <p>
                                             <a class="page-link" href="/home?page=${currentPage - 1}">Prev</a>
                                         </p>
                                     </c:if>
                                 </div>
-                                <c:forEach begin="1" end="${numberOfPages}" var="i">
-                                    <div class="page-number">
-                                        <c:choose>
-                                            <c:when test="${currentPage eq i}">
-                                                <p class="page-current">${i}</p>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <p>
-                                                    <a class="page-link" href="/home?page=${i}">${i}</a>
-                                                </p>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </div>
+                                <c:forEach begin="${(numberOfPages gt 10) ? (currentPage gt 5 ? (currentPage - 5) : 1) : 1}" end="${(numberOfPages gt 10) ? (currentPage + 5) : numberOfPages}" var="i">
+                                    <c:if test="${i le numberOfPages}">
+                                        <div class="page-number">
+                                            <c:choose>
+                                                <c:when test="${currentPage eq i}">
+                                                    <p class="page-current">${i}</p>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <p>
+                                                        <a class="page-link" href="/home?page=${i}">${i}</a>
+                                                    </p>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+                                    </c:if>
                                 </c:forEach>
-                                <div class="page-number">
+                                <div class="page-number inline-flex">
                                     <c:if test="${currentPage ne numberOfPages}">
                                         <p>
                                             <a class="page-link" href="/home?page=${currentPage + 1}">Next</a>
                                         </p>
+                                        <c:if test="${numberOfPages gt 10}">
+                                            <p>
+                                                <a class="page-link" href="/home?page=${numberOfPages}" style="margin-left: 5px;">Last</a>
+                                            </p>
+                                        </c:if>
                                     </c:if>
                                 </div>
                             </div>
@@ -118,7 +130,8 @@
                         <div id="pages-sm" class="pure-g">
                             <div class="pure-u-1 inline-flex">
                                 <div class="pure-u-1-4 centered">
-                                    <select style="margin-bottom: 10px;" class="page-select" onchange="javascript:goToPage(this, '/home?page=')">
+                                    <select style="margin-bottom: 10px;" class="page-select"
+                                            onchange="javascript:goToPage(this, '/home?page=')">
                                         <c:forEach begin="1" end="${numberOfPages}" var="i">
                                             <option ${currentPage eq i ? 'selected' : ''}>${i}</option>
                                         </c:forEach>
