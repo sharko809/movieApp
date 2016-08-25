@@ -4,8 +4,8 @@
     <script src="/resources/js/vendor/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="/resources/js/redirect-url.js" type="text/javascript"></script>
     <script src="/resources/js/header.js" type="text/javascript"></script>
-    <script src="http://purecss.io/js/menus.js" type="text/javascript"></script>
-    <div class="pure-u-md-4-5 pure-u-sm-1 centered inline-flex">
+    <%--<script src="http://purecss.io/js/menus.js" type="text/javascript"></script>--%>
+    <div class="pure-u-lg-4-5 pure-u-md-11-12 pure-u-sm-1 centered inline-flex">
         <div class="pure-u-1 inline-flex">
             <c:choose>
                 <c:when test="${user eq null}">
@@ -22,9 +22,9 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <div id="user-welcome" class="pure-u-md-3-8 pure-u-sm-3-8 max-width">
+                    <div id="user-welcome" class="pure-u-md-3-8 pure-u-sm-3-8 pure-u-md-3-10 max-width">
                         <div class="pure-u-1 inline-flex">
-                            <p id="" class="pure-u-1-2 menu-text">
+                            <p id="p-user" class="pure-u-1-2 menu-text p-item">
                                 <%--<span id="login-text">--%>
                                     <%--Logged in as--%>
                                 <%--</span>--%>
@@ -39,7 +39,9 @@
                             </p>
                             <div id="menu-sm" class="pure-u-1-2 menu-text">
                                 <div class="dropdown">
-                                    <span>More</span>
+                                    <%--<span>--%>
+                                        More
+                                    <%--</span>--%>
                                     <div class="dropdown-content">
                                         <a class="menu-text" style="text-align: center;" href="/toprated">
                                             <p>
@@ -64,7 +66,7 @@
                             <c:if test="${user.isAdmin()}">
                                 <a id="admin-link" class="pure-u-1-2 menu-text" href="/admin"
                                    style="text-align: center;">
-                                    <p>
+                                    <p class="p-item" style="width: 90px; margin-left: 20px; margin-right: 20px;">
                                         Admin panel
                                     </p>
                                 </a>
@@ -73,26 +75,26 @@
                     </div>
                 </c:otherwise>
             </c:choose>
-            <div id="top-rated" class="pure-u-md-1-8 pure-u-sm-1-8 max-width" style="text-align: center;">
+            <div id="top-rated" class="pure-u-md-1-8 pure-u-sm-1-8 pure-u-md-1-10" style="text-align: center; width: 50%;">
                 <a class="menu-text" href="/toprated">
-                    <p>
+                    <p class="p-item">
                         Top rated
                     </p>
                 </a>
             </div>
-            <div id="movie-list" class="pure-u-md-1-8 pure-u-sm-1-8 max-width" style="text-align: center;">
+            <div id="movie-list" class="pure-u-md-1-8 pure-u-sm-1-8 pure-u-md-1-10" style="text-align: center; width: 50%;">
                 <a class="menu-text" href="/home">
-                    <p>
+                    <p class="p-item">
                         Movie list
                     </p>
                 </a>
             </div>
-            <form class="pure-u-md-2-8 pure-u-sm-2-8 float-search" method="get" action="/search">
+            <form class="pure-u-md-2-8 pure-u-sm-2-8 pure-u-md-2-10 float-search" method="get" action="/search">
                 <input id="searchInput" name="searchInput" type="text" class="search-style" maxlength="30"
                        placeholder="Search movie">
             </form>
             <c:if test="${user ne null}">
-                <div class="pure-u-md-1-8 pure-u-sm-1-8 logout">
+                <div class="pure-u-md-1-8 pure-u-sm-1-8 pure-u-md-1-10 logout">
                     <form method="post" action="/logout">
                         <input title="Logout" type="image" src="/resources/icons/logout-32.ico" alt="Submit"/>
                     </form>

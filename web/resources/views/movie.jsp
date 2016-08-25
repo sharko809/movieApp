@@ -147,10 +147,10 @@
                             <div class="pure-u-md-6-8 pure-u-sm-6-12 max-width">
                                 <strong>${review.title}</strong> by ${users.get(review.userId)}
                             </div>
-                            <div class="pure-u-md-1-8 pure-u-sm-4-12" style="text-align: center;">
+                            <div class="pure-u-md-1-8 pure-u-sm-4-12" style="text-align: right; width: 40%;">
                                 Posted: ${review.postDate}
                             </div>
-                            <div class="pure-u-md-1-8 pure-u-sm-2-12" style="text-align: center;">
+                            <div class="pure-u-md-1-8 pure-u-sm-2-12" style="text-align: center; width: 26%; margin-right: 5px;">
                                 Rated: ${review.rating}/10
                             </div>
                         </div>

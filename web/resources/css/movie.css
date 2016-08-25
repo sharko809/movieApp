@@ -48,6 +48,36 @@
         width: 100%;
     }
 
+    #post-date {
+        width: 80%;
+    }
+
+    #m-rating {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    #post-date {
+        width: 100%;
+        text-align: end;
+    }
+
+    #m-rating {
+        width: 60%;
+        margin-left: 10px;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    #rev-detail {
+        width: 100% !important;
+    }
+
+    #m-rating {
+        margin-right: 10px;
+        /*width: 65% !important;*/
+    }
 }
 
 

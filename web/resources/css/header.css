@@ -69,9 +69,14 @@
     display: block;
 }
 
+.p-item {
+    margin: 14px 0 0 0;
+}
+
 @media screen and (max-width: 768px){
     #user-welcome {
         text-align: center;
+        margin-left: 20px;
     }
 
     .logout {
@@ -97,10 +102,27 @@
     #movie-list {
         display: none;
     }
+
+    #p-user {
+        width: 100% !important;
+    }
 }
 
 @media screen and (max-width: 1024px){
-    #login-text {
-        display: none;
+    /*#login-text {*/
+        /*display: none;*/
+    /*}*/
+    #top-rated {
+        width: 26%;
+    }
+
+    #movie-list {
+        width: 26%;
+    }
+}
+
+@media screen and (max-width: 1350px){
+    #p-user {
+        width: initial;
     }
 }

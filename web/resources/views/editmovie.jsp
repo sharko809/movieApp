@@ -90,34 +90,62 @@
         <c:forEach items="${reviews}" var="review">
             <div class="review pure-u-md-1 max-width" style="margin-bottom: 5px;">
                 <div class="pure-u-md-1 inline-flex max-width" style="margin: 5px;">
-                    <div class="pure-u-md-6-8 pure-u-sm-6-12 max-width">
-                        <strong>${review.title}</strong> by
-                        <c:choose>
-                            <c:when test="${users.get(review.userId).isBanned()}">
-                                <strong style="color: red;">${users.get(review.userId).name}</strong>
-                            </c:when>
-                            <c:otherwise>
-                                ${users.get(review.userId).name}
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
-                    <div class="pure-u-md-1-8 pure-u-sm-4-12" style="text-align: center;">
-                        Posted: ${review.postDate}
-                    </div>
-                    <div class="pure-u-md-1-8 pure-u-sm-2-12" style="text-align: center;">
-                        Rated: ${review.rating}/10
-                    </div>
+                    <%--<div class="pure-u-md-4-8 pure-u-sm-6-12 max-width">--%>
+                        <%--<strong>${review.title}</strong> by--%>
+                        <%--<c:choose>--%>
+                            <%--<c:when test="${users.get(review.userId).isBanned()}">--%>
+                                <%--<strong style="color: red;">${users.get(review.userId).name}</strong>--%>
+                            <%--</c:when>--%>
+                            <%--<c:otherwise>--%>
+                                <%--${users.get(review.userId).name}--%>
+                            <%--</c:otherwise>--%>
+                        <%--</c:choose>--%>
+                    <%--</div>--%>
+                    <%--<div id="rev-detail" class="pure-u-md-4-8 pure-u-sm-6-12 inline-flex" style="width: 50%;">--%>
+                        <%--<div id="post-date" class="pure-u-md-6-8 pure-u-sm-8-12">--%>
+                            <%--Posted: ${review.postDate}--%>
+                        <%--</div>--%>
+                        <%--<div id="m-rating" class="pure-u-md-2-8 pure-u-sm-4-12" style="text-align: center;">--%>
+                            <%--Rated: ${review.rating}/10--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                        <div class="pure-u-md-6-8 pure-u-sm-6-12 max-width">
+                            <strong>${review.title}</strong>
+                            <c:choose>
+                                <c:when test="${users.get(review.userId).isBanned()}">
+                                    <strong style="color: red;">${users.get(review.userId).name}</strong>
+                                </c:when>
+                                <c:otherwise>
+                                    ${users.get(review.userId).name}
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <div class="pure-u-md-1-8 pure-u-sm-4-12" style="text-align: right; width: 40%;">
+                            Posted: ${review.postDate}
+                        </div>
+                        <div class="pure-u-md-1-8 pure-u-sm-2-12" style="text-align: center; width: 26%; margin-right: 5px;">
+                            Rated: ${review.rating}/10
+                        </div>
                 </div>
                 <div class="pure-u-md-1 max-width inline-flex" style="margin: 5px;">
                     <div class="pure-u-md-5-8 pure-u-sm-5-8 max-width" style="padding-top: 14px;">
                             ${review.reviewText}
                     </div>
                     <div class="pure-u-md-3-8 pure-u-sm-3-8 inline-flex" style="text-align: end; margin-right: 20px;">
-                        <form method="post" action="/admin/ban" style="margin: 2px;">
+                        <form method="post" action="/admin/ban" style="margin: 2px; width: 100%;">
                             <input name="userID" type="hidden" value="${users.get(review.userId).id}"/>
                             <input name="fromMovie" type="hidden" value="fromMovie"/>
                             <input name="movieID" type="hidden" value="${movie.id}"/>
-                            <button class="pure-button" type="submit">Ban</button>
+                            <button class="pure-button" type="submit">
+                                <c:choose>
+                                    <c:when test="${users.get(review.userId).isBanned()}">
+                                        Unban
+                                    </c:when>
+                                    <c:otherwise>
+                                        Ban
+                                    </c:otherwise>
+                                </c:choose>
+                            </button>
                         </form>
                         <form method="post" action="/admin/delreview" style="margin: 2px;">
                             <input name="reviewID" type="hidden" value="${review.id}"/>

@@ -76,15 +76,15 @@
                             </c:otherwise>
                         </c:choose>
                     </div>
-                    <div class="pure-u-lg-2-24 pure-u-sm-1-5">
+                    <div class="pure-u-lg-2-24 pure-u-sm-1-5" style="margin: 8px;">
                         <form method="post" action="/admin/updrating">
                             <input type="hidden" id="redirectFrom" name="redirectFrom" value=""/>
                             <input type="hidden" name="movieID" value="${movie.id}"/>
-                            <button type="submit" class="pure-button" title="Recalculates movie rating">Rating</button>
+                            <button type="submit" class="pure-button" title="Recalculates movie rating" style="width: 100%;">Rating</button>
                         </form>
                         <form method="get" action="/admin/editmovie">
                             <input type="hidden" name="movieID" value="${movie.id}"/>
-                            <button class="pure-button" title="Allows to edit movie data">Edit</button>
+                            <button class="pure-button" title="Allows to edit movie data" style="width: 100%;">Edit</button>
                         </form>
                     </div>
                 </div>

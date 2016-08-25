@@ -176,7 +176,7 @@
                                                             <button class="pure-button max-width"
                                                                     style="background-color: #FFCCCC;"
                                                                     title="Unban user"
-                                                                    type="submit">${user.isBanned()}</button>
+                                                                    type="submit">Unban</button>
                                                         </form>
                                                     </td>
                                                 </c:when>
@@ -187,7 +187,7 @@
                                                             <input type="hidden" name="redirectFrom" value=""/>
                                                             <button class="pure-button max-width"
                                                                     title="Ban user"
-                                                                    type="submit">${user.isBanned()}</button>
+                                                                    type="submit">Ban</button>
                                                         </form>
                                                     </td>
                                                 </c:otherwise>
