@@ -22,8 +22,11 @@ public class UserDAO {
     private static final String SQL_GET_USERS_SORTED_BY = "SELECT SQL_CALC_FOUND_ROWS * FROM USER ORDER BY @ LIMIT ?, ?";
     private Integer numberOfRecords;
 
-    private static String makeSortQuery(String query, String orderBy) {
+    private static String makeSortQuery(String query, String orderBy, Boolean isDesc) {
         String[] order = query.split("@");
+        if (isDesc) {
+            return order[0] + orderBy + " DESC " + order[1];
+        }
         return order[0] + orderBy + order[1];
     }
 
@@ -148,9 +151,9 @@ public class UserDAO {
         return users;
     }
 
-    public List<User> getUsersSorted(Integer offset, Integer noOfRows, String orderBy) throws SQLException {
+    public List<User> getUsersSorted(Integer offset, Integer noOfRows, String orderBy, Boolean isDesc) throws SQLException {
         List<User> users = new ArrayList<>();
-        String query = makeSortQuery(SQL_GET_USERS_SORTED_BY, orderBy);
+        String query = makeSortQuery(SQL_GET_USERS_SORTED_BY, orderBy, isDesc);
         try (Connection connection = ConnectionManager.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, offset);

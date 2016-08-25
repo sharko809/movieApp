@@ -52,6 +52,8 @@
                         <label for="isbanned">Banned</label>
                         <input id="isbanned" type="radio" name="sortBy" value="isbanned"
                         ${sortBy eq 'isbanned' ? 'checked' : ''}>
+                        <label for="isDesc">Descending</label>
+                        <input id="isDesc" type="checkbox" name="isDesc" value="1" ${isDesc eq '1' ? 'checked' : ''}>
                         <input type="hidden" name="redirectFrom" value="">
                         <input type="hidden" name="page" value="${currentPage}">
                         <button class="pure-button" style="padding-bottom: 5px; vertical-align: baseline;"

@@ -32,15 +32,23 @@ public class UserSortServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String sortByParam = req.getParameter("sortBy");
+        String isDescParam = req.getParameter("isDesc");
+        String isDesc = null;
         String sortBy;
         String from = req.getParameter("redirectFrom");
         if (from == null) {
             from = "users?page=1";
         }
+        if (isDescParam != null) {
+            isDesc = isDescParam;
+        } else {
+            req.getSession().removeAttribute("isDesc");
+        }
         if (sortByParam != null) {
             if (FIELDS.stream().anyMatch(sortByParam::equals)) {
                 sortBy = sortByParam;
                 req.getSession().setAttribute("sortBy", sortBy);
+                req.getSession().setAttribute("isDesc", isDesc);
             }
         }
 
