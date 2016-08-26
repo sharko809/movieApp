@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by dsharko on 8/5/2016.
+ * Class for validating Review entity
  */
 public class ReviewValidator implements Validator {
 
@@ -31,6 +31,14 @@ public class ReviewValidator implements Validator {
         textPattern = Pattern.compile(TEXT_PATTERN);
     }
 
+    /**
+     * Performs validation of Review entity
+     *
+     * @param object object (of Review class) to validate
+     * @return if any of Review object fields were invalid - returns List of Strings with description why
+     * value considered invalid. If Review is valid - returns empty List.
+     * @see Review
+     */
     @Override
     public List<String> validate(Object object) {
         List<String> errors = new ArrayList<>();
@@ -111,6 +119,12 @@ public class ReviewValidator implements Validator {
         return errors;
     }
 
+    /**
+     * Helper method for date validation
+     *
+     * @param date date to validate in sting format
+     * @return <b>true</b> if date matches "yyyy-MM-dd" format. Otherwise returns <b>false</b>
+     */
     private boolean validDate(String date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
         simpleDateFormat.setLenient(false);

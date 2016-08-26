@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: dsharko
-  Date: 8/9/2016
-  Time: 4:38 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -37,7 +30,7 @@
             <div class="pure-u-1" style="height: 100px; margin: 10px;">
                 <div class="movie-container inline-flex"
                      style="background-color: #cad2d3; border-radius: 5px; height: inherit;">
-                    <div class="pure-u-lg-11-24 pure-u-sm-2-5" style="margin: 15px;">
+                    <div class="pure-u-lg-11-24 pure-u-sm-2-5" style="margin: 15px; width: 100%;">
                         <div>
                             <h4 class="inline">Title: </h4>
                             <a class="remove-link-style" href="/movies?movieId=${movie.id}">
@@ -64,7 +57,7 @@
                             </c:choose>
                         </div>
                     </div>
-                    <div class="pure-u-lg-11-24 pure-u-sm-2-5">
+                    <div class="pure-u-lg-11-24 pure-u-sm-2-5" style="width: 40%;">
                         <c:choose>
                             <c:when test="${movie.posterURL ne null && !movie.posterURL.isEmpty()}">
                                 <img style="height: 100px; float: right; margin-right: 10px;" class="pure-img"
@@ -76,7 +69,7 @@
                             </c:otherwise>
                         </c:choose>
                     </div>
-                    <div class="pure-u-lg-2-24 pure-u-sm-1-5" style="margin: 8px;">
+                    <div class="pure-u-lg-2-24 pure-u-sm-1-5" style="margin: 8px; width: 15%;">
                         <form method="post" action="/admin/updrating">
                             <input type="hidden" id="redirectFrom" name="redirectFrom" value=""/>
                             <input type="hidden" name="movieID" value="${movie.id}"/>

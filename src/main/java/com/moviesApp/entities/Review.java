@@ -7,12 +7,39 @@ import java.sql.Date;
  */
 public class Review {
 
+    /**
+     * Review id from database
+     */
     private Long id;
+
+    /**
+     * id of user - author of review
+     */
     private Long userId;
+
+    /**
+     * id of the movie which review is written to
+     */
     private Long movieId;
+
+    /**
+     * Date when review has been posted
+     */
     private Date postDate;
+
+    /**
+     * Title of review
+     */
     private String title;
+
+    /**
+     * Review text written by user
+     */
     private String reviewText;
+
+    /**
+     * Rating given by user to movie
+     */
     private Integer rating;
 
     public Review() {

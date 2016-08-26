@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by dsharko on 8/2/2016.
+ * Class for validating User entity
  */
 public class LoginValidator implements Validator {
 
@@ -31,7 +31,12 @@ public class LoginValidator implements Validator {
             throw new RuntimeException("Can't parse property value. " + e);
         }
     }
-
+    /**
+     * Performs validation of User entity.
+     * @param object object (of User class) to validate
+     * @return if any of User object fields were invalid - returns List of Strings with description why
+     * value considered invalid. If User is valid - returns empty List.
+     */
     @Override
     public List<String> validate(Object object) {
 

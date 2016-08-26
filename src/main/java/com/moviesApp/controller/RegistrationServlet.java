@@ -58,7 +58,6 @@ public class RegistrationServlet extends HttpServlet {
                     return;
                 }
                 req.setAttribute("result", "User " + user.getName() + " successfully created.");
-//                req.getRequestDispatcher("/index.jsp").forward(req, resp);
                 resp.sendRedirect("/");
             } else {
                 errors.add("User with such login already exists");

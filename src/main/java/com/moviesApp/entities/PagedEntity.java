@@ -3,11 +3,21 @@ package com.moviesApp.entities;
 import java.util.List;
 
 /**
- * Created by dsharko on 8/22/2016.
+ * This class is used for convenient pagination process.
+ * <p>
+ * Class for storing List of any provided entity for each page and
+ * correspondent number of records from database.
  */
 public class PagedEntity {
 
+    /**
+     * Entities to be displayed in "paged" format
+     */
     private List<?> entity;
+
+    /**
+     * Quantity of records in database
+     */
     private Integer numberOfRecords;
 
     public List<?> getEntity() {

@@ -4,7 +4,6 @@
     <script src="/resources/js/vendor/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="/resources/js/redirect-url.js" type="text/javascript"></script>
     <script src="/resources/js/header.js" type="text/javascript"></script>
-    <%--<script src="http://purecss.io/js/menus.js" type="text/javascript"></script>--%>
     <div class="pure-u-lg-4-5 pure-u-md-11-12 pure-u-sm-1 centered inline-flex">
         <div class="pure-u-1 inline-flex">
             <c:choose>

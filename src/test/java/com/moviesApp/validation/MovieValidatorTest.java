@@ -17,6 +17,7 @@ public class MovieValidatorTest {
 
     private Movie movie;
     private Movie movieNull;
+
     @Before
     public void setUp() throws Exception {
         movie = new Movie();

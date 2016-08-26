@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by dsharko on 8/3/2016.
+ * Class for validating Movie entity
  */
 public class MovieValidator implements Validator {
 
@@ -45,6 +45,13 @@ public class MovieValidator implements Validator {
         urlPattern = Pattern.compile(URL_PATTERN);
     }
 
+    /**
+     * Performs validation of Movie entity
+     *
+     * @param object object (of Movie class) to validate
+     * @return if any of Movie object fields were invalid - returns List of Strings with description why
+     * value considered invalid. If User is valid - returns empty List.
+     */
     @Override
     public List<String> validate(Object object) {
         List<String> errors = new ArrayList<>();
@@ -132,6 +139,12 @@ public class MovieValidator implements Validator {
         return errors;
     }
 
+    /**
+     * Helper method for date validation
+     *
+     * @param date date to validate in sting format
+     * @return <b>true</b> if date matches "yyyy-MM-dd" format. Otherwise returns <b>false</b>
+     */
     private boolean validDate(String date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
         simpleDateFormat.setLenient(false);

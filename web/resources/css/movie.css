@@ -34,6 +34,11 @@
     margin: 5px auto 5px auto;
 }
 
+.img-container {
+    margin: 20px 0px 10px 10px;
+    text-align: center;
+}
+
 @media screen and (max-width: 768px) {
 
     #movie-content {
@@ -76,7 +81,6 @@
 
     #m-rating {
         margin-right: 10px;
-        /*width: 65% !important;*/
     }
 }
 

@@ -46,12 +46,6 @@ public class UsersServlet extends HttpServlet {
         int numberOfRecords = 1;
         String sortBy = (String) req.getSession().getAttribute("sortBy");
         String isDescAttr = (String) req.getSession().getAttribute("isDesc");
-//        boolean isDesc = false;
-//        if (isDescAttr != null) {
-//            if ("1".equals(isDescAttr)) {
-//                isDesc = true;
-//            }
-//        }
         boolean isDesc = (isDescAttr != null) ? ("1".equals(isDescAttr) ? true : false) : false;
 
         if (sortBy != null) {

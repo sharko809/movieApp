@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 /**
- * Created by dsharko on 8/2/2016.
+ * Class with methods for creating hash password with salt
  */
 public class PasswordManager {
 
@@ -28,12 +28,26 @@ public class PasswordManager {
         }
     }
 
+    /**
+     * Encodes password by hashing with salt
+     *
+     * @param password password to encode
+     * @return hashed password with salt
+     * @throws IllegalArgumentException
+     */
     public static String getSaltedHashPassword(String password) throws IllegalArgumentException {
-        // password validity is checked by validators in controllers
         byte[] salt = generateSalt(password);
         return Base64.encodeBase64String(salt) + "$" + hash(password, salt);
     }
 
+    /**
+     * Hashes given password with salt
+     *
+     * @param password password to hash
+     * @param salt     password salt
+     * @return string representing password in hashed form
+     * @throws IllegalArgumentException
+     */
     private static String hash(String password, byte[] salt) throws IllegalArgumentException {
         SecretKeyFactory secretKeyFactory;
         try {
@@ -66,6 +80,12 @@ public class PasswordManager {
         return Base64.encodeBase64String(secretKey.getEncoded());
     }
 
+    /**
+     * Generates salt with given password
+     *
+     * @param password password to generate salt
+     * @return byte array of password with salt
+     */
     private static byte[] generateSalt(String password) {
         if (password == null || password.trim().equals("") || password.length() < PASSWORD_LENGTH) {
             LOGGER.error("Wrong password: " + password);

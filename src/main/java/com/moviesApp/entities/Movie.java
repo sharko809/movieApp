@@ -8,13 +8,44 @@ import java.sql.Date;
  */
 public class Movie {
 
+    /**
+     * Movie id from database
+     */
     private Long id;
+
+    /**
+     * Movie title
+     */
     private String movieName;
+
+    /**
+     * Name of movie's director
+     */
     private String director;
+
+    /**
+     * Movie release date
+     */
     private Date releaseDate;
+
+    /**
+     * URL leading to poster for the movie
+     */
     private String posterURL;
+
+    /**
+     * URL leading to embed trailer for the movie
+     */
     private String trailerURL;
+
+    /**
+     * Movie rating calculated based on users reviews
+     */
     private Double rating;
+
+    /**
+     * Some description for the movie
+     */
     private String description;
 
     public Movie() {

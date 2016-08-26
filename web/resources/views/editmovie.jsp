@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: dsharko
-  Date: 8/10/2016
-  Time: 11:28 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -55,12 +48,12 @@
             <fieldset>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
                     <input id="posterUrl" name="posterUrl" type="url" class="pure-input-1-2" minlength="7"
-                           maxlength="500" placeholder="Poster URL" value="${movie.posterURL}" readonly/>
+                           maxlength="255" placeholder="Poster URL" value="${movie.posterURL}" readonly/>
                     <button id="editPoster" type="button" class="pure-button">Edit</button>
                 </div>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
                     <input id="trailerUrl" name="trailerUrl" type="url" class="pure-input-1-2" minlength="7"
-                           maxlength="500" placeholder="Trailer URL" value="${movie.trailerURL}" readonly/>
+                           maxlength="255" placeholder="Trailer URL" value="${movie.trailerURL}" readonly/>
                     <button id="editTrailer" type="button" class="pure-button">Edit</button>
                 </div>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
@@ -90,25 +83,6 @@
         <c:forEach items="${reviews}" var="review">
             <div class="review pure-u-md-1 max-width" style="margin-bottom: 5px;">
                 <div class="pure-u-md-1 inline-flex max-width" style="margin: 5px;">
-                    <%--<div class="pure-u-md-4-8 pure-u-sm-6-12 max-width">--%>
-                        <%--<strong>${review.title}</strong> by--%>
-                        <%--<c:choose>--%>
-                            <%--<c:when test="${users.get(review.userId).isBanned()}">--%>
-                                <%--<strong style="color: red;">${users.get(review.userId).name}</strong>--%>
-                            <%--</c:when>--%>
-                            <%--<c:otherwise>--%>
-                                <%--${users.get(review.userId).name}--%>
-                            <%--</c:otherwise>--%>
-                        <%--</c:choose>--%>
-                    <%--</div>--%>
-                    <%--<div id="rev-detail" class="pure-u-md-4-8 pure-u-sm-6-12 inline-flex" style="width: 50%;">--%>
-                        <%--<div id="post-date" class="pure-u-md-6-8 pure-u-sm-8-12">--%>
-                            <%--Posted: ${review.postDate}--%>
-                        <%--</div>--%>
-                        <%--<div id="m-rating" class="pure-u-md-2-8 pure-u-sm-4-12" style="text-align: center;">--%>
-                            <%--Rated: ${review.rating}/10--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
                         <div class="pure-u-md-6-8 pure-u-sm-6-12 max-width">
                             <strong>${review.title}</strong>
                             <c:choose>

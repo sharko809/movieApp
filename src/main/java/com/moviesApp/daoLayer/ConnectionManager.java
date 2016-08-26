@@ -9,7 +9,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Created by dsharko on 7/28/2016.
+ * Class for managing connection to database
  */
 public class ConnectionManager {
 
@@ -19,6 +19,12 @@ public class ConnectionManager {
     private ConnectionManager() {
     }
 
+    /**
+     * Realization of simple singleton pattern
+     *
+     * @return an instance of this class. If instance is not created - creates it.
+     * Otherwise - returns an existing one
+     */
     public static ConnectionManager getInstance() {
         if (instance == null) {
             instance = new ConnectionManager();
@@ -26,6 +32,12 @@ public class ConnectionManager {
         return instance;
     }
 
+    /**
+     * Performs connection to database with credentials specified in property file
+     *
+     * @return connection to URL specified in property file
+     * @throws SQLException
+     */
     public Connection getConnection() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -34,7 +46,7 @@ public class ConnectionManager {
             LOGGER.fatal("No mysql driver found.");
             throw new RuntimeException("no driver found");
         }
-        Connection connection = null;
+        Connection connection;
         connection = DriverManager.getConnection(
                 "jdbc:mysql:" + PropertiesManager.getProperty("serverName") + PropertiesManager.getProperty("dbName"),
                 PropertiesManager.getProperty("dbUser"),

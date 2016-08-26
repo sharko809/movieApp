@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by dsharko on 8/2/2016.
+ * Class for validating User entity by all its fields
  */
 public class RegistrationValidator implements Validator {
 
@@ -31,6 +31,14 @@ public class RegistrationValidator implements Validator {
         pattern = Pattern.compile(USERNAME_PATTERN);
     }
 
+    /**
+     * Performs validation of User entity by all its fields.
+     * <b><i>Note: </i></b> method is also using LoginValidator
+     * @param object object (of User class) to validate
+     * @return if any of User object fields were invalid - returns List of Strings with description why
+     * value considered invalid. If User is valid - returns empty List.
+     * @see LoginValidator
+     */
     @Override
     public List<String> validate(Object object) {
 

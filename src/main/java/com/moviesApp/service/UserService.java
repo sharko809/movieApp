@@ -7,22 +7,28 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by dsharko on 7/29/2016.
+ * Class containing all methods to interact with users in database
  */
 public class UserService {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /**
+     * Get user with specified ID from database
+     *
+     * @param userID ID of user to be found
+     * @return User entity object if user with given ID is found in database. Otherwise returns null.
+     * @throws SQLException
+     */
     public User getUserByID(Long userID) throws SQLException {
         if (userID == null) {
             return null;
         }
         UserDAO userDAO = new UserDAO();
-        User user = null;
+        User user;
         try {
             user = userDAO.get(userID);
         } catch (SQLException e) {
@@ -32,9 +38,16 @@ public class UserService {
         return user;
     }
 
+    /**
+     * Get for user with specified login from database
+     *
+     * @param login login of user to be found
+     * @return User entity object if user with given login is found in database. Otherwise returns null.
+     * @throws SQLException
+     */
     public User getUserByLogin(String login) throws SQLException {
         UserDAO userDAO = new UserDAO();
-        User user = new User();
+        User user;
         try {
             user = userDAO.getByLogin(login);
         } catch (SQLException e) {
@@ -44,9 +57,19 @@ public class UserService {
         return user;
     }
 
+    /**
+     * Calls for DAO method to create a new user record
+     *
+     * @param userName users nickname that will be displayed to other users
+     * @param login    user login used to log in the system. Not visible to other common users
+     * @param password user password in encoded form
+     * @param isAdmin  use <b>true</b> if you want to grant user admin rights
+     * @return ID of created user. If user to some reasons hasn't been created - returns 0.
+     * @throws SQLException
+     */
     public Long createUser(String userName, String login, String password, Boolean isAdmin) throws SQLException {
         UserDAO userDAO = new UserDAO();
-        Long userID = 0L;
+        Long userID;
         try {
             userID = userDAO.create(userName, login, password, isAdmin);
         } catch (SQLException e) {
@@ -56,6 +79,12 @@ public class UserService {
         return userID;
     }
 
+    /**
+     * Updates user data in database
+     *
+     * @param user user entity to update
+     * @throws SQLException
+     */
     public void updateUser(User user) throws SQLException {
         UserDAO userDAO = new UserDAO();
         try {
@@ -66,6 +95,13 @@ public class UserService {
         }
     }
 
+    /**
+     * Deletes user record from database
+     *
+     * @param userID ID of user to be removed from database
+     * @return <b>true</b> if user has been successfully deleted. Otherwise returns <b>false</b>
+     * @throws SQLException
+     */
     public boolean deleteUser(Long userID) throws SQLException {
         UserDAO userDAO = new UserDAO();
         try {
@@ -76,9 +112,15 @@ public class UserService {
         }
     }
 
+    /**
+     * Returns records for all users in database
+     *
+     * @return List of User objects if any found. Otherwise returns an empty list
+     * @throws SQLException
+     */
     public List<User> getAllUsers() throws SQLException {
         UserDAO userDAO = new UserDAO();
-        List<User> users = new ArrayList<User>();
+        List<User> users;
         try {
             users = userDAO.getAll();
         } catch (SQLException e) {
@@ -88,6 +130,16 @@ public class UserService {
         return users;
     }
 
+    /**
+     * Method used for pagination. Using offset and desired number of records returns some part of users from database.
+     *
+     * @param offset       starting position of select query
+     * @param numberOfRows desired number of records per page
+     * @return PagedEntity object storing List of User objects in given range and Number of Records in database if
+     * any users found. Otherwise returns PagedEntity object with empty list and null records value
+     * @throws SQLException
+     * @see PagedEntity
+     */
     public PagedEntity getAllUsersLimit(Integer offset, Integer numberOfRows) throws SQLException {
         UserDAO userDAO = new UserDAO();
         PagedEntity pagedUsers = new PagedEntity();
@@ -105,6 +157,18 @@ public class UserService {
         return pagedUsers;
     }
 
+    /**
+     * Method used for pagination search result. Using offset and desired number of records returns some part of users from database.
+     *
+     * @param offset       starting position of select query
+     * @param numberOfRows desired number of records per page
+     * @param sortBy       fields by which soring is performed
+     * @param isDesc       <b>true</b> if you want descending sorting
+     * @return PagedEntity object storing List of User objects in given range and Number of Records in database if
+     * any users found. Otherwise returns PagedEntity object with empty list and null records value
+     * @throws SQLException
+     * @see PagedEntity
+     */
     public PagedEntity getUsersSorted(Integer offset, Integer numberOfRows, String sortBy, Boolean isDesc) throws SQLException {
         UserDAO userDAO = new UserDAO();
         PagedEntity pagedUsers = new PagedEntity();

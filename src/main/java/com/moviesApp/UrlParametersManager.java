@@ -11,12 +11,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by dsharko on 8/4/2016.
+ * Class for convenient parsing url string for parameters
  */
 public class UrlParametersManager {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /**
+     * Parses given url for parameters
+     *
+     * @param url URL to parse for params
+     * @return HashMap containing parameter name as key and List of parameter values as value.
+     */
     public static Map<String, List<String>> getUrlParams(String url) {
 
         if (url == null) {
@@ -25,10 +31,6 @@ public class UrlParametersManager {
         }
 
         Map<String, List<String>> params = new HashMap<String, List<String>>();
-//        String[] urlParts = url.split("\\?");
-
-//        if (urlParts.length > 1) {
-//            String query = urlParts[1];
         String[] pairedParams = url.split("&");
 
         for (String param : pairedParams) {
@@ -54,8 +56,9 @@ public class UrlParametersManager {
             values.add(value);
 
         }
-//        }
+
         return params;
+
     }
 
 }
