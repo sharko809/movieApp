@@ -323,7 +323,7 @@ public class UserDAO {
     /**
      * Method used in pagination. Retrieves number of records for current query
      *
-     * @return number of records retireved during last query
+     * @return number of records retrieved during last query
      */
     public Integer getNumberOfRecords() {
         return this.numberOfRecords;
