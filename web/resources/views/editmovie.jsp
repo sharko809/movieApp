@@ -85,6 +85,14 @@
                 <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">Update movie</button>
             </div>
         </form>
+        <div class="pure-u-1 inline-flex">
+            <span style="margin: 9px;">Rating: ${movie.rating}</span>
+            <form method="post" action="/admin/updrating">
+                <input type="hidden" id="redirectFrom" name="redirectFrom" value=""/>
+                <input type="hidden" name="movieID" value="${movie.id}"/>
+                <button type="submit" class="pure-button" title="Recalculates movie rating" style="width: 100%; overflow: hidden;">Rating</button>
+            </form>
+        </div>
         <div class="pure-u-1">
             <c:if test="${result ne null}">
                 <div id="error-info" class="err">
