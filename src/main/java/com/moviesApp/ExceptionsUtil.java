@@ -27,6 +27,8 @@ public class ExceptionsUtil {
     public static void sendException(Logger logger, HttpServletRequest req, HttpServletResponse resp, String forwardTo, String message, Exception e)
             throws ServletException, IOException {
         logger.error(message + " " + e);
+        req.setAttribute("reqUrl", req.getRequestURI() +
+                ((req.getQueryString().isEmpty()) ? "" : "?" + req.getQueryString()));
         req.setAttribute("errorDetails", message + " " + e);
         req.getRequestDispatcher(forwardTo).forward(req, resp);
     }
