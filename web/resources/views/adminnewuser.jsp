@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/resources/css/mainPage.css">
     <link rel="stylesheet" href="/resources/css/admin.css">
     <link rel="stylesheet" href="/resources/css/adminReg.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/xs-screen.css">
     <script src="/resources/js/reset-variables.js" type="text/javascript"></script>
 </head>
 <body>

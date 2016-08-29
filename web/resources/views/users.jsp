@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/resources/css/mainPage.css">
     <link rel="stylesheet" href="/resources/css/admin.css">
     <link rel="stylesheet" href="/resources/css/pages.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/xs-screen.css">
     <script src="/resources/js/vendor/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="/resources/js/admin-redirect-url.js" type="text/javascript"></script>
 </head>

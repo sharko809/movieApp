@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/resources/css/mainPage.css">
     <link rel="stylesheet" href="/resources/css/admin.css">
     <link rel="stylesheet" href="/resources/css/pages.css">
+    <link rel="stylesheet" href="/resources/css/xs-screen.css">
     <script src="/resources/js/vendor/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="/resources/js/admin-redirect-url.js" type="text/javascript"></script>
 </head>
@@ -75,11 +76,11 @@
                                 <form method="post" action="/admin/updrating">
                                     <input type="hidden" id="redirectFrom" name="redirectFrom" value=""/>
                                     <input type="hidden" name="movieID" value="${movie.id}"/>
-                                    <button type="submit" class="pure-button" title="Recalculates movie rating" style="width: 100%;">Rating</button>
+                                    <button type="submit" class="pure-button" title="Recalculates movie rating" style="width: 100%; overflow: hidden;">Rating</button>
                                 </form>
                                 <form method="get" action="/admin/editmovie">
                                     <input type="hidden" name="movieID" value="${movie.id}"/>
-                                    <button class="pure-button" title="Allows to edit movie data" style="width: 100%;">Edit</button>
+                                    <button class="pure-button" title="Allows to edit movie data" style="width: 100%; overflow: hidden;">Edit</button>
                                 </form>
                             </div>
                         </div>

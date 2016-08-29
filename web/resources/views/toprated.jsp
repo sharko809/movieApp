@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/resources/css/vendor/pure/grids-responsive-min.css">
     <!--<![endif]-->
     <link rel="stylesheet" type="text/css" href="/resources/css/mainPage.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/xs-screen.css">
 </head>
 <body class="body-style">
 <jsp:include page="header.jsp"/>

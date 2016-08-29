@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/resources/css/mainPage.css">
     <link rel="stylesheet" href="/resources/css/admin.css">
     <link rel="stylesheet" href="/resources/css/movie.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/xs-screen.css">
     <script src="/resources/js/vendor/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="/resources/js/admin-redirect-url.js" type="text/javascript"></script>
     <script src="/resources/js/reset-variables.js" type="text/javascript"></script>
@@ -30,36 +31,48 @@
         <form id="movie-form" class="pure-form" method="post" action="/admin/editmovie">
             <fieldset>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
-                    <input id="title" name="title" type="text" class="pure-input-1-2" minlength="1" maxlength="30"
-                           placeholder="Title" value="${movie.movieName}" required readonly/>
-                    <button id="editTitle" type="button" class="pure-button">Edit</button>
+                    <div class="inline-flex max-width">
+                        <input id="title" name="title" type="text" class="pure-input-1-2 max-width" minlength="1" maxlength="30"
+                               placeholder="Title" value="${movie.movieName}" style="margin-right: 5px;" required readonly/>
+                        <button id="editTitle" type="button" class="pure-button">Edit</button>
+                    </div>
                 </div>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
-                    <input id="director" name="director" type="text" class="pure-input-1-2" minlength="1" maxlength="30"
-                           placeholder="Director" value="${movie.director}" readonly/>
-                    <button id="editDirector" type="button" class="pure-button">Edit</button>
+                    <div class="inline-flex max-width">
+                        <input id="director" name="director" type="text" class="pure-input-1-2 max-width" minlength="1" maxlength="30"
+                               placeholder="Director" value="${movie.director}" style="margin-right: 5px;" readonly/>
+                        <button id="editDirector" type="button" class="pure-button">Edit</button>
+                    </div>
                 </div>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
-                    <input id="releaseDate" name="releaseDate" type="date" class="pure-input-1-2" min="1890-01-01"
-                           max="2150-01-01" placeholder="Release date" value="${movie.releaseDate}" readonly/>
-                    <button id="editDate" type="button" class="pure-button">Edit</button>
+                    <div class="inline-flex max-width">
+                        <input id="releaseDate" name="releaseDate" type="date" class="pure-input-1-2 max-width" min="1890-01-01"
+                               max="2150-01-01" placeholder="Release date" value="${movie.releaseDate}" style="margin-right: 5px;" readonly/>
+                        <button id="editDate" type="button" class="pure-button">Edit</button>
+                    </div>
                 </div>
             </fieldset>
             <fieldset>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
-                    <input id="posterUrl" name="posterUrl" type="url" class="pure-input-1-2" minlength="7"
-                           maxlength="255" placeholder="Poster URL" value="${movie.posterURL}" readonly/>
-                    <button id="editPoster" type="button" class="pure-button">Edit</button>
+                    <div class="inline-flex max-width">
+                        <input id="posterUrl" name="posterUrl" type="url" class="pure-input-1-2 max-width" minlength="7"
+                               maxlength="255" placeholder="Poster URL" value="${movie.posterURL}" style="margin-right: 5px;" readonly/>
+                        <button id="editPoster" type="button" class="pure-button">Edit</button>
+                    </div>
                 </div>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
-                    <input id="trailerUrl" name="trailerUrl" type="url" class="pure-input-1-2" minlength="7"
-                           maxlength="255" placeholder="Trailer URL" value="${movie.trailerURL}" readonly/>
-                    <button id="editTrailer" type="button" class="pure-button">Edit</button>
+                    <div class="inline-flex max-width">
+                        <input id="trailerUrl" name="trailerUrl" type="url" class="pure-input-1-2 max-width" minlength="7"
+                               maxlength="255" placeholder="Trailer URL" value="${movie.trailerURL}" style="margin-right: 5px;" readonly/>
+                        <button id="editTrailer" type="button" class="pure-button">Edit</button>
+                    </div>
                 </div>
                 <div class="pure-control-group" style="margin-bottom: 5px;">
-                    <textarea id="description" name="description" class="pure-input-1-2" minlength="5" maxlength="2000"
-                              placeholder="Description" required readonly>${movie.description}</textarea>
-                    <button id="editDescription" type="button" class="pure-button">Edit</button>
+                    <div class="inline-flex max-width">
+                                            <textarea id="description" name="description" class="pure-input-1-2 max-width" minlength="5" maxlength="2000"
+                                                      placeholder="Description" style="margin-right: 5px;" required readonly>${movie.description}</textarea>
+                        <button id="editDescription" type="button" class="pure-button">Edit</button>
+                    </div>
                 </div>
             </fieldset>
             <c:if test="${updMovie ne null}">
@@ -67,8 +80,10 @@
                     setMovieInputs('${updMovie.movieName}', '${updMovie.director}', '${updMovie.releaseDate}', '${updMovie.posterURL}', '${updMovie.trailerURL}', '${updMovie.description}');
                 </script>
             </c:if>
-            <input type="hidden" name="movieID" value="${movie.id}"/>
-            <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">Update movie</button>
+            <div class="pure-controls" style="text-align: center;">
+                <input type="hidden" name="movieID" value="${movie.id}"/>
+                <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">Update movie</button>
+            </div>
         </form>
         <div class="pure-u-1">
             <c:if test="${result ne null}">

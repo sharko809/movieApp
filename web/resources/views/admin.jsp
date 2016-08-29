@@ -16,6 +16,7 @@
     <!--<![endif]-->
     <link rel="stylesheet" href="/resources/css/mainPage.css">
     <link rel="stylesheet" href="/resources/css/admin.css">
+    <link rel="stylesheet" href="/resources/css/xs-screen.css">
 </head>
 <body>
 <jsp:include page="header.jsp"/>

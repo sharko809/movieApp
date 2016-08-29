@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/mainPage.css">
     <link rel="stylesheet" type="text/css" href="/resources/css/search.css">
     <link rel="stylesheet" type="text/css" href="/resources/css/pages.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/xs-screen.css">
 </head>
 <body class="body-style">
 <jsp:include page="header.jsp"/>

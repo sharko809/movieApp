@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="resources/css/mainPage.css">
     <link rel="stylesheet" type="text/css" href="resources/css/authPage.css">
     <link rel="stylesheet" type="text/css" href="resources/css/authHeader.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/xs-screen.css">
     <script src="resources/js/vendor/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="resources/js/reset-variables.js" type="text/javascript"></script>
 </head>

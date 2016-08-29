@@ -12,12 +12,13 @@
     <!--[if gt IE 8]><!-->
     <link rel="stylesheet" href="/resources/css/vendor/pure/grids-responsive-min.css">
     <link rel="stylesheet" href="/resources/css/error.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/xs-screen.css">
 </head>
 <body>
 <div class="pure-g">
     <div class="pure-u-md-3-4 pure-u-sm-1 centered marged-top">
         <div class="center-content">
-            <img height="500" width="650" align="middle" src="/resources/images/error.jpg"/>
+            <img class="pure-img" style="margin: auto;" height="500" width="650" align="middle" src="/resources/images/error.jpg"/>
         </div>
         <div class="center-content">
             <h4>Something went wrong. Try something else...</h4>

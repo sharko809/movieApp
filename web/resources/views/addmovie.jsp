@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/resources/css/admin.css">
     <link rel="stylesheet" href="/resources/css/mainPage.css">
     <link rel="stylesheet" href="/resources/css/movie.css">
-    <script src="/resources/js/vendor/angular.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/resources/css/xs-screen.css">
     <script src="/resources/js/bind-image.js" type="text/javascript"></script>
     <script src="/resources/js/reset-variables.js" type="text/javascript"></script>
 </head>
@@ -25,9 +25,9 @@
 <jsp:include page="header.jsp"/>
 <div class="padding-top"></div>
 <jsp:include page="adminmenu.jsp"/>
-<div class="pure-g custom-margin" ng-app="app">
-    <div class="pure-u-4-5 centered inline-flex" ng-controller="imgCtrl">
-        <div class="pure-u-md-1-2 pure-u-sm-1-2" style="margin-top: 20px;">
+<div class="pure-g custom-margin">
+    <div class="pure-u-4-5 centered inline-flex">
+        <div class="pure-u-md-1-2 pure-u-sm-1-2 centered" style="margin-top: 20px;">
             <form class="pure-form" method="post" action="/admin/addmovie">
                 <fieldset class="pure-group">
                     <input id="title" name="title" type="text" class="pure-input-1-2" minlength="1" maxlength="30"
@@ -38,9 +38,7 @@
                            max="2150-01-01" placeholder="Release date" style="width: 100%;"/>
                 </fieldset>
                 <fieldset class="pure-group">
-                    <input id="posterUrl"
-                           ng-model="imgurl.url"
-                           name="posterUrl" type="url" class="pure-input-1-2"
+                    <input id="posterUrl" name="posterUrl" type="url" class="pure-input-1-2"
                            minlength="7" maxlength="255" placeholder="Poster URL" style="width: 100%;"/>
                     <input id="trailerUrl" name="trailerUrl" type="url" class="pure-input-1-2" minlength="7"
                            maxlength="255" placeholder="Trailer URL" style="width: 100%;"/>
@@ -51,16 +49,12 @@
                     movie
                 </button>
                 <c:if test="${movie ne null}">
-                    {{setInp('${movie.movieName}', '${movie.director}','${movie.releaseDate}',
-                    '${movie.posterURL}', '${movie.trailerURL}', '${movie.description}');}}
+                    <script type="text/javascript">
+                        setMovieInputs('${movie.movieName}', '${movie.director}','${movie.releaseDate}',
+                                '${movie.posterURL}', '${movie.trailerURL}', '${movie.description}');
+                    </script>
                 </c:if>
             </form>
-        </div>
-        <div ng-if="checkUrl() === 't'" class="pure-u-md-1-2 pure-u-sm-1-2 img-container">
-            <img class="img-class" ng-src="{{imgurl.url}}">
-        </div>
-        <div ng-if="checkUrl() === 'a'" class="pure-u-md-1-2 pure-u-sm-1-2 img-container">
-            <img class="img-class" ng-src="/resources/images/no-poster-available.png">
         </div>
     </div>
     <div class="pure-u-1 centered">
