@@ -85,11 +85,6 @@ VALUES (1, 1, '2016-06-11', 'Best shit ever', 10, 'Still best shit I have ever s
   (3, 1, '2015-04-20', 'So so', 6, 'Not so nice'),
   (3, 2, '2015-07-01', 'Bad', 3, 'Garbage');
 
-INSERT into moviedb.movie (moviename, director, releasedate, rating) SELECT title, name, releasedate, rank from jmdb.movies JOIN
-  ((SELECT movieid, name FROM jmdb.directors JOIN jmdb.movies2directors ON jmdb.directors.directorid=jmdb.movies2directors.directorid) AS whs
-    CROSS JOIN jmdb.releasedates CROSS JOIN jmdb.ratings)
-    ON (whs.movieid=jmdb.movies.movieid AND jmdb.releasedates.movieid=jmdb.movies.movieid AND jmdb.ratings.movieid=jmdb.movies.movieid) LIMIT 1000000, 3000;
-
 
 
 
