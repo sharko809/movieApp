@@ -103,11 +103,11 @@
                                 </div>
                                 <div class="pure-u-1-8" style="margin-top: 7px;">
                                     <select id="rating" class="max-width" name="userRating">
-                                        <option value="1" selected>1</option>
+                                        <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
-                                        <option value="5">5</option>
+                                        <option value="5" selected>5</option>
                                         <option value="6">6</option>
                                         <option value="7">7</option>
                                         <option value="8">8</option>

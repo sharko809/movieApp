@@ -34,7 +34,7 @@ public class EditMovieServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String movieIdParam = req.getParameter("movieID");
-        Long movieId = null;
+        Long movieId;
         try {
             movieId = Long.valueOf(movieIdParam);
         } catch (NumberFormatException e) {
@@ -47,7 +47,7 @@ public class EditMovieServlet extends HttpServlet {
         }
 
         MovieService movieService = new MovieService();
-        Movie movie = null;
+        Movie movie;
         try {
             movie = movieService.getMovieByID(movieId);
         } catch (SQLException e) {
@@ -55,7 +55,7 @@ public class EditMovieServlet extends HttpServlet {
             return;
         }
         ReviewService reviewService = new ReviewService();
-        List<Review> reviews = new ArrayList<>();
+        List<Review> reviews;
 
         try {
             reviews = reviewService.getReviewsByMovieId(movieId);
@@ -72,7 +72,7 @@ public class EditMovieServlet extends HttpServlet {
                 } else if (review.getUserId() < 1) {
                     ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Wrong user id", new IllegalArgumentException("Wrong user id"));
                 }
-                User user = null;
+                User user;
                 try {
                     UserService userService = new UserService();
                     user = userService.getUserByID(review.getUserId());
@@ -103,7 +103,7 @@ public class EditMovieServlet extends HttpServlet {
         String posterUrl = req.getParameter("posterUrl");
         String trailerUrl = req.getParameter("trailerUrl");
         String description = req.getParameter("description");
-        Long movieID = 0L;
+        Long movieID;
         try {
             movieID = Long.valueOf(req.getParameter("movieID"));
         } catch (NumberFormatException e) {
@@ -115,7 +115,7 @@ public class EditMovieServlet extends HttpServlet {
         }
 
         MovieService movieService = new MovieService();
-        Movie movie = null;
+        Movie movie;
         try {
             movie = movieService.getMovieByID(movieID);
         } catch (SQLException e) {
@@ -146,10 +146,11 @@ public class EditMovieServlet extends HttpServlet {
         Validator validator = new MovieValidator();
         List<String> errors = validator.validate(movie);
 
-        List<Review> reviews = new ArrayList<>();
-        Map<Long, User> users = new HashMap<>();
+        List<Review> reviews;
+        Map<Long, User> users;
         try {
             reviews = getReviews(movieID);
+            reviews.sort((r1, r2) -> r2.getPostDate().compareTo(r1.getPostDate()));
             users = getUsers(reviews);
         } catch (SQLException | NullPointerException e) {
             ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
@@ -201,7 +202,7 @@ public class EditMovieServlet extends HttpServlet {
                     LOGGER.error("Wrong user id");
                     throw new NullPointerException("Wrong user id");
                 }
-                User user = null;
+                User user;
                 UserService userService = new UserService();
                 user = userService.getUserByID(review.getUserId());
                 if (user != null) {

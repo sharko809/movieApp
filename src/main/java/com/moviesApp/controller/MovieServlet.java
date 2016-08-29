@@ -57,11 +57,12 @@ public class MovieServlet extends HttpServlet {
         }
 
         MovieService movieService = new MovieService();
-        Movie movie = null;
+        Movie movie;
         ReviewService reviewService = new ReviewService();
-        List<Review> reviews = new ArrayList<>();
+        List<Review> reviews;
         try {
             reviews = reviewService.getReviewsByMovieId(movieID);
+            reviews.sort((r1, r2) -> r2.getPostDate().compareTo(r1.getPostDate()));
         } catch (SQLException e) {
             ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
             return;
@@ -74,9 +75,9 @@ public class MovieServlet extends HttpServlet {
                 if (review.getUserId() == null) {
                     ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Null user id", new NullPointerException("Null user id"));
                 } else if (review.getUserId() < 1) {
-                    ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Null user id", new IllegalArgumentException("Wrong user id"));
+                    ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "Wrong user id", new IllegalArgumentException("Wrong user id"));
                 }
-                User user = null;
+                User user;
                 try {
                     user = userService.getUserByID(review.getUserId());
                 } catch (SQLException e) {
