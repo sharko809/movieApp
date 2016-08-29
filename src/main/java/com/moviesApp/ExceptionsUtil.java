@@ -28,7 +28,8 @@ public class ExceptionsUtil {
             throws ServletException, IOException {
         logger.error(message + " " + e);
         req.setAttribute("reqUrl", req.getRequestURI() +
-                ((req.getQueryString().isEmpty()) ? "" : "?" + req.getQueryString()));
+                ((req.getQueryString() != null) ?
+                        ((req.getQueryString().isEmpty()) ? "" : "?" + req.getQueryString()) : ""));
         req.setAttribute("errorDetails", message + " " + e);
         req.getRequestDispatcher(forwardTo).forward(req, resp);
     }

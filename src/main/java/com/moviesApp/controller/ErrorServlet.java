@@ -32,7 +32,9 @@ public class ErrorServlet extends HttpServlet {
             req.setAttribute("errorDetails", errorDetails);
             req.getRequestDispatcher("/resources/views/error.jsp").forward(req, resp);
         } else {
-            errorDetails.add("Requested address: " + reqUrl);
+            if (reqUrl != null) {
+                errorDetails.add("Requested address: " + reqUrl);
+            }
             errorDetails.add("Reason: " + "Unexpected error");
             req.setAttribute("errorDetails", errorDetails);
             req.getRequestDispatcher("/resources/views/error.jsp").forward(req, resp);
