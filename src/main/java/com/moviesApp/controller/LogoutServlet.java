@@ -7,9 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-/**
- * Created by dsharko on 8/1/2016.
- */
 public class LogoutServlet extends HttpServlet {
 
     @Override

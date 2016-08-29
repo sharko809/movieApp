@@ -66,8 +66,8 @@
             </c:when>
             <c:otherwise>
                 <div class="pure-u-1">
-                    <div id="empty-set">
-                        No movies found
+                    <div id="empty-set" style="margin-top: 10px;">
+                        <p>No movies found</p>
                     </div>
                 </div>
             </c:otherwise>

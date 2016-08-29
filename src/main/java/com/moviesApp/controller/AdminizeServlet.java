@@ -13,9 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-/**
- * Created by dsharko on 8/10/2016.
- */
 public class AdminizeServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
@@ -33,7 +30,7 @@ public class AdminizeServlet extends HttpServlet {
         User currentUser = (User) req.getSession().getAttribute("user");
 
         UserService userService = new UserService();
-        User user = null;
+        User user;
 
         if (userID != null) {
             if (userID >= 1) {

@@ -17,11 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
-/**
- * Created by dsharko on 8/4/2016.
- */
 public class MovieServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();

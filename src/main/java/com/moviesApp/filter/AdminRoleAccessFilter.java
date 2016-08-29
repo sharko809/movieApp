@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-/**
- * Created by dsharko on 8/3/2016.
- */
 public class AdminRoleAccessFilter implements Filter {
 
     private static final Logger LOGGER = LogManager.getLogger();

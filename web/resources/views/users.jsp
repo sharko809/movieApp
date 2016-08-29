@@ -193,7 +193,7 @@
                             </c:when>
                             <c:otherwise>
                                 <tr>
-                                    No users found.
+                                    <td colspan=75% style="text-align: center;">No users found.</td>
                                 </tr>
                             </c:otherwise>
                         </c:choose>

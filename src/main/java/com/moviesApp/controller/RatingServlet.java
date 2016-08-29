@@ -17,16 +17,14 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.List;
 
-/**
- * Created by dsharko on 8/9/2016.
- */
+
 public class RatingServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long movieID = 0L;
+        Long movieID;
         try {
             movieID = Long.valueOf(req.getParameter("movieID"));
         } catch (NumberFormatException e) {

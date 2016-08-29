@@ -15,9 +15,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Created by dsharko on 7/28/2016.
- */
 public class HomePageServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();

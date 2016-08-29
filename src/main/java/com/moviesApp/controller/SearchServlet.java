@@ -18,9 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Created by dsharko on 8/8/2016.
- */
 public class SearchServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();

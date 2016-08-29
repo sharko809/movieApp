@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-/**
- * Created by dsharko on 8/17/2016.
- */
 public class DeleteReviewServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
@@ -24,8 +21,8 @@ public class DeleteReviewServlet extends HttpServlet {
 
         String reviewIdParam = req.getParameter("reviewID");
         String movieIdParam = req.getParameter("movieID");
-        Long reviewID = 0L;
-        Long movieID = 0L;
+        Long reviewID;
+        Long movieID;
         try {
             reviewID = Long.valueOf(reviewIdParam);
             movieID = Long.valueOf(movieIdParam);
@@ -34,8 +31,8 @@ public class DeleteReviewServlet extends HttpServlet {
             return;
         }
 
-        if (reviewID != null) {
-            if (reviewID >= 1) {
+        if (reviewID != null && movieID != null) {
+            if (reviewID >= 1 && movieID >= 1) {
                 ReviewService reviewService = new ReviewService();
                 try {
                     reviewService.deleteReview(reviewID);

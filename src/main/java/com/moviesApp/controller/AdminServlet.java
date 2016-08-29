@@ -6,9 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by dsharko on 8/3/2016.
- */
 public class AdminServlet extends HttpServlet {
 
     @Override

@@ -16,9 +16,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * Created by dsharko on 8/10/2016.
- */
 public class AccountFilter implements Filter {
 
     private static final Logger LOGGER = LogManager.getLogger();

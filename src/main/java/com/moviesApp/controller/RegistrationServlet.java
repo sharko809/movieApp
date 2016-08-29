@@ -17,9 +17,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Created by dsharko on 8/1/2016.
- */
 public class RegistrationServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
@@ -42,7 +39,7 @@ public class RegistrationServlet extends HttpServlet {
 
         if (errors.isEmpty()) {
             UserService userService = new UserService();
-            User userToCheck = null;
+            User userToCheck;
             try {
                 userToCheck = userService.getUserByLogin(user.getLogin());
             } catch (SQLException e) {

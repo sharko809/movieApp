@@ -3,9 +3,6 @@ package com.moviesApp.filter;
 import javax.servlet.*;
 import java.io.IOException;
 
-/**
- * Created by dsharko on 8/8/2016.
- */
 public class EncodingFilter implements Filter {
 
     private String encoding = "utf-8";

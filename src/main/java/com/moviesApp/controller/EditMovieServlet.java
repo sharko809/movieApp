@@ -24,9 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by dsharko on 8/10/2016.
- */
 public class EditMovieServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
@@ -59,6 +56,7 @@ public class EditMovieServlet extends HttpServlet {
 
         try {
             reviews = reviewService.getReviewsByMovieId(movieId);
+            reviews.sort((r1, r2) -> r2.getPostDate().compareTo(r1.getPostDate()));
         } catch (SQLException e) {
             ExceptionsUtil.sendException(LOGGER, req, resp, "/error", "", e);
             return;

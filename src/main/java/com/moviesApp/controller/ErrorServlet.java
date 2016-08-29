@@ -8,9 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by dsharko on 8/1/2016.
- */
 public class ErrorServlet extends HttpServlet {
 
     @Override

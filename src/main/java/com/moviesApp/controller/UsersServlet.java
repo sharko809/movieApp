@@ -15,9 +15,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Created by dsharko on 8/10/2016.
- */
 public class UsersServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
@@ -41,12 +38,12 @@ public class UsersServlet extends HttpServlet {
         }
 
         UserService userService = new UserService();
-        PagedEntity pagedUsers = null;
+        PagedEntity pagedUsers;
         List<User> users = null;
         int numberOfRecords = 1;
         String sortBy = (String) req.getSession().getAttribute("sortBy");
         String isDescAttr = (String) req.getSession().getAttribute("isDesc");
-        boolean isDesc = (isDescAttr != null) ? ("1".equals(isDescAttr) ? true : false) : false;
+        boolean isDesc = (isDescAttr != null) && ("1".equals(isDescAttr));
 
         if (sortBy != null) {
             try {

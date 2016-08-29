@@ -14,9 +14,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Created by dsharko on 8/8/2016.
- */
 public class TopRatedServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
@@ -24,7 +21,7 @@ public class TopRatedServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         MovieService movieService = new MovieService();
-        List<Movie> movies = null;
+        List<Movie> movies;
         try {
             movies = movieService.getAllMovies();
         } catch (SQLException e) {
@@ -32,15 +29,11 @@ public class TopRatedServlet extends HttpServlet {
             return;
         }
 
-        if (movies == null) {
-            req.setAttribute("movies", movies);
-            req.getRequestDispatcher("/resources/views/toprated.jsp").forward(req, resp);
-            return;
-        }
-
-        movies.sort((Movie m1, Movie m2) -> m2.getRating().compareTo(m1.getRating()));
-        if (movies.size() >= 10) {
-            movies = movies.subList(0, 10);
+        if (movies != null) {
+            movies.sort((m1, m2) -> m2.getRating().compareTo(m1.getRating()));
+            if (movies.size() >= 10) {
+                movies = movies.subList(0, 10);
+            }
         }
 
         req.setAttribute("movies", movies);

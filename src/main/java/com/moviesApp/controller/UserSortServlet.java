@@ -11,9 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by dsharko on 8/22/2016.
- */
 public class UserSortServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();

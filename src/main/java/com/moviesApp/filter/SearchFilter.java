@@ -11,9 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Created by dsharko on 8/11/2016.
- */
 public class SearchFilter implements Filter {
 
     private FilterConfig filterConfig = null;

@@ -14,7 +14,7 @@
     <!--<![endif]-->
     <link rel="stylesheet" type="text/css" href="/resources/css/mainPage.css">
 </head>
-<body>
+<body class="body-style">
 <jsp:include page="header.jsp"/>
 <div class="padding-top"></div>
 <div class="pure-g">
@@ -65,8 +65,8 @@
             </c:when>
             <c:otherwise>
                 <div class="pure-u-1">
-                    <div id="empty-set">
-                        No movies found
+                    <div id="empty-set" style="margin-top: 10px;">
+                        <p>No movies found</p>
                     </div>
                 </div>
             </c:otherwise>

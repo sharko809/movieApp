@@ -17,9 +17,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Created by dsharko on 8/12/2016.
- */
 public class UpdateAccountServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();

@@ -25,9 +25,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by dsharko on 8/5/2016.
- */
 public class PostReviewServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
@@ -35,7 +32,7 @@ public class PostReviewServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long userId = ((User) req.getSession().getAttribute("user")).getId();
-        Long movieId = 0L;
+        Long movieId;
         String reviewTitle = req.getParameter("reviewTitle");
         Integer userRating;
         try {

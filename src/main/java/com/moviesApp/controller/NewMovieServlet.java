@@ -17,9 +17,6 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Created by dsharko on 8/3/2016.
- */
 public class NewMovieServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();

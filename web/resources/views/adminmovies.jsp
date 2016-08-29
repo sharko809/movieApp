@@ -83,69 +83,78 @@
                 </div>
             </div>
         </c:forEach>
-        <c:if test="${movies ne null}">
-            <c:if test="${movies.size() ge 1 and numberOfPages gt 1}">
-                <div class="pure-g">
-                    <div class="pure-u-3-4 centered">
-                        <div id="pages" class="pure-g">
-                            <div class="pure-u centered inline-flex">
-                                <div class="page-number inline-flex">
-                                    <c:if test="${currentPage ne 1}">
-                                        <c:if test="${numberOfPages gt 10}">
+        <c:choose>
+            <c:when test="${moview ne null}">
+                <c:if test="${movies.size() ge 1 and numberOfPages gt 1}">
+                    <div class="pure-g">
+                        <div class="pure-u-3-4 centered">
+                            <div id="pages" class="pure-g">
+                                <div class="pure-u centered inline-flex">
+                                    <div class="page-number inline-flex">
+                                        <c:if test="${currentPage ne 1}">
+                                            <c:if test="${numberOfPages gt 10}">
+                                                <p>
+                                                    <a class="page-link" href="/admin/managemovies?page=1" style="margin-right: 5px;">First</a>
+                                                </p>
+                                            </c:if>
                                             <p>
-                                                <a class="page-link" href="/admin/managemovies?page=1" style="margin-right: 5px;">First</a>
+                                                <a class="page-link" href="/admin/managemovies?page=${currentPage - 1}">Prev</a>
                                             </p>
                                         </c:if>
-                                        <p>
-                                            <a class="page-link" href="/admin/managemovies?page=${currentPage - 1}">Prev</a>
-                                        </p>
-                                    </c:if>
-                                </div>
-                                <c:forEach begin="${(numberOfPages gt 10) ? (currentPage gt 5 ? (currentPage - 5) : 1) : 1}" end="${(numberOfPages gt 10) ? (currentPage + 5) : numberOfPages}" var="i">
-                                    <c:if test="${i le numberOfPages}">
-                                        <div class="page-number">
-                                            <c:choose>
-                                                <c:when test="${currentPage eq i}">
-                                                    <p class="page-current">${i}</p>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <p>
-                                                        <a class="page-link" href="/admin/managemovies?page=${i}">${i}</a>
-                                                    </p>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </div>
-                                    </c:if>
-                                </c:forEach>
-                                <div class="page-number inline-flex">
-                                    <c:if test="${currentPage ne numberOfPages}">
-                                        <p>
-                                            <a class="page-link" href="/admin/managemovies?page=${currentPage + 1}">Next</a>
-                                        </p>
-                                        <c:if test="${numberOfPages gt 10}">
-                                            <p>
-                                                <a class="page-link" href="/admin/managemovies?page=${numberOfPages}" style="margin-left: 5px;">Last</a>
-                                            </p>
+                                    </div>
+                                    <c:forEach begin="${(numberOfPages gt 10) ? (currentPage gt 5 ? (currentPage - 5) : 1) : 1}" end="${(numberOfPages gt 10) ? (currentPage + 5) : numberOfPages}" var="i">
+                                        <c:if test="${i le numberOfPages}">
+                                            <div class="page-number">
+                                                <c:choose>
+                                                    <c:when test="${currentPage eq i}">
+                                                        <p class="page-current">${i}</p>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <p>
+                                                            <a class="page-link" href="/admin/managemovies?page=${i}">${i}</a>
+                                                        </p>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </div>
                                         </c:if>
-                                    </c:if>
+                                    </c:forEach>
+                                    <div class="page-number inline-flex">
+                                        <c:if test="${currentPage ne numberOfPages}">
+                                            <p>
+                                                <a class="page-link" href="/admin/managemovies?page=${currentPage + 1}">Next</a>
+                                            </p>
+                                            <c:if test="${numberOfPages gt 10}">
+                                                <p>
+                                                    <a class="page-link" href="/admin/managemovies?page=${numberOfPages}" style="margin-left: 5px;">Last</a>
+                                                </p>
+                                            </c:if>
+                                        </c:if>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div id="pages-sm" class="pure-g">
-                            <div class="pure-u-1 inline-flex">
-                                <div class="pure-u-1-4 centered">
-                                    <select style="margin: 10px;" class="page-select" onchange="javascript:goToPage(this, '/admin/managemovies?page=')">
-                                        <c:forEach begin="1" end="${numberOfPages}" var="i">
-                                            <option ${currentPage eq i ? 'selected' : ''}>${i}</option>
-                                        </c:forEach>
-                                    </select>
+                            <div id="pages-sm" class="pure-g">
+                                <div class="pure-u-1 inline-flex">
+                                    <div class="pure-u-1-4 centered">
+                                        <select style="margin: 10px;" class="page-select" onchange="javascript:goToPage(this, '/admin/managemovies?page=')">
+                                            <c:forEach begin="1" end="${numberOfPages}" var="i">
+                                                <option ${currentPage eq i ? 'selected' : ''}>${i}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </c:if>
+            </c:when>
+            <c:otherwise>
+                <div class="pure-u-1">
+                    <div id="empty-set" style="margin-top: 10px;">
+                        <p>No movies found</p>
+                    </div>
                 </div>
-            </c:if>
-        </c:if>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
 <script src="/resources/js/pages-sm.js"></script>

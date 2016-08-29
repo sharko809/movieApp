@@ -5,9 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by dsharko on 8/16/2016.
- */
 public class LoginFilter implements Filter {
 
     private FilterConfig filterConfig = null;

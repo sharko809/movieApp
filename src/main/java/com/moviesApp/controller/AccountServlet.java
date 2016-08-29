@@ -16,9 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Created by dsharko on 8/10/2016.
- */
 public class AccountServlet extends HttpServlet {
 
     private final static Logger LOGGER = org.apache.logging.log4j.LogManager.getLogger();
