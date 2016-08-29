@@ -29,63 +29,74 @@
     <div class="pure-u-md-3-4 pure-u-sm-1 centered">
         <c:choose>
             <c:when test="${movies ne null}">
-                <c:forEach items="${movies}" var="movie">
-                    <div class="pure-u-1" style="height: 100px; margin: 10px;">
-                        <div class="movie-container inline-flex"
-                             style="background-color: #cad2d3; border-radius: 5px; height: inherit;">
-                            <div class="pure-u-lg-11-24 pure-u-sm-2-5" style="margin: 15px; width: 100%;">
-                                <div>
-                                    <h4 class="inline">Title: </h4>
-                                    <a class="remove-link-style" href="/movies?movieId=${movie.id}">
-                                            ${movie.movieName}
-                                    </a>
-                                </div>
-                                <div>
-                                    <h4 class="inline">Director: </h4>
-                                    <span>${movie.director}</span>
-                                </div>
-                                <div>
-                                    <h4 class="inline">Release Date: </h4>
-                                    <span>${movie.releaseDate}</span>
-                                </div>
-                                <div>
-                                    <h4 class="inline">Rating: </h4>
-                                    <c:choose>
-                                        <c:when test="${movie.rating le 0.0}">
-                                            <span>Not enough votes</span>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <span>${movie.rating}</span>
-                                        </c:otherwise>
-                                    </c:choose>
+                <c:choose>
+                    <c:when test="${movies.size() ge 1}">
+                        <c:forEach items="${movies}" var="movie">
+                            <div class="pure-u-1" style="height: 100px; margin: 10px;">
+                                <div class="movie-container inline-flex"
+                                     style="background-color: #cad2d3; border-radius: 5px; height: inherit;">
+                                    <div class="pure-u-lg-11-24 pure-u-sm-2-5" style="margin: 15px; width: 100%;">
+                                        <div>
+                                            <h4 class="inline">Title: </h4>
+                                            <a class="remove-link-style" href="/movies?movieId=${movie.id}">
+                                                    ${movie.movieName}
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <h4 class="inline">Director: </h4>
+                                            <span>${movie.director}</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="inline">Release Date: </h4>
+                                            <span>${movie.releaseDate}</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="inline">Rating: </h4>
+                                            <c:choose>
+                                                <c:when test="${movie.rating le 0.0}">
+                                                    <span>Not enough votes</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span>${movie.rating}</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+                                    </div>
+                                    <div class="pure-u-lg-11-24 pure-u-sm-2-5" style="width: 40%;">
+                                        <c:choose>
+                                            <c:when test="${movie.posterURL ne null && !movie.posterURL.isEmpty()}">
+                                                <img style="height: 100px; float: right; margin-right: 10px;" class="pure-img"
+                                                     src="${movie.posterURL}"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img style="height: 100px; float: right; margin-right: 10px;" class="pure-img"
+                                                     src="/resources/images/no-poster-available.png"/>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                    <div class="pure-u-lg-2-24 pure-u-sm-1-5" style="margin: 8px; width: 15%;">
+                                        <form method="post" action="/admin/updrating">
+                                            <input type="hidden" id="redirectFrom" name="redirectFrom" value=""/>
+                                            <input type="hidden" name="movieID" value="${movie.id}"/>
+                                            <button type="submit" class="pure-button" title="Recalculates movie rating" style="width: 100%; overflow: hidden;">Rating</button>
+                                        </form>
+                                        <form method="get" action="/admin/editmovie">
+                                            <input type="hidden" name="movieID" value="${movie.id}"/>
+                                            <button class="pure-button" title="Allows to edit movie data" style="width: 100%; overflow: hidden;">Edit</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="pure-u-lg-11-24 pure-u-sm-2-5" style="width: 40%;">
-                                <c:choose>
-                                    <c:when test="${movie.posterURL ne null && !movie.posterURL.isEmpty()}">
-                                        <img style="height: 100px; float: right; margin-right: 10px;" class="pure-img"
-                                             src="${movie.posterURL}"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <img style="height: 100px; float: right; margin-right: 10px;" class="pure-img"
-                                             src="/resources/images/no-poster-available.png"/>
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-                            <div class="pure-u-lg-2-24 pure-u-sm-1-5" style="margin: 8px; width: 15%;">
-                                <form method="post" action="/admin/updrating">
-                                    <input type="hidden" id="redirectFrom" name="redirectFrom" value=""/>
-                                    <input type="hidden" name="movieID" value="${movie.id}"/>
-                                    <button type="submit" class="pure-button" title="Recalculates movie rating" style="width: 100%; overflow: hidden;">Rating</button>
-                                </form>
-                                <form method="get" action="/admin/editmovie">
-                                    <input type="hidden" name="movieID" value="${movie.id}"/>
-                                    <button class="pure-button" title="Allows to edit movie data" style="width: 100%; overflow: hidden;">Edit</button>
-                                </form>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="pure-u-1">
+                            <div id="empty-set" style="margin-top: 10px;">
+                                <p>No movies found</p>
                             </div>
                         </div>
-                    </div>
-                </c:forEach>
+                    </c:otherwise>
+                </c:choose>
             </c:when>
             <c:otherwise>
                 <div class="pure-u-1">
