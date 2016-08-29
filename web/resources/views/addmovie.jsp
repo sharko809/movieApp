@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="/resources/css/mainPage.css">
     <link rel="stylesheet" href="/resources/css/movie.css">
     <link rel="stylesheet" href="/resources/css/xs-screen.css">
-    <script src="/resources/js/bind-image.js" type="text/javascript"></script>
     <script src="/resources/js/reset-variables.js" type="text/javascript"></script>
 </head>
 <body>

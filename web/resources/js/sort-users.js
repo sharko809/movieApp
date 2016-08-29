@@ -1,8 +1,3 @@
-/**
- * Created by dsharko on 8/10/2016.
- */
-
-
 var formSortLogin = document.getElementById('sortLogin');
 
 document.getElementById('login').addEventListener('click', function () {

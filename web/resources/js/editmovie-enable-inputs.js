@@ -1,7 +1,3 @@
-/**
- * Created by dsharko on 8/17/2016.
- */
-
 var editTitle = document.getElementById('editTitle');
 if (editTitle != null) {
     editTitle.addEventListener('click', function (event) {

@@ -1,7 +1,3 @@
-/**
- * Created by dsharko on 8/9/2016.
- */
-
 (function () {
     $(document).ready(function () {
         var items = document.getElementsByName('redirectFrom');
