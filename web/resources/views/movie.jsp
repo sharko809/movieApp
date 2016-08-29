@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="pure-u-1 videoWrapper">
-                    <iframe src="${movie.trailerURL}" frameborder="0" allowfullscreen></iframe>
+                    <iframe src="${movie.trailerURL ne null ? movie.trailerURL : "/resources/images/no-trailer.jpg"}" frameborder="0" allowfullscreen></iframe>
                 </div>
 
             </div>
